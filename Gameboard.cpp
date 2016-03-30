@@ -1,46 +1,57 @@
-
-
 #include "Gameboard.h"
+
 //Gets all possible moves the agent can make
-void Gameboard::GetActions(State &nodeID, std::vector<Action> &actions){
-    actions.clear();
-    if(nodeID.agentY < nodeID.boardSize){
-        actions.push_back(Action(0));
-    } if(nodeID.agentY > 0){
-        actions.push_back(Action(1));
-    } if(nodeID.agentX < nodeID.boardSize){
-        actions.push_back(Action(3));
-    } if(nodeID.agentX > 0){
-        actions.push_back(Action(2));
-    }
+void Gameboard::GetActions(State &nodeID, std::vector<Action> &actions)
+{
+	//make sure actions list is empty when starting to add actions
+	actions.clear();
+
+	//if its not at the top of the grid, let the agent go up
+	if (nodeID.agentLoc / nodeID.cols != 0)
+	{
+		//add up action to list of possible actions
+		actions.push_back(Action(direction::UP));
+	}
+	//if its not at the bottom of the grid, let the agent go down
+	if (nodeID.agentLoc / nodeID.cols != nodeID.rows)
+	{
+		//add down action to list of possible actions
+		actions.push_back(Action(direction::DOWN));
+	}
+	//if its not at the left most side of the grid, let the agent go left
+	if (nodeID.agentLoc % nodeID.cols != 0)
+	{
+		//add left action to list of possible actions
+		actions.push_back(Action(direction::LEFT));
+	}
+	//if its not at the right most side of the grid, let the agent go right
+	if (nodeID.agentLoc % nodeID.cols != nodeID.cols - 1)
+	{
+		//add right action to list of pissible actions
+		actions.push_back(Action(direction::RIGHT));
+	}
 }
 
-//Applys the action
-void Gameboard::ApplyAction(State &s, Action a){
-    s.board[s.agentX][s.agentY] = 0;
-    if(a.direction == 0){ //up
-       s.agentY += 1;
-    } if(a.direction == 1){ //down
-        s.agentY -= 1;
-    } if(a.direction == 2){//left
-        s.agentX -= 1;
-    } if(a.direction == 3){//right
-        s.agentX += 1;
-    }
-    s.board[s.agentX][s.agentY] = 1;
+void Gameboard::ApplyAction(State &nodeID, Action a)
+{
+	switch (a.myDirection)
+	{
+	case direction::UP: nodeID.agentLoc -= nodeID.cols; break;
+	case direction::DOWN: nodeID.agentLoc += nodeID.cols; break;
+	case direction::LEFT: nodeID.agentLoc -= 1; break;
+	case direction::RIGHT: nodeID.agentLoc += 1; break;
+	default: std::cout << "invalid direction to apply" << std::endl; break;
+	}
 }
 
-//Undos the action
-void Gameboard::UndoAction(State &s, Action a){
-    s.board[s.agentX][s.agentY] = 0;
-    if(a.direction == 0){ //up (down)
-        s.agentY -= 1;
-    } if(a.direction == 1){ //down (up)
-        s.agentY += 1;
-    } if(a.direction == 2){//left (right)
-        s.agentX += 1;
-    } if(a.direction == 3){//right (left)
-        s.agentX -= 1;
-    }
-    s.board[s.agentX][s.agentY] = 1;
+void Gameboard::UndoAction(State &nodeID, Action a)
+{
+	switch (a.myDirection)
+	{
+	case direction::UP: nodeID.agentLoc += nodeID.cols; break;
+	case direction::DOWN: nodeID.agentLoc -= nodeID.cols; break;
+	case direction::LEFT: nodeID.agentLoc += 1; break;
+	case direction::RIGHT: nodeID.agentLoc -= 1; break;
+	default: std::cout << "invalid direction to undo" << std::endl; break;
+	}
 }
