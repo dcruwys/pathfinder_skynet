@@ -1,24 +1,20 @@
-//
-// Created by Dan on 3/29/16.
-//
-
 #include "NaryTree.h"
 
-void NaryTree::GetActions(Node &nodeID, std::vector<Edge> &actions) {
-    actions.clear();
-    for(int i = 0; i < b; ++i){
-        actions.push_back(Edge(i));
-    }
+void NaryTree::GetActions(Tree::State &s, std::vector<Tree::Action> &actions)
+{
+	actions.clear();
+	for (int i = 0; i < branchingFactor; ++i)
+	{
+		actions.push_back(Tree::Action(i));
+	}
 }
 
-void NaryTree::ApplyAction(Node &s, Edge a) {
-    Node temp(-1);
-    temp.nodeID = s.nodeID*b + a.a + 1;
-    s = temp;
-
+void NaryTree::ApplyAction(Tree::State &s, Tree::Action a)
+{
+	s.nodeID = s.nodeID * branchingFactor + a.a + 1;
 }
 
-void NaryTree::UndoAction(Node &s, Edge a) {
-    Node temp(-1);
-    temp.nodeID = (s.nodeID-a.a-1)/b;
+void NaryTree::UndoAction(Tree::State &s, Tree::Action a)
+{
+	s.nodeID = (s.nodeID - a.a - 1) / branchingFactor;
 }

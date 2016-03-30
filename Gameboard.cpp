@@ -1,7 +1,7 @@
 #include "Gameboard.h"
 
 //Gets all possible moves the agent can make
-void Gameboard::GetActions(State &nodeID, std::vector<Action> &actions)
+void Gameboard::GetActions(grid::State &nodeID, std::vector<grid::Action> &actions)
 {
 	//make sure actions list is empty when starting to add actions
 	actions.clear();
@@ -10,29 +10,29 @@ void Gameboard::GetActions(State &nodeID, std::vector<Action> &actions)
 	if (nodeID.agentLoc / nodeID.cols != 0)
 	{
 		//add up action to list of possible actions
-		actions.push_back(Action(direction::UP));
+		actions.push_back(grid::Action(direction::UP));
 	}
 	//if its not at the bottom of the grid, let the agent go down
 	if (nodeID.agentLoc / nodeID.cols != nodeID.rows)
 	{
 		//add down action to list of possible actions
-		actions.push_back(Action(direction::DOWN));
+		actions.push_back(grid::Action(direction::DOWN));
 	}
 	//if its not at the left most side of the grid, let the agent go left
 	if (nodeID.agentLoc % nodeID.cols != 0)
 	{
 		//add left action to list of possible actions
-		actions.push_back(Action(direction::LEFT));
+		actions.push_back(grid::Action(direction::LEFT));
 	}
 	//if its not at the right most side of the grid, let the agent go right
 	if (nodeID.agentLoc % nodeID.cols != nodeID.cols - 1)
 	{
 		//add right action to list of pissible actions
-		actions.push_back(Action(direction::RIGHT));
+		actions.push_back(grid::Action(direction::RIGHT));
 	}
 }
 
-void Gameboard::ApplyAction(State &nodeID, Action a)
+void Gameboard::ApplyAction(grid::State &nodeID, grid::Action a)
 {
 	switch (a.myDirection)
 	{
@@ -44,7 +44,7 @@ void Gameboard::ApplyAction(State &nodeID, Action a)
 	}
 }
 
-void Gameboard::UndoAction(State &nodeID, Action a)
+void Gameboard::UndoAction(grid::State &nodeID, grid::Action a)
 {
 	switch (a.myDirection)
 	{
