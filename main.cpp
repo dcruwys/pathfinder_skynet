@@ -18,11 +18,12 @@ int main(int argc, char* argv[]) {
 	}
 
 	NaryTree tree;
+	tree.branchingFactor = 2;
 	BFS<Tree::State, Tree::Action, NaryTree> searchTree;
 	Tree::State startTree;
 	startTree.nodeID = 0;
 	Tree::State goalTree;
-	goalTree.nodeID = 8;
+	goalTree.nodeID = 3;
 	if (searchTree.GetPath(tree, startTree, goalTree))
 	{
 		std::cout << searchTree.GetNodesExpanded() << std::endl;
