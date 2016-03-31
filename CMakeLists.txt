@@ -3,5 +3,5 @@ project(HW1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp Gameboard.cpp Gameboard.h BFS.h BFS.cpp)
+set(SOURCE_FILES main.cpp Gameboard.cpp Gameboard.h BFS.h NaryTree.cpp DFS.h NaryTree.h)
 add_executable(HW1 ${SOURCE_FILES})
