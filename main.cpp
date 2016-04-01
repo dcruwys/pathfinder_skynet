@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
 	Gameboard grid;
 	BFS<grid::State, grid::Action, Gameboard> searchGrid;
 	grid::State start;
-	start.agentLoc = 25;
+	start.agentLoc = 15;
 	grid::State goal;
 	goal.agentLoc = 20;
 	if (searchGrid.GetPath(grid, start, goal))
@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
 	Tree::State startTree;
 	startTree.nodeID = 0;
 	Tree::State goalTree;
-	goalTree.nodeID = 5;
+	goalTree.nodeID = 20;
 	if (searchTree.GetPath(tree, startTree, goalTree))
 	{
 		std::cout << "NaryTree BFS: " << searchTree.GetNodesExpanded() << std::endl;
@@ -36,8 +36,8 @@ int main(int argc, char* argv[]) {
 	Tree::State startTreeDFS;
 	startTreeDFS.nodeID = 0;
 	Tree::State goalTreeDFS;
-	goalTreeDFS.nodeID = 5;
-	if (searchTreeDFS.IDeep(treeDFS, startTreeDFS, goalTreeDFS))
+	goalTreeDFS.nodeID = 20;
+	if (searchTreeDFS.GetPath(treeDFS, startTreeDFS, goalTreeDFS))
 	{
 		std::cout << "NaryTree DFS: " << searchTreeDFS.GetNodesExpanded() << std::endl;
 	}

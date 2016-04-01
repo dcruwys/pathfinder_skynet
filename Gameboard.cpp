@@ -13,17 +13,17 @@ void Gameboard::GetActions(grid::State &nodeID, std::vector<grid::Action> &actio
 		actions.push_back(grid::Action(direction::UP));
 	}
 	//if its not at the bottom of the grid, let the agent go down
-	if (nodeID.agentLoc / nodeID.cols != nodeID.rows)
-	{
-		//add down action to list of possible actions
-		actions.push_back(grid::Action(direction::DOWN));
-	}
-	//if its not at the left most side of the grid, let the agent go left
-	if (nodeID.agentLoc % nodeID.cols != 0)
-	{
-		//add left action to list of possible actions
-		actions.push_back(grid::Action(direction::LEFT));
-	}
+//	if (nodeID.agentLoc / nodeID.cols != nodeID.rows)
+//	{
+//		//add down action to list of possible actions
+//		actions.push_back(grid::Action(direction::DOWN));
+//	}
+//	//if its not at the left most side of the grid, let the agent go left
+//	if (nodeID.agentLoc % nodeID.cols != 0)
+//	{
+//		//add left action to list of possible actions
+//		actions.push_back(grid::Action(direction::LEFT));
+//	}
 	//if its not at the right most side of the grid, let the agent go right
 	if (nodeID.agentLoc % nodeID.cols != nodeID.cols - 1)
 	{

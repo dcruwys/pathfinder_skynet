@@ -23,12 +23,13 @@ bool BFS<state, action, environment>::GetPath(environment &e, state &start, stat
 	{
 		state next = FIFOq.front();
 		FIFOq.pop();
-		nodesExpanded++;
-		if (next == goal) return true;
+
 		e.GetActions(next, actions);
+		nodesExpanded++;
 		for (auto &i : actions)
 		{
 			e.ApplyAction(next, i);
+			if (next == goal) return true;
 			FIFOq.push(next);
 			e.UndoAction(next, i);
 		}
