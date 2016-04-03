@@ -1,3 +1,4 @@
+#pragma once
 #include <queue>
 #include <iostream>
 #include <stack>
@@ -17,24 +18,24 @@ public:
 template <typename state, typename action, typename environment>
 bool DFS<state, action, environment>::IDeep(environment &e, state &start, state &goal, int depth)
 {
+	//list of actions
 	std::vector<action> actions;
-
-    state next = start;
-	if (next == goal && depth == 0)
+    //if at goal, return
+	if (start == goal && depth == 0)
         return true;
     if(depth <= 0)
         return false;
-    //replace with code for DFS
-    e.GetActions(next, actions);
+	//get actions for current state and incrememnt nodes expanded
+    e.GetActions(start, actions);
     nodesExpanded++;
     for (auto &i : actions) {
-        e.ApplyAction(next, i);
-        bool found = IDeep(e, next, goal, depth-1);
+		//for each action, apply the action, recursively search with the new state, if it doesnt find it, undo the action
+        e.ApplyAction(start, i);
+        bool found = IDeep(e, start, goal, depth-1);
         if (found)
             return true;
-        e.UndoAction(next, i);
+        e.UndoAction(start, i);
     }
-	//std::cout << "DFID didnt work" << std::endl;
 	return false;
 }
 
@@ -48,6 +49,7 @@ template <typename state, typename action, typename environment>
 bool DFS<state, action, environment>::GetPath(environment &e, state &start, state &goal){
     bool found = false;
     int depth = 1;
+	//just keep search, just keep searching... until its found
     while(!found){
         found = IDeep(e, start, goal, depth);
         depth++;

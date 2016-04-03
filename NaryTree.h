@@ -1,6 +1,8 @@
+#pragma once
 #include <iostream>
 #include <vector>
 
+//namespace tree for state and action so as not to confuse with other environment
 namespace Tree{
 	struct State{
 		int nodeID;
@@ -11,12 +13,13 @@ namespace Tree{
 		}
 	};
 
-
+	//overide the == operator for easy comparisons
 	inline bool operator==(const State &lhs, const State &rhs)
 	{
 		return lhs.nodeID == rhs.nodeID;
 	}
 
+	//an action
 	struct Action
 	{
 		int a;
