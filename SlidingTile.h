@@ -3,9 +3,6 @@
 #include <iostream>
 #include <vector>
 
-
-
-
 namespace SlidingTile4x4
 {
 	enum direction{ UP, DOWN, LEFT, RIGHT }; //enum to represent possible actions of puzzle blank
@@ -14,14 +11,24 @@ namespace SlidingTile4x4
 		static const int boardSize = 16; //size of grid
 		static const int rows = 4; //rows of grid
 		static const int cols = 4; //columns of grid
-		int blankTileX = 0;
-		int blankTileY = 4;
-		int board[4][4]; //grid
+		int blankTileX = rows - cols;
+		int blankTileY = rows;
+		int board[rows][cols]; //grid
 		void swapTiles(int puzzle[4][4], int aX, int aY, int bX, int bY)
 		{
 			int temp = puzzle[aX][aX];
 			puzzle[aX][aY] = puzzle[bX][bY];
 			puzzle[bX][bY] = temp;
+		}
+		State()
+		{
+			for (int i = 0, int j, int index; i < rows; ++i, ++index)
+			{
+				for (j = 0; j < cols; ++j, ++index)
+				{
+					board[i][j] = index;
+				}
+			}
 		}
 	};
 
