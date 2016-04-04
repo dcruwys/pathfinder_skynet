@@ -28,10 +28,22 @@ void SlidingTile::ApplyAction(SlidingTile4x4::State &s, SlidingTile4x4::Action a
 {
 	switch (a.myDirection)
 	{
-	case SlidingTile4x4::direction::LEFT: s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX - 1, s.blankTileY); break;
-	case SlidingTile4x4::direction::RIGHT: s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX + 1, s.blankTileY); break;
-	case SlidingTile4x4::direction::DOWN: s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX, s.blankTileY - 1); break;
-	case SlidingTile4x4::direction::UP: s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX , s.blankTileY + 1); break;
+	case SlidingTile4x4::direction::LEFT: 
+		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX - 1, s.blankTileY);
+		s.blankTileX -= 1;
+		break;
+	case SlidingTile4x4::direction::RIGHT: 
+		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX + 1, s.blankTileY);
+		s.blankTileX += 1;
+		break;
+	case SlidingTile4x4::direction::DOWN: 
+		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX, s.blankTileY - 1);
+		s.blankTileY -= 1;
+		break;
+	case SlidingTile4x4::direction::UP: 
+		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX , s.blankTileY + 1);
+		s.blankTileY += 1;
+		break;
 	default: std::cout << "Sliding Tile ApplyAction() not working correctly"; break;
 	}
 }
@@ -40,10 +52,22 @@ void SlidingTile::UndoAction(SlidingTile4x4::State &s, SlidingTile4x4::Action a)
 {
 	switch (a.myDirection)
 	{
-	case SlidingTile4x4::direction::RIGHT: s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX - 1, s.blankTileY); break;
-	case SlidingTile4x4::direction::LEFT: s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX + 1, s.blankTileY); break;
-	case SlidingTile4x4::direction::UP: s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX, s.blankTileY - 1); break;
-	case SlidingTile4x4::direction::DOWN: s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX, s.blankTileY + 1); break;
+	case SlidingTile4x4::direction::RIGHT: 
+		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX - 1, s.blankTileY);
+		s.blankTileX -= 1;
+		break;
+	case SlidingTile4x4::direction::LEFT: 
+		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX + 1, s.blankTileY);
+		s.blankTileX += 1;
+		break;
+	case SlidingTile4x4::direction::UP: 
+		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX, s.blankTileY - 1);
+		s.blankTileY -= 1;
+		break;
+	case SlidingTile4x4::direction::DOWN: 
+		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX, s.blankTileY + 1);
+		s.blankTileY += 1;
+		break;
 	default: std::cout << "Sliding Tile ApplyAction() not working correctly"; break;
 	}
 }
