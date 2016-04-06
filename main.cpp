@@ -4,6 +4,8 @@
 #include "BFS.h"
 #include "NaryTree.h"
 #include "DFS.h"
+#include "Heuristic.h"
+#include "SlidingTile.h"
 
 int main(int argc, char* argv[]) {
 	//BFS GAMEBOARD
@@ -78,7 +80,29 @@ int main(int argc, char* argv[]) {
 			<< "\ttree goal location = " << goaltreedfs.nodeID << std::endl
 			<< "\tnodes expanded to reach goal = " << searchtreedfs.GetNodesExpanded() << std::endl;
 	}
-	
+
+	SlidingTile4x4::State puzzle16;
+	Heuristic SlidingTileHeuristic;
+	puzzle16.board[0][0] = 7;
+	puzzle16.board[0][1] = 3;
+	puzzle16.board[0][2] = 12;
+	puzzle16.board[0][3] = 2;
+	puzzle16.board[1][0] = 13;
+	puzzle16.board[1][1] = 6;
+	puzzle16.board[1][2] = 8;
+	puzzle16.board[1][3] = 10;
+	puzzle16.board[2][0] = 15;
+	puzzle16.board[2][1] = 14;
+	puzzle16.board[2][2] = 4;
+	puzzle16.board[2][3] = 1;
+	puzzle16.board[3][0] = 0;
+	puzzle16.board[3][1] = 11;
+	puzzle16.board[3][2] = 5;
+	puzzle16.board[3][3] = 9;
+
+	int a = SlidingTileHeuristic.manhattanDistanceSlidingTile(puzzle16);
+	std::cout << "=" << a << std::endl;
+
 	//hold output open
 	std::getchar();
 	return 0;

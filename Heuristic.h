@@ -15,7 +15,7 @@ public:
 		for (int i = 0, j = 0, index = 0; i < s.rows; ++i)
 		{
 			for(j = 0; j < s.cols; ++j, ++index)
-			{
+			{								
 				//if the value at board[i][j] is out of place, store it in a temp
 				if (s.board[i][j] != index)
 				{
@@ -27,14 +27,12 @@ public:
 					{
 						for (jj = 0; jj < s.cols; ++jj, ++iindex)
 						{
+							
 							//find where temp value is supposed to be positioned
-							if (temp_search == iindex)
+							if (temp_search == iindex && temp_search != 0)
 							{
 								//absolute value of value location - goal location = manhattan distance
 								//h is the sum of all the displaced tiles manahattan distances = manhattan distance for a state
-								std::cout << temp_search << ":" << iindex << std::endl;
-								std::cout << i << "y" << j << ":" <<  ii << "x" << jj << std::endl;
-								std::cout << abs(i - ii) << " + " << abs(j - jj) << "+" << std::endl;
 								h = h + abs(i - ii) + abs(j - jj);
 							}
 						}

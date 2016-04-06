@@ -12,7 +12,7 @@ namespace SlidingTile4x4
 		static const int rows = 4; //rows of grid
 		static const int cols = 4; //columns of grid
 		int blankTileX = rows - cols;
-		int blankTileY = rows;
+		int blankTileY = cols - rows;
 		int board[rows][cols]; //grid
 		void swapTiles(int puzzle[4][4], int aX, int aY, int bX, int bY)
 		{
@@ -22,7 +22,7 @@ namespace SlidingTile4x4
 		}
 		State()
 		{
-			for (int i = 0, int j, int index; i < rows; ++i, ++index)
+			for (int i = 0, j, index = 0; i < rows; ++i)
 			{
 				for (j = 0; j < cols; ++j, ++index)
 				{
@@ -33,9 +33,9 @@ namespace SlidingTile4x4
 	};
 
 	inline bool operator==(const State &lhs, const State &rhs){
-		for (int i = 0, int j; i < 4; ++i)
+		for (int i = 0, j; i < lhs.rows; ++i)
 		{
-			for (j = 0; j < 4; ++j)
+			for (j = 0; j < lhs.cols; ++j)
 			{
 				if (lhs.board[i][j] != rhs.board[i][j])
 				{
