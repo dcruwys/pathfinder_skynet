@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-namespace grid
+namespace Grid
 {
 	enum direction{ UP, DOWN, LEFT, RIGHT }; //enum to represent possible actions of grid agent
 
@@ -29,13 +29,13 @@ namespace grid
 	};
 }
 
-class Gameboard2 {
+class Gameboard {
 
 public:
-	Gameboard2(){}
-	void GetActions(grid::State &nodeID, std::vector<grid::Action> &actions);
-	void ApplyAction(grid::State &s, grid::Action a);
-	void UndoAction(grid::State &s, grid::Action a);
+	Gameboard(){}
+	void GetActions(Grid::State &nodeID, std::vector<Grid::Action> &actions);
+	void ApplyAction(Grid::State &s, Grid::Action a);
+	void UndoAction(Grid::State &s, Grid::Action a);
 };
 
 

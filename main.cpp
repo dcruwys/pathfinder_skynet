@@ -6,16 +6,17 @@
 #include "DFS.h"
 #include "Heuristic.h"
 #include "SlidingTile.h"
+#include "IDA.h"
 
 int main(int argc, char* argv[]) {
 	//BFS GAMEBOARD
 	//to change the size of the grid, edit the boardsize, rows, and cols member variables of the grid::state in Gameboard2.h
-	Gameboard2 grid;
-	BFS<grid::State, grid::Action, Gameboard2> searchGrid;
-	grid::State start;
+	Gameboard grid;
+	BFS<Grid::State, Grid::Action, Gameboard> searchGrid;
+	Grid::State start;
 	start.agentLocX = 0;
 	start.agentLocY = 0;
-	grid::State goal;
+	Grid::State goal;
 	goal.agentLocX = 7;
 	goal.agentLocY = 7;
 	if (searchGrid.GetPath(grid, start, goal))
@@ -29,12 +30,12 @@ int main(int argc, char* argv[]) {
 
 	//DFS GAMEBOARD
 	//to change the size of the grid, edit the boardsize, rows, and cols member variables of the grid::state in Gameboard2.h
-	Gameboard2 gridDFS;
-	DFS<grid::State, grid::Action, Gameboard2> searchGridDFS;
-	grid::State startDFS;
+	Gameboard gridDFS;
+	DFS<Grid::State, Grid::Action, Gameboard> searchGridDFS;
+	Grid::State startDFS;
 	startDFS.agentLocX = 0;
 	startDFS.agentLocY = 0;
-	grid::State goalDFS;
+	Grid::State goalDFS;
 	goalDFS.agentLocX = 7;
 	goalDFS.agentLocY = 7;
 	if (searchGridDFS.GetPath(gridDFS, startDFS, goalDFS))
@@ -81,6 +82,25 @@ int main(int argc, char* argv[]) {
 			<< "\tnodes expanded to reach goal = " << searchtreedfs.GetNodesExpanded() << std::endl;
 	}
 
+	//IDA* NaryTree
+	IDA<Tree::State, Tree::Action, NaryTree> searchIDA;
+	NaryTree treeIDA;
+	treeIDA.branchingFactor = 2;
+	Tree::State startIDA;
+	Tree::State goalIDA;
+	startIDA.nodeID = 0;
+	goalIDA.nodeID = 10;
+	if(searchIDA.GetPath(treeIDA, startIDA, goalIDA))
+	{
+		std::cout << "nary-tree ida:" << std::endl
+		<< "\tbranching factor = " << treeIDA.branchingFactor << std::endl
+		<< "\ttree start location = " << starttreedfs.nodeID << std::endl
+		<< "\ttree goal location = " << goaltreedfs.nodeID << std::endl
+		<< "\tnodes expanded to reach goal = " << searchtreedfs.GetNodesExpanded() << std::endl;
+
+	}
+
+
 	SlidingTile4x4::State puzzle16;
 	Heuristic SlidingTileHeuristic;
 	puzzle16.board[0][0] = 7;
@@ -100,7 +120,7 @@ int main(int argc, char* argv[]) {
 	puzzle16.board[3][2] = 5;
 	puzzle16.board[3][3] = 9;
 
-	int a = SlidingTileHeuristic.manhattanDistanceSlidingTile(puzzle16);
+	int a = SlidingTileHeuristic.getHeuristic(puzzle16);
 	std::cout << "=" << a << std::endl;
 
 	//hold output open

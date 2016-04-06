@@ -1,14 +1,14 @@
 #pragma once
 #include <queue>
 
-template <typename state, typename action, typename environement>
+template <typename state, typename action, typename environment>
 class BFS 
 {
 public:
 	int nodesExpanded;
 	BFS(){}
 	//GetPath return if the goal was found
-	bool GetPath(environement &e, state &start, state &goal);
+	bool GetPath(environment &e, state &start, state &goal);
 	//GetNodesExpanded returns the total nodes expanded by the last GetPath call
 	int GetNodesExpanded();
 };
