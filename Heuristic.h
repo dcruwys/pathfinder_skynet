@@ -33,7 +33,7 @@ public:
 								//absolute value of value location - goal location = manhattan distance
 								//h is the sum of all the displaced tiles manahattan distances = manhattan distance for a state
 								std::cout << temp_search << ":" << iindex << std::endl;
-								std::cout << i << "y" << ii << ":" << j << "x" << jj << std::endl;
+								std::cout << i << "y" << j << ":" <<  ii << "x" << jj << std::endl;
 								std::cout << abs(i - ii) << " + " << abs(j - jj) << "+" << std::endl;
 								h = h + abs(i - ii) + abs(j - jj);
 							}
