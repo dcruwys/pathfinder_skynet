@@ -1,23 +1,23 @@
-
+#pragma once
 #include <cstdint>
 #include <iostream>
 #include <vector>
 
-
-enum direction{ UP, DOWN, LEFT, RIGHT }; //enum to represent possible actions of grid agent
-
 namespace grid
 {
+	enum direction{ UP, DOWN, LEFT, RIGHT }; //enum to represent possible actions of grid agent
+
 	struct State{
-		static const int boardSize = 30; //size of grid
-		static const int rows = 6; //rows of grid
-		static const int cols = 5; //columns of grid
-		int agentLoc; //location of agent
-		int board[boardSize]; //grid
+		static const int boardSize = 100; //size of grid
+		static const int rows = 10; //rows of grid
+		static const int cols = 10; //columns of grid
+		int agentLocX; // x location of agent
+		int agentLocY; // y location of agent
+		int board[rows][cols]; //grid
 	};
 
 	inline bool operator==(const State &lhs, const State &rhs){
-		return lhs.agentLoc == rhs.agentLoc;
+		return (lhs.agentLocX == rhs.agentLocX && lhs.agentLocY == rhs.agentLocY);
 	}
 
 	struct Action{
@@ -29,10 +29,10 @@ namespace grid
 	};
 }
 
-class Gameboard {
-	
+class Gameboard2 {
+
 public:
-	Gameboard(){}
+	Gameboard2(){}
 	void GetActions(grid::State &nodeID, std::vector<grid::Action> &actions);
 	void ApplyAction(grid::State &s, grid::Action a);
 	void UndoAction(grid::State &s, grid::Action a);

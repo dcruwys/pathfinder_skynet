@@ -1,57 +1,41 @@
 #include "Gameboard.h"
 
-//Gets all possible moves the agent can make
-void Gameboard::GetActions(grid::State &nodeID, std::vector<grid::Action> &actions)
+void Gameboard2::GetActions(grid::State &nodeID, std::vector<grid::Action> &actions)
 {
-	//make sure actions list is empty when starting to add actions
+	//clear list of actions before adding to it
 	actions.clear();
 
-	//if its not at the top of the grid, let the agent go up
-	if (nodeID.agentLoc / nodeID.cols != 0)
+	//if x position isnt at the right edge of the space, then let it go right
+	if (nodeID.agentLocX < nodeID.cols - 1)
 	{
-		//add up action to list of possible actions
-		actions.push_back(grid::Action(direction::UP));
+		actions.push_back(grid::Action(grid::direction::RIGHT));
 	}
-	//if its not at the bottom of the grid, let the agent go down
-//	if (nodeID.agentLoc / nodeID.cols != nodeID.rows)
-//	{
-//		//add down action to list of possible actions
-//		actions.push_back(grid::Action(direction::DOWN));
-//	}
-//	//if its not at the left most side of the grid, let the agent go left
-//	if (nodeID.agentLoc % nodeID.cols != 0)
-//	{
-//		//add left action to list of possible actions
-//		actions.push_back(grid::Action(direction::LEFT));
-//	}
-	//if its not at the right most side of the grid, let the agent go right
-	if (nodeID.agentLoc % nodeID.cols != nodeID.cols - 1)
+	//if the y position isnt at the top of the space, let it go up
+	if (nodeID.agentLocY < nodeID.rows - 1)
 	{
-		//add right action to list of pissible actions
-		actions.push_back(grid::Action(direction::RIGHT));
+		actions.push_back(grid::Action(grid::direction::UP));
 	}
 }
 
-void Gameboard::ApplyAction(grid::State &nodeID, grid::Action a)
+
+void Gameboard2::ApplyAction(grid::State &nodeID, grid::Action a)
 {
+	//depending which action was passed in, move either right or left
 	switch (a.myDirection)
 	{
-	case direction::UP: nodeID.agentLoc -= nodeID.cols; break;
-	case direction::DOWN: nodeID.agentLoc += nodeID.cols; break;
-	case direction::LEFT: nodeID.agentLoc -= 1; break;
-	case direction::RIGHT: nodeID.agentLoc += 1; break;
+	case grid::direction::UP: nodeID.agentLocY += 1; break;
+	case grid::direction::RIGHT: nodeID.agentLocX += 1; break;
 	default: std::cout << "invalid direction to apply" << std::endl; break;
 	}
 }
 
-void Gameboard::UndoAction(grid::State &nodeID, grid::Action a)
+void Gameboard2::UndoAction(grid::State &nodeID, grid::Action a)
 {
+	//depending which action was passed in, move either left or down
 	switch (a.myDirection)
 	{
-	case direction::UP: nodeID.agentLoc += nodeID.cols; break;
-	case direction::DOWN: nodeID.agentLoc -= nodeID.cols; break;
-	case direction::LEFT: nodeID.agentLoc += 1; break;
-	case direction::RIGHT: nodeID.agentLoc -= 1; break;
+	case grid::direction::UP: nodeID.agentLocY -= 1; break;
+	case grid::direction::RIGHT: nodeID.agentLocX -= 1; break;
 	default: std::cout << "invalid direction to undo" << std::endl; break;
 	}
 }

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdint>
-#include "Gameboard2.h"
+#include "Gameboard.h"
 #include "BFS.h"
 #include "NaryTree.h"
 #include "DFS.h"
