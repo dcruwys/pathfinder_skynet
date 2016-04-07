@@ -15,8 +15,7 @@ public:
 		//using index, keep track of what tile value is supposed to be at a given i,j location
 		for (int i = 0, j = 0, index = 0; i < s.rows; ++i) {
 			for (j = 0; j < s.cols; ++j, ++index) {
-				if (s.board[i][j] != index && s.board[i][j] != 0)
-				{
+				if (s.board[i][j] != index && s.board[i][j] != 0) {
 					h = h + abs((s.board[i][j] / s.rows) - i) + abs((s.board[i][j] % s.cols) - j);
 				}
 			}
@@ -29,5 +28,6 @@ public:
 	}
 
 	int getHeuristic(Grid::State &s, Grid::State &g) {
-
+		return 0;
 	}
+};

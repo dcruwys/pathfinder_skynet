@@ -11,14 +11,19 @@
 template <typename state, typename action, typename environment>
 struct IDA {
     int nodesExpanded = 0;
-
+    int f;
+    int g;
+    IDA(){
+        f=0;
+        g=0;
+    }
     Heuristic heuristic;
     //GetPath return if the goal was found
     int GetPath(environment &e, state &start, state &goal);
     //GetNodesExpanded returns the total nodes expanded by the last GetPath call
     int GetNodesExpanded();
     //Cost limited depth first search
-    bool CLDFS(environment &e, state &start, state &goal, int &bound, int &g, int &f);
+    bool CLDFS(environment &e, state &start, state &goal, int &bound);
 };
 
 template <typename state, typename action, typename environment>
@@ -30,12 +35,12 @@ int IDA<state, action, environment>::GetNodesExpanded()
 template <typename state, typename action, typename environment>
 int IDA<state, action, environment>::GetPath(environment &e, state &start, state &goal){
     int bound = heuristic.getHeuristic(start, goal);
-    int g = 0; int f = 0; nodesExpanded = 0;
+    nodesExpanded = 0;
     bool found = false;
     while (!found)
     {
         g = 0;
-        found = CLDFS(e, start, goal, bound, g, f);
+        found = CLDFS(e, start, goal, bound);
         if (found) return bound;
         bound = f;
     }
@@ -43,7 +48,7 @@ int IDA<state, action, environment>::GetPath(environment &e, state &start, state
 };
 
 template <typename state, typename action, typename environment>
-bool IDA<state, action, environment>::CLDFS(environment &e, state &start, state &goal, int &bound, int &g, int &f) {
+bool IDA<state, action, environment>::CLDFS(environment &e, state &start, state &goal, int &bound) {
     std::vector<action> actions;
     f = g + heuristic.getHeuristic(start, goal);
     if(f > bound)
@@ -55,13 +60,13 @@ bool IDA<state, action, environment>::CLDFS(environment &e, state &start, state 
     for(auto &i: actions){
         e.ApplyAction(start, i);
         g++;
-        bool found = CLDFS(e, start, goal, bound, g, f);
+        bool found = CLDFS(e, start, goal, bound);
         if (found == true)
             return true;
         e.UndoAction(start, i);
         g--;
     }
-
+    return false;
 }
 
 #endif //HW1_IDA_H

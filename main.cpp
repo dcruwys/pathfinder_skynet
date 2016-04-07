@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
 	Tree::State starttree;
 	starttree.nodeID = 0;
 	Tree::State goaltree;
-	goaltree.nodeID = 5000;
+	goaltree.nodeID = 8;
 	if (searchtree.GetPath(tree, starttree, goaltree))
 	{
 		std::cout << "nary-tree bfs:" << std::endl
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 	Tree::State starttreedfs;
 	starttreedfs.nodeID = 0;
 	Tree::State goaltreedfs;
-	goaltreedfs.nodeID = 8;
+	goaltreedfs.nodeID = 12;
 	if (searchtreedfs.GetPath(treedfs, starttreedfs, goaltreedfs))
 	{
 		std::cout << "nary-tree dfs:" << std::endl
@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
 	Tree::State startIDA;
 	Tree::State goalIDA;
 	startIDA.nodeID = 0;
-	goalIDA.nodeID = 8;
+	goalIDA.nodeID = 12;
 	searchIDA.GetPath(treeIDA, startIDA, goalIDA);
 
 	std::cout << "nary-tree ida:" << std::endl
@@ -126,4 +126,4 @@ int main(int argc, char* argv[]) {
 	//hold output open
 	std::getchar();
 	return 0;
-}
+};
