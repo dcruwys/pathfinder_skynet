@@ -51,11 +51,12 @@ template <typename state, typename action, typename environment>
 bool IDA<state, action, environment>::CLDFS(environment &e, state &start, state &goal, int &bound) {
     std::vector<action> actions;
     f = g + heuristic.getHeuristic(start, goal);
-    if(f > bound)
+	if (start == goal)
+		return true;
+	if(f > bound)
         return false;
-    if(start == goal)
-        return true;
     e.GetActions(start, actions);
+	std::cout << "node expanded: " << start.nodeID << "\tbound: " << bound << std::endl;
     nodesExpanded++;
     for(auto &i: actions){
         e.ApplyAction(start, i);
@@ -67,6 +68,6 @@ bool IDA<state, action, environment>::CLDFS(environment &e, state &start, state 
         g--;
     }
     return false;
-}
+};
 
-#endif //HW1_IDA_H
+#endif //HW1_IDA
