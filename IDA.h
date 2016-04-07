@@ -11,16 +11,16 @@
 template <typename state, typename action, typename environment>
 struct IDA {
     int nodesExpanded = 0;
-    int g = 0;
-    int f = 0;
+
     Heuristic heuristic;
     //GetPath return if the goal was found
-    bool GetPath(environment &e, state &start, state &goal);
+    int GetPath(environment &e, state &start, state &goal);
     //GetNodesExpanded returns the total nodes expanded by the last GetPath call
     int GetNodesExpanded();
     //Cost limited depth first search
-    bool CLDFS(environment &e, state &start, state &goal, int &bound);
+    bool CLDFS(environment &e, state &start, state &goal, int &bound, int &g, int &f);
 };
+
 template <typename state, typename action, typename environment>
 int IDA<state, action, environment>::GetNodesExpanded()
 {
@@ -28,36 +28,40 @@ int IDA<state, action, environment>::GetNodesExpanded()
 }
 
 template <typename state, typename action, typename environment>
-bool IDA<state, action, environment>::GetPath(environment &e, state &start, state &goal){
-    int bound = heuristic.getHeuristic(start);
-
+int IDA<state, action, environment>::GetPath(environment &e, state &start, state &goal){
+    int bound = heuristic.getHeuristic(start, goal);
+    int g = 0; int f = 0; nodesExpanded = 0;
     bool found = false;
-    do{
-    //////
-    g = 0;
-    f = 0;
-    //////
-     found = CLDFS(e, start, goal, bound);
-     bound = f;
-    } while(!found);
-
+    while (!found)
+    {
+        g = 0;
+        found = CLDFS(e, start, goal, bound, g, f);
+        if (found) return bound;
+        bound = f;
+    }
     return bound;
 };
 
 template <typename state, typename action, typename environment>
-bool IDA<state, action, environment>::CLDFS(environment &e, state &start, state &goal, int &bound) {
+bool IDA<state, action, environment>::CLDFS(environment &e, state &start, state &goal, int &bound, int &g, int &f) {
     std::vector<action> actions;
-    f = g + heuristic.getHeuristic(start);
-    if(f > bound) return false;
-    if(start == goal) return true;
+    f = g + heuristic.getHeuristic(start, goal);
+    if(f > bound)
+        return false;
+    if(start == goal)
+        return true;
     e.GetActions(start, actions);
+    nodesExpanded++;
     for(auto &i: actions){
         e.ApplyAction(start, i);
         g++;
-        CLDFS(e, start, goal, bound);
+        bool found = CLDFS(e, start, goal, bound, g, f);
+        if (found == true)
+            return true;
         e.UndoAction(start, i);
         g--;
     }
+
 }
 
 #endif //HW1_IDA_H

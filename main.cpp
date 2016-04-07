@@ -22,10 +22,10 @@ int main(int argc, char* argv[]) {
 	if (searchGrid.GetPath(grid, start, goal))
 	{
 		std::cout << "GameBoard BFS:" << std::endl
-			<< "\tGameboard Size = " << start.boardSize << " (" << start.rows << "," << start.cols << ")" << std::endl
-			<< "\tGameboard Start Location = " << " (" << start.agentLocX << "," << start.agentLocY << ")" << std::endl
-			<< "\tGameboard Goal Location = " << " (" << goal.agentLocX << "," << goal.agentLocY << ")" << std::endl
-			<< "\tNodes Expanded to reach Goal = " << searchGrid.GetNodesExpanded() << std::endl;
+		<< "\tGameboard Size = " << start.boardSize << " (" << start.rows << "," << start.cols << ")" << std::endl
+		<< "\tGameboard Start Location = " << " (" << start.agentLocX << "," << start.agentLocY << ")" << std::endl
+		<< "\tGameboard Goal Location = " << " (" << goal.agentLocX << "," << goal.agentLocY << ")" << std::endl
+		<< "\tNodes Expanded to reach Goal = " << searchGrid.GetNodesExpanded() << std::endl;
 	}
 
 	//DFS GAMEBOARD
@@ -41,10 +41,10 @@ int main(int argc, char* argv[]) {
 	if (searchGridDFS.GetPath(gridDFS, startDFS, goalDFS))
 	{
 		std::cout << "GameBoard DFS:" << std::endl
-			<< "\tGameboard Size = " << startDFS.boardSize << " (" << startDFS.rows << "," << startDFS.cols << ")" << std::endl
-			<< "\tGameboard Start Location = " << " (" << startDFS.agentLocX << "," << startDFS.agentLocY << ")" << std::endl
-			<< "\tGameboard Goal Location = " << " (" << goalDFS.agentLocX << "," << goalDFS.agentLocY << ")" << std::endl
-			<< "\tNodes Expanded to reach Goal = " << searchGridDFS.GetNodesExpanded() << std::endl;
+		<< "\tGameboard Size = " << startDFS.boardSize << " (" << startDFS.rows << "," << startDFS.cols << ")" << std::endl
+		<< "\tGameboard Start Location = " << " (" << startDFS.agentLocX << "," << startDFS.agentLocY << ")" << std::endl
+		<< "\tGameboard Goal Location = " << " (" << goalDFS.agentLocX << "," << goalDFS.agentLocY << ")" << std::endl
+		<< "\tNodes Expanded to reach Goal = " << searchGridDFS.GetNodesExpanded() << std::endl;
 	}
 
 
@@ -59,10 +59,10 @@ int main(int argc, char* argv[]) {
 	if (searchtree.GetPath(tree, starttree, goaltree))
 	{
 		std::cout << "nary-tree bfs:" << std::endl
-			<< "\tbrandching factor = " << tree.branchingFactor << std::endl
-			<< "\ttree start location = " << starttree.nodeID << std::endl
-			<< "\ttree goal location = " << goaltree.nodeID << std::endl
-			<< "\tnodes expanded to reach goal = " << searchtree.GetNodesExpanded() << std::endl;
+		<< "\tbrandching factor = " << tree.branchingFactor << std::endl
+		<< "\ttree start location = " << starttree.nodeID << std::endl
+		<< "\ttree goal location = " << goaltree.nodeID << std::endl
+		<< "\tnodes expanded to reach goal = " << searchtree.GetNodesExpanded() << std::endl;
 	}
 
 	//dfs narytree
@@ -72,14 +72,14 @@ int main(int argc, char* argv[]) {
 	Tree::State starttreedfs;
 	starttreedfs.nodeID = 0;
 	Tree::State goaltreedfs;
-	goaltreedfs.nodeID = 10000;
+	goaltreedfs.nodeID = 8;
 	if (searchtreedfs.GetPath(treedfs, starttreedfs, goaltreedfs))
 	{
 		std::cout << "nary-tree dfs:" << std::endl
-			<< "\tbrandching factor = " << treedfs.branchingFactor << std::endl
-			<< "\ttree start location = " << starttreedfs.nodeID << std::endl
-			<< "\ttree goal location = " << goaltreedfs.nodeID << std::endl
-			<< "\tnodes expanded to reach goal = " << searchtreedfs.GetNodesExpanded() << std::endl;
+		<< "\tbrandching factor = " << treedfs.branchingFactor << std::endl
+		<< "\ttree start location = " << starttreedfs.nodeID << std::endl
+		<< "\ttree goal location = " << goaltreedfs.nodeID << std::endl
+		<< "\tnodes expanded to reach goal = " << searchtreedfs.GetNodesExpanded() << std::endl;
 	}
 
 	//IDA* NaryTree
@@ -89,16 +89,16 @@ int main(int argc, char* argv[]) {
 	Tree::State startIDA;
 	Tree::State goalIDA;
 	startIDA.nodeID = 0;
-	goalIDA.nodeID = 10;
-	if(searchIDA.GetPath(treeIDA, startIDA, goalIDA))
-	{
-		std::cout << "nary-tree ida:" << std::endl
-		<< "\tbranching factor = " << treeIDA.branchingFactor << std::endl
-		<< "\ttree start location = " << starttreedfs.nodeID << std::endl
-		<< "\ttree goal location = " << goaltreedfs.nodeID << std::endl
-		<< "\tnodes expanded to reach goal = " << searchtreedfs.GetNodesExpanded() << std::endl;
+	goalIDA.nodeID = 8;
+	searchIDA.GetPath(treeIDA, startIDA, goalIDA);
 
-	}
+	std::cout << "nary-tree ida:" << std::endl
+	<< "\tbranching factor = " << treeIDA.branchingFactor << std::endl
+	<< "\ttree start location = " << startIDA.nodeID << std::endl
+	<< "\ttree goal location = " << goalIDA.nodeID << std::endl
+	<< "\tnodes expanded to reach goal = " << searchIDA.GetNodesExpanded() << std::endl;
+
+
 
 
 	SlidingTile4x4::State puzzle16;
@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
 	puzzle16.board[3][2] = 5;
 	puzzle16.board[3][3] = 9;
 
-	int a = SlidingTileHeuristic.getHeuristic(puzzle16);
+	int a = SlidingTileHeuristic.getHeuristic(puzzle16, puzzle16);
 	std::cout << "=" << a << std::endl;
 
 	//hold output open
