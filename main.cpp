@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 	Tree::State starttreedfs;
 	starttreedfs.nodeID = 0;
 	Tree::State goaltreedfs;
-	goaltreedfs.nodeID = 10000;
+	goaltreedfs.nodeID = 8;
 	if (searchtreedfs.GetPath(treedfs, starttreedfs, goaltreedfs))
 	{
 		std::cout << "nary-tree dfs:" << std::endl
@@ -89,16 +89,16 @@ int main(int argc, char* argv[]) {
 	Tree::State startIDA;
 	Tree::State goalIDA;
 	startIDA.nodeID = 0;
-	goalIDA.nodeID = 10;
-	if(searchIDA.GetPath(treeIDA, startIDA, goalIDA))
-	{
+	goalIDA.nodeID = 8;
+	searchIDA.GetPath(treeIDA, startIDA, goalIDA);
+	
 		std::cout << "nary-tree ida:" << std::endl
-		<< "\tbranching factor = " << treeIDA.branchingFactor << std::endl
-		<< "\ttree start location = " << starttreedfs.nodeID << std::endl
-		<< "\ttree goal location = " << goaltreedfs.nodeID << std::endl
-		<< "\tnodes expanded to reach goal = " << searchtreedfs.GetNodesExpanded() << std::endl;
+			<< "\tbranching factor = " << treeIDA.branchingFactor << std::endl
+			<< "\ttree start location = " << startIDA.nodeID << std::endl
+			<< "\ttree goal location = " << goalIDA.nodeID << std::endl
+			<< "\tnodes expanded to reach goal = " << searchIDA.GetNodesExpanded() << std::endl;
 
-	}
+	
 
 
 	SlidingTile4x4::State puzzle16;
@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
 	puzzle16.board[3][2] = 5;
 	puzzle16.board[3][3] = 9;
 
-	int a = SlidingTileHeuristic.getHeuristic(puzzle16);
+	int a = SlidingTileHeuristic.getHeuristic(puzzle16, puzzle16);
 	std::cout << "=" << a << std::endl;
 
 	//hold output open
