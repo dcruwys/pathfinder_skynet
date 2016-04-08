@@ -26,8 +26,4 @@ public:
 	int getHeuristic(Tree::State &s, Tree::State &g) {
 		return 0;
 	}
-
-	int getHeuristic(Grid::State &s, Grid::State &g) {
-		return 0;
-	}
 };

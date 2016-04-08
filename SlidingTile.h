@@ -16,7 +16,7 @@ namespace SlidingTile4x4
 		int board[rows][cols]; //grid
 		void swapTiles(int puzzle[4][4], int aX, int aY, int bX, int bY)
 		{
-			int temp = puzzle[aX][aX];
+			int temp = puzzle[aX][aY];
 			puzzle[aX][aY] = puzzle[bX][bY];
 			puzzle[bX][bY] = temp;
 		}

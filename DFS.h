@@ -21,10 +21,10 @@ bool DFS<state, action, environment>::IDeep(environment &e, state &start, state 
 	//list of actions
 	std::vector<action> actions;
     //if at goal, return
-	if (start == goal && depth == 0)
-        return true;
     if(depth <= 0)
         return false;
+	if (start == goal && depth == 0)
+        return true;
 	//get actions for current state and incrememnt nodes expanded
     e.GetActions(start, actions);
     nodesExpanded++;
