@@ -9,8 +9,6 @@ public:
 	int getHeuristic(SlidingTile4x4::State &s, SlidingTile4x4::State &g) {
 		//h = heuristic value to return for state s
 		int h = 0;
-		int tempRow = 0;
-		int tempCol = 0;
 		//loop through the sliding tile grid
 		//using index, keep track of what tile value is supposed to be at a given i,j location
 		for (int i = 0, j = 0, index = 0; i < s.rows; ++i) {
