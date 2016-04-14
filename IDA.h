@@ -19,14 +19,16 @@ struct IDA {
     IDA(){
         f=0;
         g=0;
+        std::vector<state> path;
+        std::vector<action> pathActions;
     }
-    Heuristic heuristic;
+    Heuristic h;
     //GetPath return if the goal was found
     int GetPath(environment &e, state &start, state &goal);
     //GetNodesExpanded returns the total nodes expanded by the last GetPath call
     int GetNodesExpanded();
     //Cost limited depth first search
-    bool CLDFS(environment &e, state &start, state &goal, int &bound);
+    int CLDFS(environment &e, state &start, state &goal, int &bound, action &lastAction);
 };
 
 template <typename state, typename action, typename environment>
@@ -36,50 +38,60 @@ int IDA<state, action, environment>::GetNodesExpanded()
 }
 
 template <typename state, typename action, typename environment>
-int IDA<state, action, environment>::GetPath(environment &e, state &start, state &goal){
-	state tempStart = start;
-	int bound = heuristic.getHeuristic(start, goal);
-    nodesExpanded = 0;
+int IDA<state, action, environment>::GetPath(environment &e, state &start, state &goal) {
+   // path.push_back(start);
+    state tempStart = start;
+    int bound = h.getHeuristic(start, goal);
     bool found = false;
-    while (!found)
-    {
-        g = 0;
-        found = CLDFS(e, start, goal, bound);
-        if (found) return pathActions.size();
+    action temp;
+    while (!found){
+            f = CLDFS(e, start, goal, bound, temp);
+        if (f == -1)
+            found = true;
+        if (f == std::numeric_limits<int>::max())
+            return false;
         bound = f;
+        //std::cout << bound << std::endl;
     }
-	path.push_back(tempStart);
-	for (action &i : pathActions)
-	{
-		e.ApplyAction(tempStart, i);
-		path.push_back(tempStart);
-	}
+    path.push_back(tempStart);
+    for(action &i : pathActions)
+    {
+        e.ApplyAction(tempStart, i);
+        path.push_back(tempStart);
+    }
     return pathActions.size();
 };
 
 template <typename state, typename action, typename environment>
-bool IDA<state, action, environment>::CLDFS(environment &e, state &start, state &goal, int &bound) {
+int IDA<state, action, environment>::CLDFS(environment &e, state &start, state &goal, int &bound, action &lastAction) {
     std::vector<action> actions;
-    f = g + heuristic.getHeuristic(start, goal);
-	if (f > bound)
-		return false;
-	if (start == goal)
-		return true;
+    f = g + h.getHeuristic(start, goal);
+
+    if(f > bound)
+        return f;
+    if(start == goal)
+        return -1;
+    int min = std::numeric_limits<int>::max();
     e.GetActions(start, actions);
-	//std::cout << "node expanded: " << start.nodeID << "\tbound: " << bound << std::endl;
     nodesExpanded++;
-    for(auto &i: actions){
-        e.ApplyAction(start, i);
-		pathActions.push_back(i);
-        g++;
-        bool found = CLDFS(e, start, goal, bound);
-        if (found == true)
-            return true;
-        e.UndoAction(start, i);
-		pathActions.pop_back();
-        g--;
+    for (auto &i : actions){
+        if(i != lastAction) {
+            e.ApplyAction(start, i);
+            pathActions.push_back(i);
+            g++;
+            f = CLDFS(e, start, goal, bound, i);
+            if (f == -1)
+                return f;
+            if (f < min)
+                min = f;
+            e.UndoAction(start, i);
+            g--;
+            pathActions.pop_back();
+        }
     }
-    return false;
+    return min;
+
+
 };
 
 #endif //HW1_IDA
