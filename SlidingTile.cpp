@@ -153,7 +153,7 @@ void SlidingTile::GetActions(std::list<Action> &actions)
 	{
 		actions.emplace_front(Action(direction::RIGHT));
 	}
-	if (blank < 12)
+	if (blank < width * width - width)
 	{
 		actions.emplace_front(Action(direction::DOWN));
 	}
