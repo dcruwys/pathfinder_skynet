@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
+#include <list>
 
 	enum direction{ UP, DOWN, LEFT, RIGHT }; //enum to represent possible actions of puzzle blank
 
@@ -19,15 +20,16 @@ public:
 	SlidingTile();
 	SlidingTile(const int tiles[16]);
 	uint64_t Rank(std::vector<int> pattern);
-	uint64_t GetMaxRank(std::vector<int> &pattern);
-	void Unrank(uint64_t rank);
-	void GetActions(SlidingTile &nodeID, std::vector<Action> &actions);
-	void ApplyAction(SlidingTile &s, Action a);
-	void UndoAction(SlidingTile &s, Action a);
+	uint64_t GetMaxRank(std::vector<int> pattern);
+	void Unrank(uint64_t rank, const std::vector<int> pattern);
+	void GetActions(std::list<Action> &actions);
+	void ApplyAction(Action a);
+	void UndoAction(Action a);
 	void Print();
 private:
 	int blank;
 	int tiles[16];
+	int width;
 };
 
 

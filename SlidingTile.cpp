@@ -9,6 +9,21 @@ uint64_t Factorial(int temp)
 	return table[temp];
 }
 
+uint64_t FactorialDivide(int f1, int f2)
+{
+	if (f1 = f2) return 1;
+	if (f1 > f2)
+	{
+		int temp = f1 - f2;
+		int result = 1;
+		for (; temp = 0; temp--)
+		{
+			result *= f1 - temp;
+		}
+		return result;
+	}
+}
+
 SlidingTile::SlidingTile()
 {
 	for (int x = 0; x < 16; x++)
@@ -16,6 +31,7 @@ SlidingTile::SlidingTile()
 		tiles[x] = x;
 	}
 	blank = 0;
+	width = 4;
 }
 
 SlidingTile::SlidingTile(const int temp[16])
@@ -34,8 +50,6 @@ uint64_t SlidingTile::Rank(const std::vector<int> pattern)
 {
 	int locs[16] = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 	std::vector<int> dual;
-	
-
 	// create dual array with locations of tiles
 	// that are not blanked out
 	for (int i = 0; i < pattern.size(); i++)
@@ -61,7 +75,7 @@ uint64_t SlidingTile::Rank(const std::vector<int> pattern)
 	{
 		if (locs[x] != -1)
 		{
-			rankVal += locs[x] * (Factorial(numEntriesLeft - 1) / Factorial(12));
+			rankVal += locs[x] * (Factorial(numEntriesLeft - 1) / Factorial(16 - pattern.size()));
 			numEntriesLeft--;
 		}
 		// decrement locations of remaining items
@@ -78,44 +92,40 @@ uint64_t SlidingTile::Rank(const std::vector<int> pattern)
 	return rankVal;
 }
 
-uint64_t SlidingTile::GetMaxRank(std::vector<int> &pattern)
+uint64_t SlidingTile::GetMaxRank(std::vector<int> pattern)
 {
-	return Factorial(16) / Factorial(15 - pattern.size());
+	return Factorial(16) / Factorial(16 - pattern.size());
 }
 
-void SlidingTile::Unrank(uint64_t rank)
+void SlidingTile::Unrank(uint64_t rank, const std::vector<int> pattern)
 {
 	int count = 16;
-	uint64_t hashVal = rank;
-	int dual[16];
-
+	uint64_t unrankVal = rank;
+	int dual[16] = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
 	// unrank the locations of the first 16 tiles
-	int numEntriesLeft = 1;
+	int pindex = pattern.size();
+	int numEntriesLeft = 16 - pindex + 1;
+	int base = 16;
 	for (int x = 16 - 1; x >= 0; x--)
 	{
-		dual[x] = hashVal % numEntriesLeft;
-		hashVal /= numEntriesLeft;
-		numEntriesLeft++;
-		for (int y = x + 1; y < 16; y++)
+		if (std::find(pattern.begin(), pattern.end(), x) != pattern.end())
 		{
-			if (dual[y] >= dual[x])
-				dual[y]++;
+			dual[x] = unrankVal % numEntriesLeft;
+			unrankVal /= numEntriesLeft;
+			numEntriesLeft++;
+			for (int y = x + 1; y < 16; y++)
+			{
+				if (dual[y] >= dual[x])
+					dual[y]++;
+			}
 		}
 	}
-	for (int i = 0; i < 16; i++)
-	{
-		std::cout << dual[i] << std::endl;
-	}
-	// clear puzzle locations
-	for (int x = 0; x < 16; x++)
-	{
-		tiles[x] = -1;
-	}
+	//clear puzzle locations
 	// revert locations of tiles into positions in the puzzle
 	for (int x = 0; x < 16; x++)
 	{
+		tiles[x] = -1;
 		tiles[x] = dual[x];
-
 	}
 	// reset the cache of the blanks location
 	blank = dual[0];
@@ -127,77 +137,84 @@ void SlidingTile::Print()
 	{
 		std::cout << tiles[i] << "\t";
 		if (j == 3){ std::cout << std::endl; j = -1; }
-		
 	}
 }
 
-//void SlidingTile::GetActions(SlidingTile &board, std::vector<Action> &actions)
-//{
-//	//clear list of actions before adding to it
-//	actions.clear();
-//	
-//	//push possible actions onto list of actions
-//	if (board.blankTileX != 0)
-//	{
-//		actions.push_back(SlidingTile4x4::Action(SlidingTile4x4::direction::LEFT));
-//	}
-//	if (board.blankTileX != board.cols - 1)
-//	{
-//		actions.push_back(SlidingTile4x4::Action(SlidingTile4x4::direction::RIGHT));
-//	}
-//	if (board.blankTileY != 0)
-//	{
-//		actions.push_back(SlidingTile4x4::Action(SlidingTile4x4::direction::DOWN));
-//	}
-//	if (board.blankTileY != board.rows - 1)
-//	{
-//		actions.push_back(SlidingTile4x4::Action(SlidingTile4x4::direction::UP));
-//	}
-//}
-//
-//void SlidingTile::ApplyAction(SlidingTile4x4::State &s, SlidingTile4x4::Action a)
-//{
-//	switch (a.myDirection)
-//	{
-//	case SlidingTile4x4::direction::LEFT: 
-//		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX - 1, s.blankTileY);
-//		s.blankTileX -= 1;
-//		break;
-//	case SlidingTile4x4::direction::RIGHT: 
-//		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX + 1, s.blankTileY);
-//		s.blankTileX += 1;
-//		break;
-//	case SlidingTile4x4::direction::DOWN: 
-//		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX, s.blankTileY - 1);
-//		s.blankTileY -= 1;
-//		break;
-//	case SlidingTile4x4::direction::UP: 
-//		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX , s.blankTileY + 1);
-//		s.blankTileY += 1;
-//		break;
-//	default: std::cout << "Sliding Tile ApplyAction() not working correctly"; break;
-//	}
-//}
-//
-//void SlidingTile::UndoAction(SlidingTile4x4::State &s, SlidingTile4x4::Action a)
-//{
-//	switch (a.myDirection)
-//	{
-//	case SlidingTile4x4::direction::RIGHT: 
-//		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX - 1, s.blankTileY);
-//		s.blankTileX -= 1;
-//		break;
-//	case SlidingTile4x4::direction::LEFT: 
-//		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX + 1, s.blankTileY);
-//		s.blankTileX += 1;
-//		break;
-//	case SlidingTile4x4::direction::UP: 
-//		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX, s.blankTileY - 1);
-//		s.blankTileY -= 1;
-//		break;
-//	case SlidingTile4x4::direction::DOWN: 
-//		s.swapTiles(s.board, s.blankTileX, s.blankTileY, s.blankTileX, s.blankTileY + 1);
-//		s.blankTileY += 1;
-//		break;
-//	default: std::cout << "Sliding Tile ApplyAction() not working correctly"; break;
-//	}
+void SlidingTile::GetActions(std::list<Action> &actions)
+{
+	//clear list of actions before adding to it
+	actions.clear();
+	//push possible actions onto list of actions
+	if (blank % width != 0)
+	{
+		actions.emplace_front(Action(direction::LEFT));
+	}
+	if (blank % width != width - 1)
+	{
+		actions.emplace_front(Action(direction::RIGHT));
+	}
+	if (blank < 12)
+	{
+		actions.emplace_front(Action(direction::DOWN));
+	}
+	if (blank > width - 1)
+	{
+		actions.emplace_front(Action(direction::UP));
+	}
+}
+
+void SlidingTile::ApplyAction(Action a)
+{
+	switch (a.myDirection)
+	{
+	case direction::LEFT: 
+		tiles[blank] = tiles[blank - 1];
+		blank -= 1;
+		tiles[blank] = 0;
+		break;
+	case direction::RIGHT: 
+		tiles[blank] = tiles[blank + 1];
+		blank += 1;
+		tiles[blank] = 0;
+		break;
+	case direction::DOWN:
+		tiles[blank] = tiles[blank + width];
+		blank += width;
+		tiles[blank] = 0;
+		break;
+	case direction::UP: 
+		tiles[blank] = tiles[blank - width];
+		blank -= width;
+		tiles[blank] = 0;
+		break;
+	default: std::cout << "Sliding Tile ApplyAction() not working correctly"; break;
+	}
+}
+
+void SlidingTile::UndoAction(Action a)
+{
+	switch (a.myDirection)
+	{
+	case direction::RIGHT:
+		tiles[blank] = tiles[blank - 1];
+		blank -= 1;
+		tiles[blank] = 0;
+		break;
+	case direction::LEFT:
+		tiles[blank] = tiles[blank + 1];
+		blank += 1;
+		tiles[blank] = 0;
+		break;
+	case direction::UP:
+		tiles[blank] = tiles[blank + width];
+		blank += width;
+		tiles[blank] = 0;
+		break;
+	case direction::DOWN:
+		tiles[blank] = tiles[blank - width];
+		blank -= width;
+		tiles[blank] = 0;
+		break;
+	default: std::cout << "Sliding Tile ApplyAction() not working correctly"; break;
+	}
+}

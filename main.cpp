@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdint>
 #include "SlidingTile.h"
+#include "BFS.h"
 
 int main(int argc, char* argv[]) {
 	////BFS GAMEBOARD
@@ -94,17 +95,19 @@ int main(int argc, char* argv[]) {
 
 	//}
 
-	std::vector<int> pattern = {0,1,4,5};
+	std::vector<int> pattern = {0, 1, 4, 5};
+	std::vector<int> testPattern = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 	SlidingTile puzzle16;
 	uint64_t rank = puzzle16.Rank(pattern);
 	std::cout << "MRank = " << puzzle16.GetMaxRank(pattern) << std::endl;
 	std::cout << "Rank  = " << rank << std::endl;
 
 	std::cout << "State: " << std::endl;
-	puzzle16.Unrank(rank);
+	puzzle16.Unrank(rank, pattern);
 	puzzle16.Print();
 
-	
+	BFS bfsearch;
+	bfsearch.BFS_pdb(pattern);
 
 
 	//hold output open

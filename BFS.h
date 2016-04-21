@@ -1,50 +1,54 @@
 #pragma once
 #include <queue>
+#include <vector>
+#include "SlidingTile.h"
+#include <list>
 
-template <typename state, typename action, typename environment>
 class BFS 
 {
 public:
-	int nodesExpanded;
-	BFS(){}
-	//GetPath return if the goal was found
-	bool GetPath(environment &e, state &start, state &goal);
-	//GetNodesExpanded returns the total nodes expanded by the last GetPath call
-	int GetNodesExpanded();
+	void BFS_pdb(std::vector<int> pattern);
 };
 
-template <typename state, typename action, typename environment>
-bool BFS<state, action, environment>::GetPath(environment &e, state &start, state &goal)
+void BFS::BFS_pdb(std::vector<int> pattern)
 {
-	nodesExpanded = 0;
-	//make a queue and add the starting state to it
-	std::queue<state> FIFOq;
-	FIFOq.push(start);
-	std::vector<action> actions;
-	//while the queue has stuff in it, keep expanding nodes
-	while (!FIFOq.empty())
+	SlidingTile state;
+	std::list<Action> moves;
+	uint8_t *stateDepths = new uint8_t[state.GetMaxRank(pattern)];
+
+	memset(stateDepths, 255, state.GetMaxRank(pattern));
+	uint64_t seenStates = 1;
+	stateDepths[state.Rank(pattern)] = 0;
+	int currDepth = 0;
+	while (seenStates != state.GetMaxRank(pattern))
 	{
-		state next = FIFOq.front();
-		FIFOq.pop();
-		//get the possible actions of the next state and increment the nodes expanded
-		e.GetActions(next, actions);
-		nodesExpanded++;
-		for (auto &i : actions)
+		int news = 0;
+		for (int x = 0; x < state.GetMaxRank(pattern); x++)
 		{
-			//for each action, apply the action, see if its the goal, add the new state to the queue and then undo the action
-			e.ApplyAction(next, i);
-			if (next == goal) return true;
-			FIFOq.push(next);
-			e.UndoAction(next, i);
+			//std::cout << "stateDepths[x] " << stateDepths[x] << " currdepth " << currDepth << std::endl;
+			if (stateDepths[x] == currDepth)
+			{
+				state.Unrank(x, pattern);
+				state.GetActions(moves);
+				while (moves.empty() == false)
+				{
+					state.ApplyAction(moves.front());
+					uint64_t rank = state.Rank(pattern);
+					state.UndoAction(moves.front());
+					moves.pop_front();
+					//std::cout << rank << "\t";
+					if (stateDepths[rank] == 255)
+					{
+						stateDepths[rank] = currDepth + 1;
+						//std::cout << rank << "\t";
+						news++;
+						seenStates++;
+					}
+				}
+			}
 		}
+		currDepth++;
+		std::cout << currDepth << ": " << seenStates << " news: " << news << "\n";
 	}
-	std::cout << "BFS could not return a path" << std::endl;
-	return false;
-}
 
-
-template <typename state, typename action, typename environment>
-int BFS<state, action, environment>::GetNodesExpanded()
-{
-	return nodesExpanded;
 }
