@@ -26,9 +26,9 @@ public:
 	void ApplyAction(Action a);
 	void UndoAction(Action a);
 	void Print();
+	int tiles[16];
 private:
 	int blank;
-	int tiles[16];
 	int width;
 };
 

@@ -98,6 +98,12 @@ int main(int argc, char* argv[]) {
 	std::vector<int> pattern = {0, 1, 4, 5};
 	std::vector<int> testPattern = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 	SlidingTile puzzle16;
+	puzzle16.tiles[1] = 8;
+	puzzle16.tiles[4] = 6;
+	puzzle16.tiles[5] = 1;
+	puzzle16.tiles[6] = 4;
+	puzzle16.tiles[8] = 5;
+
 	uint64_t rank = puzzle16.Rank(pattern);
 	std::cout << "MRank = " << puzzle16.GetMaxRank(pattern) << std::endl;
 	std::cout << "Rank  = " << rank << std::endl;
@@ -106,9 +112,15 @@ int main(int argc, char* argv[]) {
 	puzzle16.Unrank(rank, pattern);
 	puzzle16.Print();
 
-	BFS bfsearch;
-	bfsearch.BFS_pdb(pattern);
-
+	//BFS bfsearch;
+	//bfsearch.BFS_pdb(pattern);
+	for (uint64_t i = 0; i < puzzle16.GetMaxRank(pattern); i++){
+		puzzle16.Unrank(i, pattern);
+		uint64_t test = puzzle16.Rank(pattern);
+		if (test != i){
+			std::cout << "Current rank: " << i << "current test rank " << test << std::endl;
+		}
+	}
 
 	//hold output open
 	std::getchar();

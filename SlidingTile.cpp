@@ -48,7 +48,6 @@ SlidingTile::SlidingTile(const int temp[16])
 
 uint64_t SlidingTile::Rank(const std::vector<int> pattern)
 {
-	int locs[16] = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 	std::vector<int> dual;
 	// create dual array with locations of tiles
 	// that are not blanked out
@@ -63,31 +62,25 @@ uint64_t SlidingTile::Rank(const std::vector<int> pattern)
 			if (tiles[j] == pattern[i])
 			{
 				dual.push_back(j);
-				locs[pattern[i]] = j;
 			}
 		}	
 	}
 	uint64_t rankVal = 0;
 	int numEntriesLeft = 16;
-	// compute the lexographical ranking of the locations
-	// of the first 16 tiles
-	for (int x = 0; x < 16; x++)
+	for (int x = 0; x < dual.size(); x++)
 	{
-		if (locs[x] != -1)
+		for (int i = 0; i < dual.size(); i++)
 		{
-			rankVal += locs[x] * (Factorial(numEntriesLeft - 1) / Factorial(16 - pattern.size()));
-			numEntriesLeft--;
-		}
-		// decrement locations of remaining items
-		// to keep the numbering compact
-		if (locs[x] != -1)
-		{
-			for (int y = x; y < 16; y++)
+			if (dual[x] < dual[i])
 			{
-				if (locs[y] > locs[x])
-					locs[y]--;
+				dual[i]--;
 			}
 		}
+	}
+	for (int x = 0; x < dual.size(); x++)
+	{
+		rankVal += dual[x] * (Factorial(numEntriesLeft - 1) / Factorial(16 - pattern.size()));
+		numEntriesLeft--;
 	}
 	return rankVal;
 }
@@ -99,35 +92,46 @@ uint64_t SlidingTile::GetMaxRank(std::vector<int> pattern)
 
 void SlidingTile::Unrank(uint64_t rank, const std::vector<int> pattern)
 {
-	int count = 16;
 	uint64_t unrankVal = rank;
-	int dual[16] = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
-	// unrank the locations of the first 16 tiles
-	int pindex = pattern.size();
-	int numEntriesLeft = 16 - pindex + 1;
-	int base = 16;
-	for (int x = 16 - 1; x >= 0; x--)
+	std::vector<int> dual;
+	dual.resize(4);
+	int numEntriesLeft = 16 - 1;
+	for (int i = 0; i < pattern.size(); i++)
+	{ 
+			dual[i] = unrankVal / (Factorial(numEntriesLeft) / Factorial(16 - pattern.size()));
+			unrankVal -= (dual[i] * (Factorial(numEntriesLeft) / Factorial(16 - pattern.size())));
+			numEntriesLeft--;
+	}
+	for (int x = pattern.size() - 1; x >= 0; x--)
 	{
-		if (std::find(pattern.begin(), pattern.end(), x) != pattern.end())
+		for (int y = x - 1; y >= 0; y--)
 		{
-			dual[x] = unrankVal % numEntriesLeft;
-			unrankVal /= numEntriesLeft;
-			numEntriesLeft++;
-			for (int y = x + 1; y < 16; y++)
+			if (dual[y] <= dual[x])
 			{
-				if (dual[y] >= dual[x])
-					dual[y]++;
+				dual[x]++;
 			}
 		}
 	}
+	//for (int i = 0; i < pattern.size(); i++)
+	//{
+	//	std::cout << dual[i] << " ";
+	//}
+	
 	//clear puzzle locations
 	// revert locations of tiles into positions in the puzzle
+	int pindex = 0;
 	for (int x = 0; x < 16; x++)
 	{
-		tiles[x] = -1;
-		tiles[x] = dual[x];
+		if (pindex < pattern.size() && dual[pindex] == x)
+		{
+			tiles[x] = pattern[pindex];
+			pindex++;
+		}
+		else
+		{
+			tiles[x] = -1;
+		}
 	}
-	// reset the cache of the blanks location
 	blank = dual[0];
 }
 
