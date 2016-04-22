@@ -3,16 +3,21 @@
 #include <vector>
 #include "SlidingTile.h"
 #include <list>
+#include <fstream>
+#include <iostream>
 
 class BFS 
 {
 public:
-	void BFS_pdb(std::vector<int> pattern);
+	void BFS_pdb(std::vector<int> pattern, std::string filename);
 };
 
 //BFS to create a pattern database for a given pattern
-void BFS::BFS_pdb(std::vector<int> pattern)
+void BFS::BFS_pdb(std::vector<int> pattern, std::string filename)
 {
+	//create file
+	std::ofstream outfile;
+	outfile.open(filename);
 	//make a state to start search from
 	//constructor initializes to goal
 	SlidingTile state;
@@ -41,6 +46,7 @@ void BFS::BFS_pdb(std::vector<int> pattern)
 			{
 				//get state of a particular pattern from rank x
 				state.Unrank(x, pattern);
+				outfile << currDepth << " ";
 				//generate the children of this state
 				state.GetActions(moves);
 				//apply and then undo each possible action from that state
@@ -68,7 +74,7 @@ void BFS::BFS_pdb(std::vector<int> pattern)
 		}
 		//increment current depth
 		currDepth++;
-		//std::cout << "depth: " << currDepth << "   Seen States: " << seenStates << "\n";
+		std::cout << "depth: " << currDepth << "   Seen States: " << seenStates << "\n";
 	}
-
+	outfile.close();
 }

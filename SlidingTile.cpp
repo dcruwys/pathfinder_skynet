@@ -112,13 +112,6 @@ void SlidingTile::Unrank(uint64_t rank, const std::vector<int> pattern)
 			}
 		}
 	}
-	//for (int i = 0; i < pattern.size(); i++)
-	//{
-	//	std::cout << dual[i] << " ";
-	//}
-	
-	//clear puzzle locations
-	// revert locations of tiles into positions in the puzzle
 	int pindex = 0;
 	for (int x = 0; x < 16; x++)
 	{
@@ -134,13 +127,20 @@ void SlidingTile::Unrank(uint64_t rank, const std::vector<int> pattern)
 	blank = dual[0];
 }
 
-void SlidingTile::Print()
+char* SlidingTile::Print()
 {
+	std::string output;
 	for (int i = 0, j = 0; i < 16; ++i, j++)
 	{
-		std::cout << tiles[i] << "\t";
-		if (j == 3){ std::cout << std::endl; j = -1; }
+		output = tiles[i] + " ";
 	}
+	int temp = output.size();
+	char outputs[100];
+	for (int i = 0; i <= temp; i++)
+	{
+		outputs[i] = output[i];
+	}
+	return outputs;
 }
 
 void SlidingTile::GetActions(std::list<Action> &actions)

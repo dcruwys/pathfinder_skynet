@@ -25,7 +25,7 @@ public:
 	void GetActions(std::list<Action> &actions);
 	void ApplyAction(Action a);
 	void UndoAction(Action a);
-	void Print();
+	char* Print();
 	int tiles[16];
 private:
 	int blank;
