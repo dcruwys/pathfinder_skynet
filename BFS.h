@@ -68,7 +68,7 @@ void BFS::BFS_pdb(std::vector<int> pattern)
 		}
 		//increment current depth
 		currDepth++;
-		std::cout << "depth: " << currDepth << "   Seen States: " << seenStates << "\n";
+		//std::cout << "depth: " << currDepth << "   Seen States: " << seenStates << "\n";
 	}
 
 }

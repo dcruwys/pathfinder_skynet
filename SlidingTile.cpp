@@ -69,7 +69,7 @@ uint64_t SlidingTile::Rank(const std::vector<int> pattern)
 	int numEntriesLeft = 16;
 	for (int x = 0; x < dual.size(); x++)
 	{
-		for (int i = 0; i < dual.size(); i++)
+		for (int i = x+1; i < dual.size(); i++)
 		{
 			if (dual[x] < dual[i])
 			{
@@ -94,7 +94,7 @@ void SlidingTile::Unrank(uint64_t rank, const std::vector<int> pattern)
 {
 	uint64_t unrankVal = rank;
 	std::vector<int> dual;
-	dual.resize(4);
+	dual.resize(pattern.size());
 	int numEntriesLeft = 16 - 1;
 	for (int i = 0; i < pattern.size(); i++)
 	{ 
@@ -122,15 +122,14 @@ void SlidingTile::Unrank(uint64_t rank, const std::vector<int> pattern)
 	int pindex = 0;
 	for (int x = 0; x < 16; x++)
 	{
-		if (pindex < pattern.size() && dual[pindex] == x)
-		{
-			tiles[x] = pattern[pindex];
-			pindex++;
-		}
-		else
-		{
-			tiles[x] = -1;
-		}
+        tiles[x] = -1;
+		for(int y = 0; y < pattern.size(); y++)
+        {
+            if(dual[y] == x)
+            {
+                tiles[x] = pattern[y];
+            }
+        }
 	}
 	blank = dual[0];
 }
