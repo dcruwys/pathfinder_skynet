@@ -46,7 +46,7 @@ SlidingTile::SlidingTile(const int temp[16])
 	}
 }
 
-uint64_t SlidingTile::Rank(const std::vector<int> pattern)
+uint32_t SlidingTile::Rank(const std::vector<int> pattern)
 {
 	std::vector<int> dual;
 	// create dual array with locations of tiles
@@ -65,7 +65,7 @@ uint64_t SlidingTile::Rank(const std::vector<int> pattern)
 			}
 		}	
 	}
-	uint64_t rankVal = 0;
+	uint32_t rankVal = 0;
 	int numEntriesLeft = 16;
 	for (int x = 0; x < dual.size(); x++)
 	{
@@ -85,14 +85,14 @@ uint64_t SlidingTile::Rank(const std::vector<int> pattern)
 	return rankVal;
 }
 
-uint64_t SlidingTile::GetMaxRank(std::vector<int> pattern)
+uint32_t SlidingTile::GetMaxRank(std::vector<int> pattern)
 {
 	return Factorial(16) / Factorial(16 - pattern.size());
 }
 
-void SlidingTile::Unrank(uint64_t rank, const std::vector<int> pattern)
+void SlidingTile::Unrank(uint32_t rank, const std::vector<int> pattern)
 {
-	uint64_t unrankVal = rank;
+	uint32_t unrankVal = rank;
 	std::vector<int> dual;
 	dual.resize(pattern.size());
 	int numEntriesLeft = 16 - 1;
@@ -143,26 +143,26 @@ char* SlidingTile::Print()
 	return outputs;
 }
 
-void SlidingTile::GetActions(std::list<Action> &actions)
+void SlidingTile::GetActions(std::vector<Action> &actions)
 {
 	//clear list of actions before adding to it
 	actions.clear();
 	//push possible actions onto list of actions
 	if (blank % width != 0)
 	{
-		actions.emplace_front(Action(direction::LEFT));
+		actions.push_back(Action(direction::LEFT));
 	}
 	if (blank % width != width - 1)
 	{
-		actions.emplace_front(Action(direction::RIGHT));
+		actions.push_back(Action(direction::RIGHT));
 	}
 	if (blank < width * width - width)
 	{
-		actions.emplace_front(Action(direction::DOWN));
+		actions.push_back(Action(direction::DOWN));
 	}
 	if (blank > width - 1)
 	{
-		actions.emplace_front(Action(direction::UP));
+		actions.push_back(Action(direction::UP));
 	}
 }
 
@@ -221,3 +221,16 @@ void SlidingTile::UndoAction(Action a)
 	default: std::cout << "Sliding Tile ApplyAction() not working correctly"; break;
 	}
 }
+
+int SlidingTile::InvertAction(Action a)
+{
+	switch (a.myDirection)
+	{
+	case direction::LEFT: return direction::RIGHT; break;
+	case direction::RIGHT: return direction::LEFT; break;
+	case direction::UP: return direction::DOWN; break;
+	case direction::DOWN: return direction::UP; break;
+	}
+}
+
+

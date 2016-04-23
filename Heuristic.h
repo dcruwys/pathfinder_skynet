@@ -6,25 +6,17 @@ class Heuristic {
 public:
 	Heuristic() { };
 
-	int getHeuristic(SlidingTile4x4::State &s, SlidingTile4x4::State &g) {
+	int hcost(SlidingTile &s) {
 		//h = heuristic value to return for state s
         int sum = 0;
-        for(int i = 0; i < s.board.size(); ++i) {
-            if (s.board.at(i) != 0) {
-                int h = std::abs(s.board.at(i) - i);
-                int temp = h % s.size;
-                h = h / s.size;
+        for(int i = 0; i < sizeof(s.tiles); ++i) {
+            if (s.tiles[i] != 0) {
+                int h = std::abs(s.tiles[i] - i);
+                int temp = h % 4;
+                h = h / 4;
                 sum += h + temp;
             }
         }
         return sum;
-	}
-
-	int getHeuristic(Tree::State &s, Tree::State &g) {
-		return 0;
-	}
-
-	int getHeuristic(Grid::State &s, Grid::State &g) {
-		return 0;
 	}
 };

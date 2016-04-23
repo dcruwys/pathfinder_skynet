@@ -13,24 +13,43 @@
 			myDirection = directionIN;
 		}
 	};
+	inline bool operator==(const Action &lhs, const Action &rhs)
+	{
+		return lhs.myDirection == rhs.myDirection;
+	}
 
 class SlidingTile {
 
 public:
 	SlidingTile();
 	SlidingTile(const int tiles[16]);
-	uint64_t Rank(std::vector<int> pattern);
-	uint64_t GetMaxRank(std::vector<int> pattern);
-	void Unrank(uint64_t rank, const std::vector<int> pattern);
-	void GetActions(std::list<Action> &actions);
+	uint32_t Rank(std::vector<int> pattern);
+	uint32_t GetMaxRank(std::vector<int> pattern);
+	void Unrank(uint32_t rank, const std::vector<int> pattern);
+	void GetActions(std::vector<Action> &actions);
 	void ApplyAction(Action a);
 	void UndoAction(Action a);
 	char* Print();
+	int InvertAction(Action a);
 	int tiles[16];
+	
 private:
 	int blank;
 	int width;
 };
+
+//overide the == operator for easy comparisons
+inline bool operator==(const SlidingTile &lhs, const SlidingTile &rhs)
+{
+	for (int i = 0; i < 16; i++)
+	{
+		if (lhs.tiles[i] != rhs.tiles[i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
 
 
 
