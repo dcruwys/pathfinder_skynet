@@ -30,12 +30,12 @@ public:
 	void ApplyAction(Action a);
 	void UndoAction(Action a);
 	char* Print();
-	int InvertAction(Action a);
+	Action InvertAction(Action a);
 	int tiles[16];
 	
 private:
 	int blank;
-	int width;
+	int width = 4;
 };
 
 //overide the == operator for easy comparisons

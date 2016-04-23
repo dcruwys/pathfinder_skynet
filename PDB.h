@@ -54,6 +54,7 @@ public:
 			case 2: pfile = fopen(filename3, "rb"); break;
 			case 3: pfile = fopen(filename4, "rb"); break;
 			case 4: pfile = fopen(filename5, "rb"); break;
+                default: pfile = fopen(filename1, "rb"); break;
 			}
 			if (pfile != nullptr)
 			{

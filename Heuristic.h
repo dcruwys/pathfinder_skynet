@@ -9,7 +9,7 @@ public:
 	int hcost(SlidingTile &s) {
 		//h = heuristic value to return for state s
         int sum = 0;
-        for(int i = 0; i < sizeof(s.tiles); ++i) {
+        for(int i = 0; i < 16; ++i) {
             if (s.tiles[i] != 0) {
                 int h = std::abs(s.tiles[i] - i);
                 int temp = h % 4;

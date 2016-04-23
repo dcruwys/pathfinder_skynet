@@ -4,31 +4,32 @@
 #include "BFS.h"
 #include "PDB.h"
 #include "IDAstar.h"
+#include "Heuristic.h"
 
 int main(int argc, char* argv[]) {
 
 	//generate pattern databases
 	
-	//////pdb_a
-	//std::cout << "PDB_A:" << std::endl;
-	//std::vector<int> pattern_a = { 0, 1, 4, 5 };
-	//SlidingTile puzzle16_a;
-	//BFS bfsearch_a;
-	//bfsearch_a.BFS_pdb(pattern_a, "pdb_a.txt");
+	////pdb_a
+	std::cout << "PDB_A:" << std::endl;
+	std::vector<int> pattern_a = { 0, 1, 4, 5 };
+	SlidingTile puzzle16_a;
+	BFS bfsearch_a;
+	bfsearch_a.BFS_pdb(pattern_a, "pdb_a.txt");
 
-	////pdb_b
-	//std::cout << "PDB_B:" << std::endl;
-	//std::vector<int> pattern_b = { 0, 2, 3, 6, 7 };
-	//SlidingTile puzzle16_b;
-	//BFS bfsearch_b;
-	//bfsearch_b.BFS_pdb(pattern_b, "pdb_b.txt");
+	//pdb_b
+	std::cout << "PDB_B:" << std::endl;
+	std::vector<int> pattern_b = { 0, 2, 3, 6, 7 };
+	SlidingTile puzzle16_b;
+	BFS bfsearch_b;
+	bfsearch_b.BFS_pdb(pattern_b, "pdb_b.txt");
 
-	////pdb_c
-	//std::cout << "PDB_C:" << std::endl;
-	//std::vector<int> pattern_c = { 0, 8, 9, 12, 13 };
-	//SlidingTile puzzle16_c;
-	//BFS bfsearch_c;
-	//bfsearch_c.BFS_pdb(pattern_c, "pdb_c.txt");
+	//pdb_c
+	std::cout << "PDB_C:" << std::endl;
+	std::vector<int> pattern_c = { 0, 8, 9, 12, 13 };
+	SlidingTile puzzle16_c;
+	BFS bfsearch_c;
+	bfsearch_c.BFS_pdb(pattern_c, "pdb_c.txt");
 
 	////pdb_d
 	//std::cout << "PDB_D:" << std::endl;
@@ -148,10 +149,14 @@ int main(int argc, char* argv[]) {
 
 	SlidingTile goal;
 	SlidingTile start = SlidingTile(instances[1]);
+
+    SlidingTile test = SlidingTile();
+
 	PDB pdba(true);
+	Heuristic h;
 	IDAStar<SlidingTile, Action, SlidingTile, PDB> IDAsearch;
-	
-	
+
+
 	if (IDAsearch.GetPath(start, start, goal, pdba))
 	{
 		std::cout << "found goal!" << std::endl;

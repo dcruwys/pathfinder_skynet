@@ -43,6 +43,7 @@ SlidingTile::SlidingTile(const int temp[16])
 			blank = x;
 		}
 		tiles[x] = temp[x];
+		width = 4;
 	}
 }
 
@@ -222,7 +223,7 @@ void SlidingTile::UndoAction(Action a)
 	}
 }
 
-int SlidingTile::InvertAction(Action a)
+Action SlidingTile::InvertAction(Action a)
 {
 	switch (a.myDirection)
 	{

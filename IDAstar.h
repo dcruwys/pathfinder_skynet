@@ -24,6 +24,7 @@ private:
 template <typename state, typename action, typename environment, typename heuristic>
 bool IDAStar<state, action, environment, heuristic>::GetPath(environment &e, state &start, state &goal, heuristic &h)
 {
+    std::cout << "starting IDA*" << std::endl;
 	nodesExpanded = 0;
 	g = goal;
 	currentBound = h.hcost(start);
@@ -63,6 +64,7 @@ bool IDAStar<state, action, environment, heuristic>::BoundedDFS(environment &e, 
 	std::vector<action> &moves = moveArrays[depth];
 	e.GetActions(moves);
 	nodesExpanded++;
+	//std::cout << nodesExpanded << std::endl;
 	for (auto a : moves)
 	{
 		if (actionHistory.size() > 0 && actionHistory.back() == e.InvertAction(a))

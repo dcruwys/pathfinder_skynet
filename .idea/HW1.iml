@@ -8,12 +8,13 @@
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Gameboard.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/NaryTree.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Gameboard.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/SlidingTile.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/IDAstar.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/PDB.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DFS.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/IDA.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Gameboard.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/SlidingTile.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SlidingTile.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
