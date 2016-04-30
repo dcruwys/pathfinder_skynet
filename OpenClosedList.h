@@ -13,6 +13,7 @@ public:
 	bool checkDuplicates(coordinate &c);
 	void updateCost();
 	coordinate removeBest();
+	bool OpenEmpty();
 private:
 	std::vector<coordinate> open;
 	std::vector<coordinate> closed;
@@ -48,5 +49,10 @@ void OpenClosedList::updateCost()
 coordinate OpenClosedList::removeBest()
 {
 	
+}
+
+bool OpenClosedList::OpenEmpty()
+{
+	return open.empty();
 }
 #endif
