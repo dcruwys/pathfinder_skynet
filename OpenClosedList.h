@@ -5,35 +5,44 @@
 //TODO: do we need to create a struct to hold coordinate and cost?
 //TODO: Where to check duplicates from? Open? Closed? Both?
 
+struct node
+{
+	coordinate loc;
+	int gcost;
+	int hcost;
+	int fcost;
+};
+
 class OpenClosedList
 {
 public:
-	void addOpen(coordinate &c);
-	void addClosed(coordinate &c);
-	bool checkDuplicates(coordinate &c);
+	void addOpen(node &c);
+	void addClosed(node &c);
+	bool checkDuplicates(node &c);
 	void updateCost();
-	coordinate removeBest();
+	node removeBest();
 	bool OpenEmpty();
 private:
-	std::vector<coordinate> open;
-	std::vector<coordinate> closed;
+	std::vector<node> open;
+	std::vector<node> closed;
 };
 
-void OpenClosedList::addOpen(coordinate &c)
+void OpenClosedList::addOpen(node &c)
 {
 	open.push_back(c);
 }
 
-void OpenClosedList::addClosed(coordinate &c)
+void OpenClosedList::addClosed(node &c)
 {
 	closed.push_back(c);
 }
 
-bool OpenClosedList::checkDuplicates(coordinate &c)
+bool OpenClosedList::checkDuplicates(node &c)
 {
+	//TODO: make check for more than just 1 duplicate
 	for (int i = 0; i < open.size(); i++)
 	{
-		if (open[i] == c)
+		if (open[i].loc == c.loc)
 		{
 			return true;
 		}
@@ -46,9 +55,18 @@ void OpenClosedList::updateCost()
 
 }
 
-coordinate OpenClosedList::removeBest()
+node OpenClosedList::removeBest()
 {
-	
+	node best = open[0];
+	for (int i = 0; i < open.size(); i++)
+	{
+		if (open[i].fcost < best.fcost)
+		{
+			best = open[i];
+		}
+	}
+	//TODO: remove best from open list
+	return best;
 }
 
 bool OpenClosedList::OpenEmpty()

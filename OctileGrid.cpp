@@ -37,12 +37,13 @@ OctileGrid::OctileGrid(int w, int h): width(w), height(h)
 
 void OctileGrid::GetActions(coordinate &nodeID,  std::vector<oGridAction> &actions)
 {
+	//TODO: fix the map != @
 	actions.clear();
 	if (nodeID.x < width && map[nodeID.x++][nodeID.y] != 'T' && map[nodeID.x++][nodeID.y] != '@')
 	{
 		actions.push_back(oGridAction::RIGHT);
 	}
-	if (nodeID.x != 0 && map[nodeID.x--][nodeID.y] != 'T' && map[nodeID.x++][nodeID.y] != '@')
+	if (nodeID.x > 0 && map[nodeID.x--][nodeID.y] != 'T' && map[nodeID.x++][nodeID.y] != '@')
 	{
 		actions.push_back(oGridAction::LEFT);
 	}
@@ -58,15 +59,15 @@ void OctileGrid::GetActions(coordinate &nodeID,  std::vector<oGridAction> &actio
 	{
 		actions.push_back(oGridAction::UPRIGHT);
 	}
-	if (nodeID.x != 0 && nodeID.y < height && map[nodeID.x--][nodeID.y++] != 'T' && map[nodeID.x++][nodeID.y] != '@')
+	if (nodeID.x > 0 && nodeID.y < height && map[nodeID.x--][nodeID.y++] != 'T' && map[nodeID.x++][nodeID.y] != '@')
 	{
 		actions.push_back(oGridAction::UPLEFT);
 	}
-	if (nodeID.x < width && nodeID.y != 0 && map[nodeID.x++][nodeID.y--] != 'T' && map[nodeID.x++][nodeID.y] != '@')
+	if (nodeID.x < width && nodeID.y > 0 && map[nodeID.x++][nodeID.y--] != 'T' && map[nodeID.x++][nodeID.y] != '@')
 	{
 		actions.push_back(oGridAction::DOWNRIGHT);
 	}
-	if (nodeID.x != 0 && nodeID.y != 0 && map[nodeID.x--][nodeID.y--] != 'T' && map[nodeID.x++][nodeID.y] != '@')
+	if (nodeID.x > 0 && nodeID.y > 0 && map[nodeID.x--][nodeID.y--] != 'T' && map[nodeID.x++][nodeID.y] != '@')
 	{
 		actions.push_back(oGridAction::DOWNLEFT);
 	}
