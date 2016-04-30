@@ -1,5 +1,7 @@
 #include "OctileGrid.h"
 #include <iostream>
+#include <fstream>
+#include <string>
 
 bool operator==(const coordinate &c1, const coordinate &c2)
 {
@@ -10,24 +12,34 @@ bool operator==(const coordinate &c1, const coordinate &c2)
 OctileGrid::OctileGrid(int w, int h): width(w), height(h)
 {
 	const char* filename1 = "orz301d.map";
-	FILE *pfile;
-	pfile = fopen(filename1, "rb");
-	char buffer[120];
-	for (int i = 0; i < height; i++)
-	{
-		if (fgets(buffer, 120, pfile))
+	std::string buffer;
+	std::ifstream read;
+	read.open(filename1);
+		if (read.is_open())
 		{
-			puts(buffer);
-			for (int j = 0; j < height; j++)
+			buffer.clear();
+			int i = 0;
+			int k = 0;
+			while (getline(read, buffer))
 			{
-				map[i][j] = buffer[j];
+				if (i > 3)
+				{
+					for (int j = 0; j < 120; j++)
+					{
+						map[k][j] = buffer[j];
+					}
+					k++;
+					//buffer.clear();
+				}
+				i++;
 			}
+		
 		}
-	}
-	fclose(pfile);
-	for (int i = 0; i < width; i++)
+
+
+	for (int i = 0; i < 120; i++)
 	{
-		for (int j = 0; j < height; j++)
+		for (int j = 0; j < 180; j++)
 		{
 			std::cout << map[i][j];
 		}
