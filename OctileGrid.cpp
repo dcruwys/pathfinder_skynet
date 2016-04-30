@@ -29,56 +29,55 @@ OctileGrid::OctileGrid(int w, int h): width(w), height(h)
 						map[k][j] = buffer[j];
 					}
 					k++;
-					//buffer.clear();
+					buffer.clear();
 				}
 				i++;
 			}
 		
 		}
-
-
-	for (int i = 0; i < 120; i++)
-	{
-		for (int j = 0; j < 180; j++)
-		{
-			std::cout << map[i][j];
-		}
-		std::cout << std::endl;
-	}
+		read.close();
+	//for (int i = 0; i < 180; i++)
+	//{
+	//	for (int j = 0; j < 120; j++)
+	//	{
+	//		std::cout << map[i][j];
+	//	}
+	//	std::cout << std::endl;
+	//}
 }
 
 void OctileGrid::GetActions(coordinate &nodeID,  std::vector<oGridAction> &actions)
 {
 	actions.clear();
-	if (nodeID.x < width && map[nodeID.x++][nodeID.y] != 'T' && map[nodeID.x++][nodeID.y] != '@')
+	if (nodeID.x < width && map[nodeID.y][nodeID.x++] != 'T' && map[nodeID.y][nodeID.x++] != '@')
 	{
 		actions.push_back(oGridAction::RIGHT);
 	}
-	if (nodeID.x > 0 && map[nodeID.x--][nodeID.y] != 'T' && map[nodeID.x--][nodeID.y] != '@')
+	if (nodeID.x > 0 && map[nodeID.y][nodeID.x--] != 'T' && map[nodeID.y][nodeID.x--] != '@')
 	{
 		actions.push_back(oGridAction::LEFT);
 	}
-	if (nodeID.y < height && map[nodeID.x][nodeID.y++] != 'T' && map[nodeID.x][nodeID.y++] != '@')
+	if (nodeID.y < height && map[nodeID.y++][nodeID.x] != 'T' && map[nodeID.y++][nodeID.x] != '@')
 	{
 		actions.push_back(oGridAction::UP);
 	}
-	if (nodeID.y > 0 && map[nodeID.x][nodeID.y--] != 'T' && map[nodeID.x][nodeID.y--] != '@')
+	if (nodeID.y > 0 && map[nodeID.y--][nodeID.x] != 'T' && map[nodeID.y--][nodeID.x] != '@')
 	{
 		actions.push_back(oGridAction::DOWN);
 	}
-	if (nodeID.x < width && nodeID.y < height && map[nodeID.x++][nodeID.y++] != 'T' && map[nodeID.x++][nodeID.y++] != '@')
+	if (nodeID.x < width && nodeID.y < height && map[nodeID.y++][nodeID.x++] != 'T' && map[nodeID.y++][nodeID.x++] != '@')
 	{
 		actions.push_back(oGridAction::UPRIGHT);
 	}
-	if (nodeID.x > 0 && nodeID.y < height && map[nodeID.x--][nodeID.y++] != 'T' && map[nodeID.x--][nodeID.y++] != '@')
+	if (nodeID.x > 0 && nodeID.y < height && map[nodeID.y++][nodeID.x--] != 'T' && map[nodeID.y++][nodeID.x--] != '@')
 	{
 		actions.push_back(oGridAction::UPLEFT);
 	}
-	if (nodeID.x < width && nodeID.y > 0 && map[nodeID.x++][nodeID.y--] != 'T' && map[nodeID.x++][nodeID.y--] != '@')
+	if (nodeID.x < width && nodeID.y > 0 && map[nodeID.y--][nodeID.x++] != 'T' && map[nodeID.y--][nodeID.x++] != '@')
 	{
 		actions.push_back(oGridAction::DOWNRIGHT);
 	}
-	if (nodeID.x > 0 && nodeID.y > 0 && map[nodeID.x--][nodeID.y--] != 'T' && map[nodeID.x--][nodeID.y--] != '@')
+	if (nodeID.x > 0 && nodeID.y > 0 && map[nodeID.y--][nodeID.x--] != 'T' && map[nodeID.y--][nodeID.x--] != '@')
 	{
 		actions.push_back(oGridAction::DOWNLEFT);
 	}

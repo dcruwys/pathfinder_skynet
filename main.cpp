@@ -1,10 +1,5 @@
 #include <iostream>
 #include <cstdint>
-#include "SlidingTile.h"
-#include "BFS.h"
-#include "PDB.h"
-#include "IDAstar.h"
-#include "Heuristic.h"
 #include "OctileGrid.h"
 
 int main(int argc, char* argv[]) {
@@ -110,6 +105,28 @@ int main(int argc, char* argv[]) {
 	{ 0, 11, 3, 12, 5, 2, 1, 9, 8, 10, 14, 15, 7, 4, 13, 6 },
 	{ 7, 15, 4, 0, 10, 9, 2, 5, 12, 11, 13, 6, 1, 3, 14, 8 },
 	{ 11, 4, 0, 8, 6, 10, 5, 13, 12, 7, 14, 3, 1, 2, 9, 15 } };
+
+	OctileGrid grid = OctileGrid(120, 180);
+	std::vector<oGridAction> actions;
+	coordinate test;
+	test.x = 0;
+	test.y = 0;
+	grid.GetActions(test, actions);
+	for (int i = 0; i < actions.size(); i++)
+	{
+		std::cout << actions.at(i) << std::endl;
+	}
+	std::cout << grid.map[test.y][test.x] << std::endl;
+	std::cout << grid.map[test.y++][test.x] << std::endl;
+	std::cout << grid.map[test.y++][test.x++] << std::endl;
+	std::cout << grid.map[test.y++][test.x--] << std::endl;
+	std::cout << grid.map[test.y--][test.x] << std::endl;
+	std::cout << grid.map[test.y--][test.x++] << std::endl;
+	std::cout << grid.map[test.y--][test.x--] << std::endl;
+	std::cout << grid.map[test.y][test.x++] << std::endl;
+	std::cout << grid.map[test.y][test.x--] << std::endl;
+
+
 
 
 	//hold output open

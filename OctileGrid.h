@@ -1,5 +1,6 @@
-#ifndef OctileGrid_h
-#define OctileGride_h
+#pragma once
+//#ifndef OctileGrid_h
+//#define OctileGrid_h
 
 #include <vector>
 
@@ -11,17 +12,20 @@ struct coordinate {
 
 bool operator==(const coordinate &c1, const coordinate &c2);
 
-class OctileGrid
-{
+class OctileGrid{
 public:
 	OctileGrid(int w, int h);
 	void GetActions(coordinate &nodeID, std::vector<oGridAction> &actions);
 	void ApplyAction(coordinate &s, oGridAction a);
 	void UndoAction(coordinate &s, oGridAction a);
+	char map[180][120];
 private:
 	int width;
 	int height;
-	std::vector<std::vector<char>> map;
+	//std::vector<std::vector<char>> map;
+	
 };
 
-#endif
+//
+//
+//#endif
