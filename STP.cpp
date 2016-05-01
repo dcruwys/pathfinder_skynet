@@ -16,20 +16,6 @@ uint64_t Factorial(int temp)
 	return table[temp];
 }
 
-uint64_t FactorialDivide(int f1, int f2)
-{
-	if (f1 = f2) return 1;
-	if (f1 > f2)
-	{
-		int temp = f1 - f2;
-		int result = 1;
-		for (; temp = 0; temp--)
-		{
-			result *= f1 - temp;
-		}
-		return result;
-	}
-}
 STPState::STPState()
 {
 	for (int x = 0; x < 16; x++)

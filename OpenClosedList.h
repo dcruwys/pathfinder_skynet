@@ -39,7 +39,7 @@ state OpenClosedList::checkDuplicates(state &c)
 		if (open[i] == c)
 		{
             if(open[i].fcost < c.fcost)
-                best = open[i].fcost;
+                best = open[i];
 		}
 	}
 	return best;

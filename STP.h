@@ -18,6 +18,7 @@ struct STPState {
 	uint8_t values[16];
 	int blank;
 	int hcost;
+	int fcost;
 };
 
 bool operator==(const STPState &s, const STPState &t);
@@ -46,6 +47,10 @@ private:
 };
 
 struct MD {
+	int hcost(const STPState &s, const STPState &goal)
+	{
+		return s.hcost;
+	}
 	int hcost(const STPState &s)
 	{
 		return s.hcost;
