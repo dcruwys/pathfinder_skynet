@@ -111,8 +111,8 @@ int main(int argc, char* argv[]) {
 	coordinate test;
 	//notepad++ file == "orz301d.map"
 	//x = notepad++ col number pointer left side - 1, y = notepad++ line number - 5
-	test.x = 80;
-	test.y = 151;
+	test.x = 31;
+	test.y = 113;
 	//expected actions for x = 80, y = 151: 0-UP, 5-UPRIGHT, 4-UPLEFT 
 	grid.GetActions(test, actions);
 	for (int i = 0; i < actions.size(); i++)

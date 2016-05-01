@@ -41,7 +41,7 @@ OctileGrid::OctileGrid(int w, int h)
 void OctileGrid::GetActions(coordinate &nodeID,  std::vector<oGridAction> &actions)
 {
 	actions.clear();
-	if (nodeID.x < width && map[nodeID.y][nodeID.x+1] == '.')
+	if (nodeID.x < width - 1 && map[nodeID.y][nodeID.x+1] == '.')
 	{
 		actions.push_back(oGridAction::RIGHT);
 	}
@@ -49,7 +49,7 @@ void OctileGrid::GetActions(coordinate &nodeID,  std::vector<oGridAction> &actio
 	{
 		actions.push_back(oGridAction::LEFT);
 	}
-	if (nodeID.y < height && map[nodeID.y-1][nodeID.x] == '.')
+	if (nodeID.y < height - 1 && map[nodeID.y - 1][nodeID.x] == '.')
 	{
 		actions.push_back(oGridAction::UP);
 	}
@@ -57,15 +57,15 @@ void OctileGrid::GetActions(coordinate &nodeID,  std::vector<oGridAction> &actio
 	{
 		actions.push_back(oGridAction::DOWN);
 	}
-	if (nodeID.x < width && nodeID.y < height && map[nodeID.y-1][nodeID.x+1] == '.')
+	if (nodeID.x < width - 1 && nodeID.y < height && map[nodeID.y - 1][nodeID.x + 1] == '.')
 	{
 		actions.push_back(oGridAction::UPRIGHT);
 	}
-	if (nodeID.x > 0 && nodeID.y < height && map[nodeID.y-1][nodeID.x-1] == '.')
+	if (nodeID.x > 0 && nodeID.y < height - 1 && map[nodeID.y - 1][nodeID.x - 1] == '.')
 	{
 		actions.push_back(oGridAction::UPLEFT);
 	}
-	if (nodeID.x < width && nodeID.y > 0 && map[nodeID.y+1][nodeID.x+1] == '.')
+	if (nodeID.x < width - 1 && nodeID.y > 0 && map[nodeID.y + 1][nodeID.x + 1] == '.')
 	{
 		actions.push_back(oGridAction::DOWNRIGHT);
 	}
