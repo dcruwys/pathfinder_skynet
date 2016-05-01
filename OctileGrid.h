@@ -18,8 +18,8 @@ public:
 	void GetActions(coordinate &nodeID, std::vector<oGridAction> &actions);
 	void ApplyAction(coordinate &s, oGridAction a);
 	void UndoAction(coordinate &s, oGridAction a);
-	char map[180][120];
 private:
+	char map[180][120];
 	int width;
 	int height;
 	//std::vector<std::vector<char>> map;

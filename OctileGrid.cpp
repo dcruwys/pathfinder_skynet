@@ -40,8 +40,6 @@ OctileGrid::OctileGrid(int w, int h)
 
 void OctileGrid::GetActions(coordinate &nodeID,  std::vector<oGridAction> &actions)
 {
-	std::cout << nodeID.x << " " << nodeID.y << std::endl;
-	std::cout << map[nodeID.y][nodeID.x] << std::endl;
 	actions.clear();
 	if (nodeID.x < width && map[nodeID.y][nodeID.x+1] == '.')
 	{
