@@ -1,24 +1,24 @@
 #ifndef Astar_h
 #define Astar_h
-#include "OpenClosedList.h"
 
-template<typename state, typename action, typename environment>
+template<typename state, typename action, typename environment, typename list, typename heurstic>
 class Astar
 {
 public:
-	bool getPath(environment &e, state &start, state &goal);
+	bool getPath(environment &e, state &start, state &goal, heurstic h);
 private:
 };
 
 //TODO
 //A node needs to have info about its coordinates in grid, f cost, g cost, h cost, parent
 
-template<typename state, typename action, typename environment>
-bool Astar<state, action, environment>::getPath(environment &e, state &start, state &goal)
+template<typename state, typename action, typename environment, typename heurstic, typename list>
+bool Astar<state, action, environment, list, heurstic>::getPath(environment &e, state &start, state &goal, heurstic h)
 {
-	OpenClosedList ocList;
+	list ocList;
 	//TODO put starting node on the open list
 
+	ocList.addOpen(start);
 	while (!ocList.OpenEmpty())
 	{
 		//find node, q, with least f cost on the open list

@@ -2,73 +2,72 @@
 #define OpenClosedList_h
 #include "OctileGrid.h"
 
-//TODO: do we need to create a struct to hold coordinate and cost?
 //TODO: Where to check duplicates from? Open? Closed? Both?
 
-struct node
-{
-	coordinate loc;
-	int gcost;
-	int hcost;
-	int fcost;
-};
-
+template <typename state>
 class OpenClosedList
 {
 public:
-	void addOpen(node &c);
-	void addClosed(node &c);
-	bool checkDuplicates(node &c);
+	void addOpen(state &c);
+	void addClosed(state &c);
+	bool checkDuplicates(state &c);
 	void updateCost();
-	node removeBest();
+	state removeBest();
 	bool OpenEmpty();
 private:
-	std::vector<node> open;
-	std::vector<node> closed;
+	std::vector<state> open;
+	std::vector<state> closed;
 };
-
-void OpenClosedList::addOpen(node &c)
+template <typename state>
+void OpenClosedList::addOpen(state &c)
 {
 	open.push_back(c);
 }
 
-void OpenClosedList::addClosed(node &c)
+template <typename state>
+void OpenClosedList::addClosed(state &c)
 {
+    //make sure we remove from open too.
 	closed.push_back(c);
 }
-
-bool OpenClosedList::checkDuplicates(node &c)
+template <typename state>
+state OpenClosedList::checkDuplicates(state &c)
 {
-	//TODO: make check for more than just 1 duplicate
+    state best = c;
 	for (int i = 0; i < open.size(); i++)
 	{
-		if (open[i].loc == c.loc)
+		if (open[i] == c)
 		{
-			return true;
+            if(open[i].fcost < c.fcost)
+                best = open[i].fcost;
 		}
 	}
-	return false;
+	return best;
 }
 
+template <typename state>
 void OpenClosedList::updateCost()
 {
 
 }
 
-node OpenClosedList::removeBest()
+template <typename state>
+state OpenClosedList::removeBest()
 {
-	node best = open[0];
-	for (int i = 0; i < open.size(); i++)
+	state best = open[0];
+    int index = 0;
+	for (int i = 1; i < open.size(); i++)
 	{
 		if (open[i].fcost < best.fcost)
-		{
+		{   index = i;
 			best = open[i];
 		}
 	}
-	//TODO: remove best from open list
+    open.erase(open.begin()+(index-1));
 	return best;
 }
 
+template <typename state>
 bool OpenClosedList::OpenEmpty()
 {
 	return open.empty();

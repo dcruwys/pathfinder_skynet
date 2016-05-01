@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 template <typename state, typename action, typename environment, typename heuristic>
 class IDAStar
@@ -62,18 +63,18 @@ bool IDAStar<state, action, environment, heuristic>::BoundedDFS(environment &e, 
 
 
 	std::vector<action> &moves = moveArrays[depth];
-	e.GetActions(moves);
+	e.GetActions(s, moves);
 	nodesExpanded++;
 	//std::cout << nodesExpanded << std::endl;
 	for (auto a : moves)
 	{
 		if (actionHistory.size() > 0 && actionHistory.back() == e.InvertAction(a))
 			continue;
-		e.ApplyAction(a);
+		e.ApplyAction(s, a);
 		actionHistory.push_back(a);
 		bool result = BoundedDFS(e, s, h, depth + 1);
 		actionHistory.pop_back();
-		e.UndoAction(a);
+		e.UndoAction(s, a);
 		if (result == true)
 		{
 			return true;

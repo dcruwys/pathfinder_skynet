@@ -5,8 +5,7 @@
 #include "BFS.h"
 #include <iostream>
 #include <cstring>
-#include "SlidingTile.h"
-#include "Heuristic.h"
+#include "STP.h"
 #include <algorithm>
 
 class PDB
@@ -44,7 +43,8 @@ public:
 		const char* filename5 = "pdb_e.txt";
 		for (int i = j; i < x; i++)
 		{
-			SlidingTile puzzle16;
+			STP puzzle16;
+			STPState s;
 			FILE *pfile;
 			uint32_t result = 0;
 			switch (i)
@@ -65,7 +65,7 @@ public:
 					buffer = (uint8_t *)malloc(sizeof(uint8_t)* puzzle16.GetMaxRank(pattern_a));
 					if (buffer != nullptr) std::cout << sizeof(buffer) << std::endl;
 					result = fread(buffer, sizeof(uint8_t), puzzle16.GetMaxRank(pattern_a), pfile);
-					rank = puzzle16.Rank(pattern_a);
+					rank = puzzle16.Rank(pattern_a, s);
 					hcost1 = (int)buffer[rank];
 					fclose(pfile);
 					break;
@@ -73,7 +73,7 @@ public:
 					buffer = (uint8_t *)malloc(sizeof(uint8_t)* puzzle16.GetMaxRank(pattern_b));
 					if (buffer != nullptr) std::cout << sizeof(buffer) << std::endl;
 					result = fread(buffer, sizeof(uint8_t), puzzle16.GetMaxRank(pattern_b), pfile);
-					rank = puzzle16.Rank(pattern_b);
+					rank = puzzle16.Rank(pattern_b, s);
 					hcost2 = (int)buffer[rank];
 					fclose(pfile);
 					break;
@@ -81,7 +81,7 @@ public:
 					buffer = (uint8_t *)malloc(sizeof(uint8_t)* puzzle16.GetMaxRank(pattern_c));
 					if (buffer != nullptr) std::cout << sizeof(buffer) << std::endl;
 					result = fread(buffer, sizeof(uint8_t), puzzle16.GetMaxRank(pattern_c), pfile);
-					rank = puzzle16.Rank(pattern_c);
+					rank = puzzle16.Rank(pattern_c, s);
 					hcost3 = (int)buffer[rank];
 					fclose(pfile);
 					break;
@@ -89,7 +89,7 @@ public:
 					buffer = (uint8_t *)malloc(sizeof(uint8_t)* puzzle16.GetMaxRank(pattern_d));
 					if (buffer != nullptr) std::cout << sizeof(buffer) << std::endl;
 					result = fread(buffer, sizeof(uint8_t), puzzle16.GetMaxRank(pattern_d), pfile);
-					rank = puzzle16.Rank(pattern_d);
+					rank = puzzle16.Rank(pattern_d, s);
 					hcost4 = (int)buffer[rank];
 					fclose(pfile);
 					break;
@@ -97,7 +97,7 @@ public:
 					buffer = (uint8_t *)malloc(sizeof(uint8_t)* puzzle16.GetMaxRank(pattern_e));
 					if (buffer != nullptr) std::cout << sizeof(buffer) << std::endl;
 					result = fread(buffer, sizeof(uint8_t), puzzle16.GetMaxRank(pattern_e), pfile);
-					rank = puzzle16.Rank(pattern_e);
+					rank = puzzle16.Rank(pattern_e, s);
 					hcost5 = (int)buffer[rank];
 					fclose(pfile);
 					break;
@@ -111,9 +111,9 @@ public:
 		}
 	}
 
-	int hcost(SlidingTile &s)
+	int hcost(STPState &s)
 	{
-		Heuristic MD;
+		MD MD;
 		MDdist = MD.hcost(s);
 		int temp1 = std::max(hcost2, hcost3);
 		int temp2 = std::max(hcost4, hcost5);
@@ -123,7 +123,6 @@ public:
 	}
 private:
 	uint8_t *buffer;
-	SlidingTile state;
 	int MDdist;
 	int hcost1;
 	int hcost2;

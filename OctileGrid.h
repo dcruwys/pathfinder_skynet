@@ -1,5 +1,5 @@
 #ifndef OctileGrid_h
-#define OctileGride_h
+#define OctileGrid_h
 
 #include <vector>
 
@@ -18,6 +18,7 @@ public:
 	void GetActions(coordinate &nodeID, std::vector<oGridAction> &actions);
 	void ApplyAction(coordinate &s, oGridAction a);
 	void UndoAction(coordinate &s, oGridAction a);
+	int fcost;
 private:
 	int width;
 	int height;
