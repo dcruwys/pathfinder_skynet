@@ -1,6 +1,7 @@
 #ifndef Astar_h
 #define Astar_h
 
+#include <vector>
 template<typename state, typename action, typename environment, typename list, typename heurstic>
 class Astar
 {
@@ -23,18 +24,29 @@ bool Astar<state, action, environment, list, heurstic>::getPath(environment &e, 
 	{
 		//find node, q, with least f cost on the open list
 		//pop q off the open list
+		state s = ocList.removeBest();
 		//generate q's 8 successors and set their parents to q
+		std::vector<action> actions;
+		e.GetActions(s, actions);
 		//for each successor
+		for (auto a : actions)
+		{
+            e.ApplyAction(s, a);
 			//if successor is goal, stop search
+			if(s == goal)
+				return true;
+
 			//successors gcost = q.gcost + distance between q and successor
+			s.gcost++;
 			//successors hcost = heuristic cost from successor to goal
+			s.hcost = h.hcost(s, goal);
 			//successors fcost = gcost + hcost
+			s.fcost = s.gcost + s.hcost;
+            //Check for duplicates
+            s = ocList.checkDuplicates(s);
+            e.UndoAction(s, a);
+		}
 
-			//if a node on the open list has same coordinates as successor and has a 
-			//lower f cost than successor, then skip this successor
-
-			//if a node on the closed list has same coordinates and lower fcost than
-			//successor, skip this successor, otherwise add node to open list
 		//end for each
 		//put q on the closed list
 	}
