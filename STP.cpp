@@ -23,6 +23,17 @@ STPState::STPState()
 	blank = 0;
 	hcost = 0;
 }
+STPState::STPState(const STPState &s) {
+	blank = s.blank;
+	hcost = s.hcost;
+	fcost = s.fcost;
+	gcost = s.gcost;
+	for(int i = 0; i < 16; i++){
+		values[i] = s.values[i];
+	}
+}
+
+STPState::~STPState(){}
 
 std::ostream &operator<<(std::ostream &out, const STPState &s)
 {
@@ -45,7 +56,6 @@ bool operator==(const STPState &s, const STPState &t)
 			return false;
 	return true;
 }
-
 
 void STP::GetActions(STPState &nodeID, std::vector<slideDir> &actions)
 {

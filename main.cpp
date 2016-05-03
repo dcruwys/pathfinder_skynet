@@ -39,10 +39,10 @@ int main(int argc, const char * argv[])
 	STP puzzle16;
 	MD h;
 	STPState start;
-	GetInstance(start, 1);
+	GetInstance(start, 10);
 	STPState goal;
 	Astar<STPState, slideDir, STP, MD> teststar1;
-	if(teststar1.getPath(puzzle16, start, goal, h))
+	if(teststar1.getPath(puzzle16, start, goal, h) == true)
 		std::cout << "success" << std::endl;
 	std::getchar();
 	return 0;

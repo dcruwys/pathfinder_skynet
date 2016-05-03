@@ -1,10 +1,12 @@
 #pragma once
 #include <vector>
+//#define _DEBUG
 
 template<typename state, typename action, typename environment, typename heurstic>
 class Astar
 {
 public:
+	int nodesExpanded = 0;
 	bool getPath(environment &e, state &start, state &goal, heurstic h);
 private:
 	void addOpen(state &c);
@@ -45,18 +47,24 @@ bool Astar<state, action, environment, heurstic>::getPath(environment &e, state 
 			return true;
 		//generate q's up to 8 successors and put them in actions list
 		e.GetActions(s, actions);
-
 		//for each successor
+		std::cout<< "GCost: " << s.gcost << " Nodes: " << nodesExpanded << std::endl;
 		for (auto &a : actions)
 		{
-			std::cout << actions.size();
+		#ifdef _DEBUG
+            	std::cout << "# of Actions: " << actions.size() << std::endl;
+		#endif
 			e.ApplyAction(s, a);
+			nodesExpanded++;
 			//successors gcost = q.gcost + distance between q and successor
 			s.gcost++;
 			//successors hcost = heuristic cost from successor to goal
 			s.hcost = h.hcost(s, goal);
 			//successors fcost = gcost + hcost
 			s.fcost = s.gcost + s.hcost;
+			#ifdef _DEBUG
+            	std::cout << "FCost: " << s.fcost << std::endl;
+			#endif
 			if (!onClosed(s))
 			{
 				if (!onOpen(s))
@@ -148,6 +156,12 @@ state Astar<state, action, environment, heurstic>::getDuplicate(state &c)
 template <typename state, typename action, typename environment, typename heurstic>
 state Astar<state, action, environment, heurstic>::removeBest()
 {
+	if(open.size() == 1){
+		return open[0];
+	}
+	#ifdef _DEBUG
+		std::cout << "Removing best... " << open.size() << std::endl;
+	#endif
 	state best = open[0];
 	int index = 0;
 	for (int i = 1; i < open.size(); i++)
@@ -158,7 +172,13 @@ state Astar<state, action, environment, heurstic>::removeBest()
 			best = open[i];
 		}
 	}
+	#ifdef _DEBUG
+		std::cout << "Before removal: " << open.size() << std::endl;
+	#endif
 	open.erase(open.begin() + (index - 1));
+	#ifdef _DEBUG
+		std::cout << "After removal: " << open.size() << std::endl;
+	#endif
 	return best;
 }
 
@@ -169,6 +189,10 @@ void Astar<state, action, environment, heurstic>::updateCost(state &c)
 	{
 		if (c == open[i])
 		{
+		#ifdef _DEBUG
+			std::cout << "open[i] fcost: " << open[i].fcost << std::endl;
+			std::cout << "c fcost: " << c.fcost << std::endl;
+		#endif
 			open[i].gcost = c.gcost;
 			open[i].hcost = c.hcost;
 			open[i].fcost = c.fcost;

@@ -14,6 +14,8 @@
 
 struct STPState {
 	STPState();
+	STPState(const STPState &s);
+	~STPState();
 	
 	uint8_t values[16];
 	int blank;
