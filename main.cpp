@@ -9,7 +9,6 @@
 #include <iostream>
 #include "IDAStar.h"
 #include "Astar.h"
-#include "OpenClosedList.h"
 #include "STP.h"
 #include "BFS.h"
 #include "OctileGrid.h"
@@ -20,27 +19,31 @@ void GetInstance(STPState &s, int which);
 
 int main(int argc, const char * argv[])
 {
-	OctileGrid grid(120,180);
-	coordinate start;
-	OD h;
-	coordinate goal;
-	goal.y = 0;
-	goal.x = 61;
-	start.y = 0;
-	start.x = 61;
-	start.gcost = 0;
-	start.fcost = 10;
-	goal.gcost = 5;
-	goal.fcost = 5;
-	OpenClosedList<coordinate> test;
-	test.addOpen(start);
-	test.addOpen(goal);
-	if(test.checkDuplicates(goal)){
-		std::cout << "fuck" << std::endl;
-	}
-//	Astar<coordinate, oGridAction, OctileGrid, OpenClosedList<coordinate>, OD> teststar;
+//	OctileGrid grid(120,180);
+//	coordinate start;
+//	OD h;
+//	coordinate goal;
+//	goal.y = 124;
+//	goal.x = 60;
+//	start.y = 125;
+//	start.x = 60;
+	//OpenClosedList<coordinate> test;
+	//test.addOpen(start);
+	//test.addOpen(goal);
+	//if(test.checkDuplicates(goal)){
+	//	std::cout << "fuck" << std::endl;
+	//}
+//	Astar<coordinate, oGridAction, OctileGrid, OD> teststar;
 //	if(teststar.getPath(grid, start, goal, h))
 //		std::cout << "success" << std::endl;
+	STP puzzle16;
+	MD h;
+	STPState start;
+	GetInstance(start, 1);
+	STPState goal;
+	Astar<STPState, slideDir, STP, MD> teststar1;
+	if(teststar1.getPath(puzzle16, start, goal, h))
+		std::cout << "success" << std::endl;
 	std::getchar();
 	return 0;
 }

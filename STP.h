@@ -19,6 +19,7 @@ struct STPState {
 	int blank;
 	int hcost;
 	int fcost;
+	int gcost;
 };
 
 bool operator==(const STPState &s, const STPState &t);
