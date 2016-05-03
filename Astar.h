@@ -2,6 +2,7 @@
 #define Astar_h
 
 #include <vector>
+
 template<typename state, typename action, typename environment, typename list, typename heurstic>
 class Astar
 {
@@ -13,13 +14,12 @@ private:
 //TODO
 //A node needs to have info about its coordinates in grid, f cost, g cost, h cost, parent
 
-template<typename state, typename action, typename environment, typename heurstic, typename list>
+template<typename state, typename action, typename environment, typename list, typename heurstic>
 bool Astar<state, action, environment, list, heurstic>::getPath(environment &e, state &start, state &goal, heurstic h)
 {
 	list ocList;
-	//TODO put starting node on the open list
-
 	ocList.addOpen(start);
+
 	while (!ocList.OpenEmpty())
 	{
 		//find node, q, with least f cost on the open list
@@ -31,6 +31,7 @@ bool Astar<state, action, environment, list, heurstic>::getPath(environment &e, 
 		//for each successor
 		for (auto a : actions)
 		{
+			std::cout << "Test" << std::endl;
             e.ApplyAction(s, a);
 			//if successor is goal, stop search
 			if(s == goal)
@@ -43,14 +44,16 @@ bool Astar<state, action, environment, list, heurstic>::getPath(environment &e, 
 			//successors fcost = gcost + hcost
 			s.fcost = s.gcost + s.hcost;
             //Check for duplicates
-            s = ocList.checkDuplicates(s);
+            if(!ocList.checkDuplicates(s))
+				std::cout << "Added new node" << std::endl;
             e.UndoAction(s, a);
+			s.gcost--;
 		}
 
 		//end for each
 		//put q on the closed list
 	}
-	
+
 }
 
 #endif

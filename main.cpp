@@ -8,62 +8,39 @@
 
 #include <iostream>
 #include "IDAStar.h"
+#include "Astar.h"
+#include "OpenClosedList.h"
 #include "STP.h"
 #include "BFS.h"
 #include "OctileGrid.h"
+#include "DFS.h"
 
 void GetInstance(STPState &s, int which);
 
 
 int main(int argc, const char * argv[])
 {
-//	IDAStar<STPState, slideDir, STP, MD> ida;
-//	STPState start, goal;
-//	MD h;
-//	STP environment;
-//	for (int x = 0; x < 100; x++)
-//	{
-//		std::cout << "Instance " << (x+1) << "\n";
-//		GetInstance(start, x);
-//		ida.GetPath(environment, start, goal, h);
-//		std::cout << ida.GetNodesExpanded() << " nodes expanded\n";
-//	}
-
-	////pdb_a
-	//std::cout << "PDB_A:" << std::endl;
-	std::vector<int> pattern = { 0, 1, 4, 5 };
-	STP puzzle16;
-	puzzle16.GetMaxRank(pattern);
-	STPState s;
-//	for(uint8_t i = 0; i < 16; i++){
-//		s.values[i] = i;
-//	}
-
-	for(uint32_t i = 0; i < puzzle16.GetMaxRank(pattern); i++){
-		s = puzzle16.Unrank(i, pattern);
-		uint32_t rank = puzzle16.Rank(pattern, s);
-		if(i != rank){
-			std::cout << "Should be " << i << " is "<< rank << std::endl;
-		}
+	OctileGrid grid(120,180);
+	coordinate start;
+	OD h;
+	coordinate goal;
+	goal.y = 0;
+	goal.x = 61;
+	start.y = 0;
+	start.x = 61;
+	start.gcost = 0;
+	start.fcost = 10;
+	goal.gcost = 5;
+	goal.fcost = 5;
+	OpenClosedList<coordinate> test;
+	test.addOpen(start);
+	test.addOpen(goal);
+	if(test.checkDuplicates(goal)){
+		std::cout << "fuck" << std::endl;
 	}
-
-	BFS bfsearch;
-	bfsearch.BFS_pdb(pattern, "pdb_a.txt");
-
-	OctileGrid grid = OctileGrid(120, 180);
-	std::vector<oGridAction> actions;
-	coordinate test;
-	//notepad++ file == "orz301d.map"
-	//x = notepad++ col number pointer left side - 1, y = notepad++ line number - 5
-	test.x = 31;
-	test.y = 113;
-	//expected actions for x = 80, y = 151: 0-UP, 5-UPRIGHT, 4-UPLEFT 
-	grid.GetActions(test, actions);
-	for (int i = 0; i < actions.size(); i++)
-	{
-		std::cout << actions.at(i) << std::endl;
-	}
-	//hold output open
+//	Astar<coordinate, oGridAction, OctileGrid, OpenClosedList<coordinate>, OD> teststar;
+//	if(teststar.getPath(grid, start, goal, h))
+//		std::cout << "success" << std::endl;
 	std::getchar();
 	return 0;
 }

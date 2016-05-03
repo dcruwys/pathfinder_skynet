@@ -1,6 +1,5 @@
 #ifndef OpenClosedList_h
 #define OpenClosedList_h
-#include "OctileGrid.h"
 
 //TODO: Where to check duplicates from? Open? Closed? Both?
 
@@ -19,19 +18,19 @@ private:
 	std::vector<state> closed;
 };
 template <typename state>
-void OpenClosedList::addOpen(state &c)
+void OpenClosedList<state>::addOpen(state &c)
 {
 	open.push_back(c);
 }
 
 template <typename state>
-void OpenClosedList::addClosed(state &c)
+void OpenClosedList<state>::addClosed(state &c)
 {
     //make sure we remove from open too.
 	closed.push_back(c);
 }
 template <typename state>
-bool OpenClosedList::checkDuplicates(state &c)
+bool OpenClosedList<state>::checkDuplicates(state &c)
 {
 	//if a node on the open list has same coordinates as successor and has a
 	//lower f cost than successor, then skip this successor
@@ -62,13 +61,7 @@ bool OpenClosedList::checkDuplicates(state &c)
 }
 
 template <typename state>
-void OpenClosedList::updateCost()
-{
-
-}
-
-template <typename state>
-state OpenClosedList::removeBest()
+state OpenClosedList<state>::removeBest()
 {
 	state best = open[0];
     int index = 0;
@@ -84,7 +77,7 @@ state OpenClosedList::removeBest()
 }
 
 template <typename state>
-bool OpenClosedList::OpenEmpty()
+bool OpenClosedList<state>::OpenEmpty()
 {
 	return open.empty();
 }
