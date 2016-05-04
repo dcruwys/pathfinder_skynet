@@ -5,16 +5,15 @@
       <sourceFolder url="file://$MODULE_DIR$/OctileGrid.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/PDB.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Heuristic.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/OpenClosedList.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/NaryTree.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/STP.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DFS.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/BFS.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Astar.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/NaryTree.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/STP.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/InefficientAstar.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/IDAstar.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/OctileGrid.h" isTestSource="false" />
     </content>

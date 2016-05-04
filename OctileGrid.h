@@ -10,7 +10,7 @@
 enum oGridAction{UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT};
 
 struct coordinate {
-	int x, y, fcost, gcost, hcost;
+	int x, y;
 };
 
 bool operator==(const coordinate &c1, const coordinate &c2);

@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include "IDAStar.h"
-#include "Astar.h"
+#include "InefficientAstar.h"
 #include "STP.h"
 #include "BFS.h"
 #include "OctileGrid.h"
@@ -33,15 +33,15 @@ int main(int argc, const char * argv[])
 	//if(test.checkDuplicates(goal)){
 	//	std::cout << "fuck" << std::endl;
 	//}
-//	Astar<coordinate, oGridAction, OctileGrid, OD> teststar;
+//	AstarOld<coordinate, oGridAction, OctileGrid, OD> teststar;
 //	if(teststar.getPath(grid, start, goal, h))
 //		std::cout << "success" << std::endl;
 	STP puzzle16;
 	MD h;
 	STPState start;
-	GetInstance(start, 10);
+	GetInstance(start, 60);
 	STPState goal;
-	Astar<STPState, slideDir, STP, MD> teststar1;
+	InefficientAstar<STPState, slideDir, STP, MD> teststar1;
 	if(teststar1.getPath(puzzle16, start, goal, h) == true)
 		std::cout << "success" << std::endl;
 	std::getchar();

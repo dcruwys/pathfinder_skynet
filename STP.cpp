@@ -26,8 +26,6 @@ STPState::STPState()
 STPState::STPState(const STPState &s) {
 	blank = s.blank;
 	hcost = s.hcost;
-	fcost = s.fcost;
-	gcost = s.gcost;
 	for(int i = 0; i < 16; i++){
 		values[i] = s.values[i];
 	}
