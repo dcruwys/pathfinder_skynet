@@ -1,17 +1,13 @@
 #include "OctileGrid.h"
-#include <iostream>
+
 #include <fstream>
+#include <iostream>
 #include <string>
 
-bool operator==(const coordinate &c1, const coordinate &c2)
+OctileGrid::OctileGrid(int width, int height)
 {
-	return c1.x == c2.x && c1.y == c2.y;
-}
-
-OctileGrid::OctileGrid(int w, int h)
-{
-	width = w;
-	height = h;
+	this->width = width;
+	this->height = height;
 	const char* filename1 = "orz301d.map";
 	std::string buffer;
 	std::ifstream read;
@@ -38,69 +34,69 @@ OctileGrid::OctileGrid(int w, int h)
 	read.close();
 }
 
-void OctileGrid::GetActions(coordinate &nodeID,  std::vector<oGridAction> &actions)
+void OctileGrid::GetActions(Node<Coordinate> &nodeID, std::vector<Action> &actions)
 {
 	actions.clear();
-	if (nodeID.x < width - 1 && map[nodeID.y][nodeID.x+1] == '.')
+	if (nodeID.c.x < width - 1 && map[nodeID.c.y][nodeID.c.x + 1] == '.')
 	{
-		actions.push_back(oGridAction::RIGHT);
+		actions.push_back(Action::RIGHT);
 	}
-	if (nodeID.x > 0 && map[nodeID.y][nodeID.x-1] == '.')
+	if (nodeID.c.x > 0 && map[nodeID.c.y][nodeID.c.x - 1] == '.')
 	{
-		actions.push_back(oGridAction::LEFT);
+		actions.push_back(Action::LEFT);
 	}
-	if (nodeID.y < height - 1 && map[nodeID.y - 1][nodeID.x] == '.')
+	if (nodeID.c.y < height - 1 && map[nodeID.c.y - 1][nodeID.c.x] == '.')
 	{
-		actions.push_back(oGridAction::UP);
+		actions.push_back(Action::UP);
 	}
-	if (nodeID.y > 0 && map[nodeID.y+1][nodeID.x] == '.')
+	if (nodeID.c.y > 0 && map[nodeID.c.y + 1][nodeID.c.x] == '.')
 	{
-		actions.push_back(oGridAction::DOWN);
+		actions.push_back(Action::DOWN);
 	}
-	if (nodeID.x < width - 1 && nodeID.y < height && map[nodeID.y - 1][nodeID.x + 1] == '.')
+	if (nodeID.c.x < width - 1 && nodeID.c.y < height && map[nodeID.c.y - 1][nodeID.c.x + 1] == '.')
 	{
-		actions.push_back(oGridAction::UPRIGHT);
+		actions.push_back(Action::UPRIGHT);
 	}
-	if (nodeID.x > 0 && nodeID.y < height - 1 && map[nodeID.y - 1][nodeID.x - 1] == '.')
+	if (nodeID.c.x > 0 && nodeID.c.y < height - 1 && map[nodeID.c.y - 1][nodeID.c.x - 1] == '.')
 	{
-		actions.push_back(oGridAction::UPLEFT);
+		actions.push_back(Action::UPLEFT);
 	}
-	if (nodeID.x < width - 1 && nodeID.y > 0 && map[nodeID.y + 1][nodeID.x + 1] == '.')
+	if (nodeID.c.x < width - 1 && nodeID.c.y > 0 && map[nodeID.c.y + 1][nodeID.c.x + 1] == '.')
 	{
-		actions.push_back(oGridAction::DOWNRIGHT);
+		actions.push_back(Action::DOWNRIGHT);
 	}
-	if (nodeID.x > 0 && nodeID.y > 0 && map[nodeID.y+1][nodeID.x-1] == '.')
+	if (nodeID.c.x > 0 && nodeID.c.y > 0 && map[nodeID.c.y + 1][nodeID.c.x - 1] == '.')
 	{
-		actions.push_back(oGridAction::DOWNLEFT);
-	}
-}
-
-void OctileGrid::ApplyAction(coordinate &s, oGridAction a)
-{
-	switch (a)
-	{
-	case oGridAction::RIGHT: s.x++; break;
-	case oGridAction::LEFT: s.x--; break;
-	case oGridAction::UP: s.y--; break;
-	case oGridAction::DOWN: s.y++; break;
-	case oGridAction::UPRIGHT: s.x++; s.y--; break;
-	case oGridAction::UPLEFT: s.x--; s.y--; break;
-	case oGridAction::DOWNRIGHT: s.x++; s.y++; break;
-	case oGridAction::DOWNLEFT: s.x--; s.y++; break;
+		actions.push_back(Action::DOWNLEFT);
 	}
 }
 
-void OctileGrid::UndoAction(coordinate &s, oGridAction a)
+void OctileGrid::ApplyAction(Node<Coordinate> &s, Action a)
 {
 	switch (a)
 	{
-	case oGridAction::RIGHT: s.x--; break;
-	case oGridAction::LEFT: s.x++; break;
-	case oGridAction::UP: s.y++; break;
-	case oGridAction::DOWN: s.y--; break;
-	case oGridAction::UPRIGHT: s.x--; s.y++; break;
-	case oGridAction::UPLEFT: s.x++; s.y++; break;
-	case oGridAction::DOWNRIGHT: s.x--; s.y--; break;
-	case oGridAction::DOWNLEFT: s.x++; s.y--; break;
+	case Action::RIGHT: s.c.x++; break;
+	case Action::LEFT: s.c.x--; break;
+	case Action::UP: s.c.y--; break;
+	case Action::DOWN: s.c.y++; break;
+	case Action::UPRIGHT: s.c.x++; s.c.y--; break;
+	case Action::UPLEFT: s.c.x--; s.c.y--; break;
+	case Action::DOWNRIGHT: s.c.x++; s.c.y++; break;
+	case Action::DOWNLEFT: s.c.x--; s.c.y++; break;
+	}
+}
+
+void OctileGrid::UndoAction(Node<Coordinate> &s, Action a)
+{
+	switch (a)
+	{
+	case Action::RIGHT: s.c.x--; break;
+	case Action::LEFT: s.c.x++; break;
+	case Action::UP: s.c.y++; break;
+	case Action::DOWN: s.c.y--; break;
+	case Action::UPRIGHT: s.c.x--; s.c.y++; break;
+	case Action::UPLEFT: s.c.x++; s.c.y++; break;
+	case Action::DOWNRIGHT: s.c.x--; s.c.y--; break;
+	case Action::DOWNLEFT: s.c.x++; s.c.y--; break;
 	}
 }

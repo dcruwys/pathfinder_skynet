@@ -1,148 +1,197 @@
-#ifndef PATHFINDER_SKYNET_INEFFICIENTASTAR_H
-#define PATHFINDER_SKYNET_INEFFICIENTASTAR_H
+#pragma once
 
 #include <vector>
 #include <iostream>
 
-template <typename state>
-struct node {
-    state s;
-    double fcost;
-    double depth;
+template <typename coordinate>
+struct Node
+{
+	coordinate c;
+	int gcost;
+	int hcost;
+	int fcost;
 };
 
-template<typename state, typename action, typename environment, typename heurstic>
+template <typename coordinate>
+inline bool operator==(const Node<coordinate> &c1, const Node<coordinate> &c2)
+{
+	return c1.c.x == c2.c.x && c1.c.y == c2.c.y;
+}
+
+template<typename state, typename action, typename environment, typename heuristic>
 class InefficientAstar
 {
 public:
-    int nodesExpanded = 0;
-    bool getPath(environment &e, state &start, state &goal, heurstic h);
+	int nodesExpanded = 0;
+	bool getPath(environment &e, state &start, state &goal, heuristic h);
 private:
-    bool onOpen(node<state> &c);
-    bool onClosed(node<state> &c);
-    void addOpen(node<state> &c);
-    void addClosed(node<state> &c);
-    void checkDuplicates(node<state> &c);
-    node<state> &removeBest();
-    std::vector<node<state>> open;
-    std::vector<node<state>> closed;
+	void addOpen(state &s);
+	void addClosed(state &s);
+	bool onClosed(state &s);
+	bool onOpen(state &s);
+	void updateCost(state &c, int i);
+	int getDuplicateIndex(state &s);
+	state removeBest();
+	std::vector<state> open;
+	std::vector<state> closed;
 };
 
-
-template<typename state, typename action, typename environment, typename heurstic>
-bool InefficientAstar<state, action, environment, heurstic>::getPath(environment &e, state &start, state &goal, heurstic h)
+template<typename state, typename action, typename environment, typename heuristic>
+bool InefficientAstar<state, action, environment, heuristic>::getPath(environment &e, state &start, state &goal, heuristic h)
 {
-    node<state> n;
-    n.depth = 0;
-    n.s = start;
-    n.fcost =  h.hcost(n.s, goal) + n.depth;
-    addOpen(n);
-    std::vector<action> actions;
-    while(!open.empty()){
-        n = removeBest();
-        std::cout << n.s << std::endl;
-        if (n.s == goal) {
-            std::cout << "Found solution gcost: " << n.depth << "\n";
-            std::cout << "Nodes Expanded: " << nodesExpanded << "\n";
+	//initialize actions and state so we dont create them on every iteration
+	std::vector<action> actions;
+	state s;
+	//set up start node
+	start.gcost = 0;
+	start.hcost = h.hcost(start, goal);
+	start.fcost = start.gcost + start.hcost;
+	//put start node on the open list
+	addOpen(start);
+	//keep searching as long as there are nodes on the open list
+	while (!open.empty())
+	{
+		//remove node with lowest fcost from the open list
+		s = removeBest();
+		nodesExpanded++;
+		//if lowest f cost node from open list is goal, return found path
+		if (s == goal)
+		{
+			std::cout << nodesExpanded << std::endl;
+			return true;
+		}
+		//generate successors of best available node from open list
+		e.GetActions(s, actions);
+		//add node to closed list
+		addClosed(s);
+		//for each action that can be taken from that node
+		for (action &a : actions)
+		{
+			//apply the action to generate a new state
+			e.ApplyAction(s, a);
+			if (!onClosed(s) && onOpen(s))
+			{
+				//if on open already, then update cost if needed
+				s.gcost++;
+				s.hcost = h.hcost(s, goal);
+				s.fcost = s.gcost + s.hcost;
+				int i = getDuplicateIndex(s);
+				updateCost(s, i);
+				e.UndoAction(s, a);
+				s.gcost--;
+			}
+			else if (!onClosed(s) && !onOpen(s))
+			{
+				//if not on open or closed, its a newly discovered node
+				//so set costs and add to open
+				s.gcost++;
+				s.hcost = h.hcost(s, goal);
+				s.fcost = s.gcost + s.hcost;
+				addOpen(s);
+				e.UndoAction(s, a);
+				s.gcost--;
+			}
+			else
+			{
+				//node is on closed
+				//skip this node
+				e.UndoAction(s, a);
+			}
+		}
+	}
+	return false;
+}
 
-            return true;
-        }
-        nodesExpanded++;
-        e.GetActions(n.s, actions);
-        n.depth++;
-        //for each successor
-        for (auto &a : actions) {
-            e.ApplyAction(n.s, a);
-            n.fcost = h.hcost(n.s, goal) + n.depth;
-            //std::cout << "Fcost: " << n.fcost << std::endl;
-            std::cout << "Depth: " << n.depth << std::endl;
-            if(!onClosed(n)){
-                if(!onOpen(n)){
-                    addOpen(n);
-                }
-                else{
-                    checkDuplicates(n);
-                }
-            }
-            e.UndoAction(n.s, a);
-        }
-        n.depth--;
-    }
-    return false;
-
-};
-
-template <typename state, typename action, typename environment, typename heurstic>
-void InefficientAstar<state, action, environment, heurstic>::addOpen(node<state> &c)
+template<typename state, typename action, typename environment, typename heuristic>
+void InefficientAstar<state, action, environment, heuristic>::addOpen(state &s)
 {
-    open.push_back(c);
+	open.push_back(s);
 }
 
-template <typename state, typename  action, typename environment, typename  heurstic>
-void InefficientAstar<state, action, environment, heurstic>::checkDuplicates(node<state> &c){
-    for (int i = 0; i < open.size(); i++) {
-        if (c.s == open[i].s)
-        {
-            if(c.fcost < open[i].fcost) {
-                open[i].fcost = c.fcost;
-            }
-     }
-    }
-}
-
-template <typename state, typename action, typename environment, typename heurstic>
-void InefficientAstar<state, action, environment, heurstic>::addClosed(node<state> &c)
+template<typename state, typename action, typename environment, typename heuristic>
+void InefficientAstar<state, action, environment, heuristic>::addClosed(state &s)
 {
-    for (int i = 0; i < closed.size(); i++) {
-        if (c.s == closed[i].s) {
-            if (c.fcost < closed[i].fcost) {
-                closed[i].fcost = c.fcost;
-            }
-            return;
-        }
-
-    }
-    closed.push_back(c);
+	closed.push_back(s);
 }
 
-template <typename state, typename action, typename environment, typename heurstic>
-node<state> &InefficientAstar<state, action, environment, heurstic>::removeBest()
+template<typename state, typename action, typename environment, typename heuristic>
+bool InefficientAstar<state, action, environment, heuristic>::onOpen(state &s)
 {
-    if(open.size() == 1){
-        return open[0];
-    }
-    int index = 0;
-    for (int i = 0; i < open.size(); i++)
-    {
-        if (open[i].fcost < open[index].fcost)
-        {
-            index = i;
-        }
-    }
-    node<state> best = open[index];
-    addClosed(open[index]);
-    if(open.size() > 0)
-     open.erase(open.begin()+(index-1));
-    return best;
+	for (int i = 0; i < open.size(); i++)
+	{
+		if (s == open[i])
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
-template <typename state, typename action, typename environment, typename heurstic>
-bool InefficientAstar<state, action, environment, heurstic>::onOpen(node<state> &c) {
-    for(int i = 0; i < open.size(); i++){
-        if(c.s == open[i].s){
-            return true;
-        }
-    }
-    return false;
+template<typename state, typename action, typename environment, typename heuristic>
+bool InefficientAstar<state, action, environment, heuristic>::onClosed(state &s)
+{
+	for (int i = 0; i < closed.size(); i++)
+	{
+		if (s == closed[i])
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
-template <typename state, typename action, typename environment, typename heurstic>
-bool InefficientAstar<state, action, environment, heurstic>::onClosed(node<state> &c) {
-    for(int i = 0; i < closed.size(); i++){
-        if(c.s == closed[i].s){
-            return true;
-        }
-    }
-    return false;
+template<typename state, typename action, typename environment, typename heuristic>
+int InefficientAstar<state, action, environment, heuristic>::getDuplicateIndex(state &s)
+{
+	for (int i = 0; i < open.size(); i++)
+	{
+		if (s == open[i])
+		{
+			return i;
+		}
+	}
+	std::cout << "Error: getDuplicateIndex() couldn't find a duplicate" << std::endl;
+	return -1;
 }
-#endif //PATHFINDER_SKYNET_INEFFICIENTASTAR_H
+
+template<typename state, typename action, typename environment, typename heuristic>
+state InefficientAstar<state, action, environment, heuristic>::removeBest()
+{
+	state best = open[0];
+	if (open.size() == 1)
+	{
+		open.erase(open.begin());
+		return best;
+	}
+	int index = 0;
+	for (int i = 1; i < open.size(); i++)
+	{
+		if (open[i].fcost < best.fcost)
+		{
+			index = i;
+			best = open[i];
+		}
+		else if (open[i].fcost == best.fcost)
+		{
+			//ties go to high g cost
+			if (open[i].gcost >= best.gcost)
+			{
+				index = i;
+				best = open[i];
+			}
+		}
+	}
+	open.erase(open.begin() + index);
+	return best;
+}
+
+template<typename state, typename action, typename environment, typename heuristic>
+void InefficientAstar<state, action, environment, heuristic>::updateCost(state &s, int i)
+{
+	if (s.fcost < open[i].fcost)
+	{
+		open[i].fcost = s.fcost;
+		open[i].gcost = s.gcost;
+		open[i].hcost = s.hcost;
+	}
+}

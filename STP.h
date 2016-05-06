@@ -11,15 +11,19 @@
 
 #include <vector>
 #include <iostream>
+#include <cstdint>
+
 
 struct STPState {
 	STPState();
 	STPState(const STPState &s);
 	~STPState();
-
+	
 	uint8_t values[16];
 	int blank;
-    int hcost = 0;
+	int hcost;
+	int fcost;
+	int gcost;
 };
 
 bool operator==(const STPState &s, const STPState &t);

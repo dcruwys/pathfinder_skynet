@@ -1,44 +1,42 @@
 #pragma once
-//#ifndef OctileGrid_h
-//#define OctileGrid_h
 
+#include "InefficientAstar.h"
 
 #include <vector>
 #include <stdlib.h>
-#include <cmath>
+#include <algorithm>
 
-enum oGridAction{UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT};
+enum Action{ UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT};
 
-struct coordinate {
+struct Coordinate
+{
 	int x, y;
 };
 
-bool operator==(const coordinate &c1, const coordinate &c2);
+inline bool operator==(const Coordinate &c1, const Coordinate &c2)
+{
+	return c1.x == c2.x && c1.y == c2.y;
+}
 
-class OctileGrid{
+struct OctileDistance
+{
+	int hcost(const Node<Coordinate> &start, const Node<Coordinate> &goal)
+	{
+		int xdist = std::abs(goal.c.x - start.c.x);
+		int ydist = std::abs(goal.c.y - start.c.y);
+		return std::max(xdist, ydist) + (sqrt(2) - 1) * std::min(xdist, ydist);
+	}
+};
+
+class OctileGrid
+{
 public:
-	OctileGrid(int w, int h);
-	void GetActions(coordinate &nodeID, std::vector<oGridAction> &actions);
-	void ApplyAction(coordinate &s, oGridAction a);
-	void UndoAction(coordinate &s, oGridAction a);
+	OctileGrid(int width, int height);
+	void GetActions(Node<Coordinate> &nodeID, std::vector<Action> &actions);
+	void ApplyAction(Node<Coordinate> &s, Action a);
+	void UndoAction(Node<Coordinate> &s, Action a);
 private:
 	char map[180][120];
 	int width;
 	int height;
-	//std::vector<std::vector<char>> map;
-	
 };
-
-struct OD {
-	int hcost(const coordinate &start, const coordinate &goal){
-		int xdist = abs(start.x - goal.x);
-		int ydist = abs(start.y - goal.y);
-
-		//max(x, y) + (sqrt(2)-1)*min(x, y)
-		return std::max(xdist, ydist) + (sqrt(2)-1) * std::min(xdist, ydist);
-	}
-};
-
-//
-//
-//#endif
