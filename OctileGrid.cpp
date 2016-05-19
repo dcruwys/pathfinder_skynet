@@ -34,69 +34,74 @@ OctileGrid::OctileGrid(int width, int height)
 	read.close();
 }
 
-void OctileGrid::GetActions(Node<Coordinate> &nodeID, std::vector<Action> &actions)
+void OctileGrid::GetActions(Coordinate &nodeID, std::vector<Action> &actions)
 {
 	actions.clear();
-	if (nodeID.c.x < width - 1 && map[nodeID.c.y][nodeID.c.x + 1] == '.')
+	if (nodeID.x < width - 1 && map[nodeID.y][nodeID.x + 1] == '.')
 	{
 		actions.push_back(Action::RIGHT);
 	}
-	if (nodeID.c.x > 0 && map[nodeID.c.y][nodeID.c.x - 1] == '.')
+	if (nodeID.x > 0 && map[nodeID.y][nodeID.x - 1] == '.')
 	{
 		actions.push_back(Action::LEFT);
 	}
-	if (nodeID.c.y < height - 1 && map[nodeID.c.y - 1][nodeID.c.x] == '.')
+	if (nodeID.y < height - 1 && map[nodeID.y - 1][nodeID.x] == '.')
 	{
 		actions.push_back(Action::UP);
 	}
-	if (nodeID.c.y > 0 && map[nodeID.c.y + 1][nodeID.c.x] == '.')
+	if (nodeID.y > 0 && map[nodeID.y + 1][nodeID.x] == '.')
 	{
 		actions.push_back(Action::DOWN);
 	}
-	if (nodeID.c.x < width - 1 && nodeID.c.y < height && map[nodeID.c.y - 1][nodeID.c.x + 1] == '.')
+	if (nodeID.x < width - 1 && nodeID.y < height && map[nodeID.y - 1][nodeID.x + 1] == '.')
 	{
 		actions.push_back(Action::UPRIGHT);
 	}
-	if (nodeID.c.x > 0 && nodeID.c.y < height - 1 && map[nodeID.c.y - 1][nodeID.c.x - 1] == '.')
+	if (nodeID.x > 0 && nodeID.y < height - 1 && map[nodeID.y - 1][nodeID.x - 1] == '.')
 	{
 		actions.push_back(Action::UPLEFT);
 	}
-	if (nodeID.c.x < width - 1 && nodeID.c.y > 0 && map[nodeID.c.y + 1][nodeID.c.x + 1] == '.')
+	if (nodeID.x < width - 1 && nodeID.y > 0 && map[nodeID.y + 1][nodeID.x + 1] == '.')
 	{
 		actions.push_back(Action::DOWNRIGHT);
 	}
-	if (nodeID.c.x > 0 && nodeID.c.y > 0 && map[nodeID.c.y + 1][nodeID.c.x - 1] == '.')
+	if (nodeID.x > 0 && nodeID.y > 0 && map[nodeID.y + 1][nodeID.x - 1] == '.')
 	{
 		actions.push_back(Action::DOWNLEFT);
 	}
 }
 
-void OctileGrid::ApplyAction(Node<Coordinate> &s, Action a)
+void OctileGrid::ApplyAction(Coordinate &s, Action a)
 {
 	switch (a)
 	{
-	case Action::RIGHT: s.c.x++; break;
-	case Action::LEFT: s.c.x--; break;
-	case Action::UP: s.c.y--; break;
-	case Action::DOWN: s.c.y++; break;
-	case Action::UPRIGHT: s.c.x++; s.c.y--; break;
-	case Action::UPLEFT: s.c.x--; s.c.y--; break;
-	case Action::DOWNRIGHT: s.c.x++; s.c.y++; break;
-	case Action::DOWNLEFT: s.c.x--; s.c.y++; break;
+	case Action::RIGHT: s.x++; break;
+	case Action::LEFT: s.x--; break;
+	case Action::UP: s.y--; break;
+	case Action::DOWN: s.y++; break;
+	case Action::UPRIGHT: s.x++; s.y--; break;
+	case Action::UPLEFT: s.x--; s.y--; break;
+	case Action::DOWNRIGHT: s.x++; s.y++; break;
+	case Action::DOWNLEFT: s.x--; s.y++; break;
 	}
 }
 
-void OctileGrid::UndoAction(Node<Coordinate> &s, Action a)
+void OctileGrid::UndoAction(Coordinate &s, Action a)
 {
 	switch (a)
 	{
-	case Action::RIGHT: s.c.x--; break;
-	case Action::LEFT: s.c.x++; break;
-	case Action::UP: s.c.y++; break;
-	case Action::DOWN: s.c.y--; break;
-	case Action::UPRIGHT: s.c.x--; s.c.y++; break;
-	case Action::UPLEFT: s.c.x++; s.c.y++; break;
-	case Action::DOWNRIGHT: s.c.x--; s.c.y--; break;
-	case Action::DOWNLEFT: s.c.x++; s.c.y--; break;
+	case Action::RIGHT: s.x--; break;
+	case Action::LEFT: s.x++; break;
+	case Action::UP: s.y++; break;
+	case Action::DOWN: s.y--; break;
+	case Action::UPRIGHT: s.x--; s.y++; break;
+	case Action::UPLEFT: s.x++; s.y++; break;
+	case Action::DOWNRIGHT: s.x--; s.y--; break;
+	case Action::DOWNLEFT: s.x++; s.y--; break;
 	}
+}
+
+uint64_t OctileGrid::Rank(Coordinate &s)
+{
+	return s.x * height + s.y;
 }

@@ -1,10 +1,9 @@
 #pragma once
-
-#include "InefficientAstar.h"
-
 #include <vector>
 #include <stdlib.h>
 #include <algorithm>
+#include <cmath>
+#include <cstdint>
 
 enum Action{ UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT};
 
@@ -20,10 +19,10 @@ inline bool operator==(const Coordinate &c1, const Coordinate &c2)
 
 struct OctileDistance
 {
-	int hcost(const Node<Coordinate> &start, const Node<Coordinate> &goal)
+	int hcost(const Coordinate &start, const Coordinate &goal)
 	{
-		int xdist = std::abs(goal.c.x - start.c.x);
-		int ydist = std::abs(goal.c.y - start.c.y);
+		int xdist = abs(goal.x - start.x);
+		int ydist = abs(goal.y - start.y);
 		return std::max(xdist, ydist) + (sqrt(2) - 1) * std::min(xdist, ydist);
 	}
 };
@@ -32,11 +31,12 @@ class OctileGrid
 {
 public:
 	OctileGrid(int width, int height);
-	void GetActions(Node<Coordinate> &nodeID, std::vector<Action> &actions);
-	void ApplyAction(Node<Coordinate> &s, Action a);
-	void UndoAction(Node<Coordinate> &s, Action a);
-private:
+	void GetActions(Coordinate &nodeID, std::vector<Action> &actions);
+	void ApplyAction(Coordinate &s, Action a);
+	void UndoAction(Coordinate &s, Action a);
+	uint64_t Rank(Coordinate &s);
 	char map[180][120];
+private:
 	int width;
 	int height;
 };
