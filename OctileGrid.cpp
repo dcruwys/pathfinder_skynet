@@ -8,7 +8,7 @@ OctileGrid::OctileGrid(int width, int height)
 {
 	this->width = width;
 	this->height = height;
-	const char* filename1 = "/Users/dcruwys/ClionProjects/pathfinder_skynet/orz301d.map";
+	const char* filename1 = "orz301d.map";
 	std::string buffer;
 	std::ifstream read;
 	read.open(filename1);

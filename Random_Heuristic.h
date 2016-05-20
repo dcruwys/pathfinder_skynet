@@ -1,6 +1,7 @@
-#include "Dijkstra.h"
+#include "Dijkstra_label.h"
 #include <cstdlib>
 #include <time.h>
+#include <cmath>
 
 struct Random_Heuristic
 {
@@ -9,7 +10,8 @@ struct Random_Heuristic
 	Random_Heuristic(int pivots, OctileGrid grid)
 	{
 		srand(time(nullptr));
-        while (second_pivot_list.size() < 10)
+		//create 10 random pivots
+        while (second_pivot_list.size() < pivots)
         {
             int x = 1 + (int) (120.0 * (rand() / (RAND_MAX + 1.0))) - 1;
             int y = 1 + (int) (180.0 * (rand() / (RAND_MAX + 1.0))) - 1;
@@ -31,16 +33,49 @@ struct Random_Heuristic
                 }
             }
 		}
-
-		Dijkstra<Coordinate, Action, OctileGrid, pivot_info> search1;
-		std::vector<pivot_info> temp;
+		//run a dijkstras on those pivots to record costs to each grid space from pivot
 		for (int i = 0; i < 10; i++)
 		{
-			temp.push_back(second_pivot_list[i]);
-			search1.getPath(grid, temp);
-			second_pivot_list[i].costs = temp[0].costs;
-			temp.pop_back();
+			Dijkstra_label<Coordinate, Action, OctileGrid> labelSearch;
+			labelSearch.getPath(grid, second_pivot_list[i]);
 		}
+	}
 
+	int diffMax(Coordinate &start, Coordinate &goal)
+	{
+		std::vector<int> diffs;
+		int dsp;
+		int dpg;
+		//find each differential heuristic
+		for (int i = 0; i < second_pivot_list.size(); i++)
+		{
+
+			dsp = second_pivot_list[i].costs[start.y][start.x];
+			dpg = second_pivot_list[i].costs[goal.y][goal.x];
+			//std::cout << dsp << std::endl;
+			//std::cout << dpg << std::endl;
+			diffs.push_back(abs(dsp - dpg));
+		}
+		OctileDistance od;
+		int odcost = od.hcost(start, goal);
+		diffs.push_back(odcost);
+		//return the max of them
+		//add octile distance
+		int max = 0;
+		for (int i = 0; i < diffs.size(); i++)
+		{
+			
+			if (diffs[i] > max)
+			{
+				max = diffs[i];
+			}
+		}
+		
+		return max;
+	}
+
+	int hcost(Coordinate &start, Coordinate &goal)
+	{
+		return diffMax(start, goal);
 	}
 };

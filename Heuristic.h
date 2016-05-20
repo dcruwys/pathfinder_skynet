@@ -1,63 +1,52 @@
 #include <cstdlib>
-#include "OctileGrid.h"
-#include "Dijkstra.h"
+#include "Dijkstra_label.h"
+#include "Dijkstra_Find.h"
 #include <vector>
-
-struct pivot_info
-{
-	Coordinate pivot;
-	std::vector<std::vector<int>> costs;
-};
+#include <time.h>
 
 struct Heuristic
 {
-	std::vector<pivot_info> second_pivot_list;
+	std::vector<pivot_info> pivot_list;
 
-	Heuristic(int pivots, char map[180][120])
+	Heuristic(int pivots, OctileGrid grid)
 	{
 		//there are two lists so I didnt have to make 2 different Dijkstra classes
 		//the first to label states with gcosts from a single pivot
 		//the second to store all pivots and use to find farthest pivot from all other combined pivots
-		std::vector<pivot_info> first_pivot_list;
 		bool valid = false;
-		srand(time_t(nullptr));
+		srand(time(nullptr));
 		
 		//randomly pick a valid grid location for first pivot
 		while (!valid)	
 		{
 			int x = rand() % 120;
 			int y = rand() % 180;
-			if (map[x][y] == '.')
+			if (grid.map[x][y] == '.')
 			{
 				valid = true;
 				pivot_info temp;
 				temp.pivot.x = x;
 				temp.pivot.y = y;
-				first_pivot_list.push_back(temp);
-				second_pivot_list.push_back(temp);
+				pivot_list.push_back(temp);
 			}
 		}
 		
 		OctileGrid grid1(120, 180);
-		Dijkstra<Coordinate, Action, OctileGrid, pivot_info> search1;
+		
 		
 
 		//start with 1 pivot
 		//use dijkstras
-		//last pivot will not have correct costs, so generate 1 more pivot than you want
-		//and dont use the last pivot
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < pivots; i++)
 		{
-			//puts costs into costs map
-			search1.getPath(grid1, first_pivot_list);
+			//generate costs for first pivot
+			Dijkstra_label<Coordinate, Action, OctileGrid> search1;
+			search1.getPath(grid1, pivot_list[i]);
 
-			pivot_info temp;
-			temp.pivot = search1.getPath(grid1, second_pivot_list);
-			second_pivot_list.push_back(temp);
-			second_pivot_list[i].costs = first_pivot_list[0].costs;
-			
-			first_pivot_list.pop_back();
-			first_pivot_list.push_back(temp);
+			pivot_info tempPivot;
+			Dijkstra_find<Coordinate, Action, OctileGrid> search2;
+			tempPivot.pivot = search2.getPath(grid1, pivot_list);
+			pivot_list.push_back(tempPivot);
 		}
 
 		//do a dijkstra search from the pivot until you have searched the whole map
@@ -67,25 +56,36 @@ struct Heuristic
 		//choose the node that is the farthest away from all existing pivots to be next pivot
 		//by putting all pivots on open list at the beginning
 		//of the dijstrak search so its the farthest from the combined pivots
-
 		//rinse and repeat for desired number of pivots
 	}
 
-	//ints need to be states -- placeholders for now
-	int calculate(int pivot, int goal)
+	int diffMax(Coordinate &start, Coordinate &goal)
 	{
-		//index into 2d array for that pivot and return cost for the goal grid space 
-
+		std::vector<int> diffs;
+		int dsp;
+		int dpg;
+		for (int i = 0; i < pivot_list.size(); i++)
+		{
+			dsp = pivot_list[i].costs[start.y][start.x];
+			dpg = pivot_list[i].costs[goal.y][goal.x];
+		}
+		OctileDistance od;
+		int odcost = od.hcost(start, goal);
+		diffs.push_back(odcost);
+		int max = 0;
+		for (int i = 0; i < diffs.size(); i++)
+		{
+			if (diffs[i] > max)
+			{
+				max = diffs[i];
+			}
+		}
+		return max;
+		return 0;
 	}
 
-	int octile_h()
+	int hcost(Coordinate &start, Coordinate &goal)
 	{
-		//calculate octile distance
-		//copy from other code
-	}
-
-	int differential_h(int one, int two, int three)
-	{
-		//take max of all pivot heuristics and octile distance
+		return diffMax(start, goal);
 	}
 };

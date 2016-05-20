@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <iostream>
+#include "Dijkstra_label.h"
 
 //template <typename state>
 //struct Node
@@ -10,14 +11,16 @@
 //	int gcost;
 //	int hcost;
 //	int fcost;
+//	uint64_t rank;
 //};
 
-template<typename state, typename action, typename environment, typename heuristic>
-class InefficientAstar
+
+template<typename state, typename action, typename environment>
+class Dijkstra_find
 {
 public:
 	int nodesExpanded = 0;
-	bool getPath(environment &e, state &start, state &goal, heuristic h);
+	state getPath(environment &e, std::vector<pivot_info> &pivots);
 private:
 	void addOpen(Node<state> &s);
 	void addClosed(Node<state> &s);
@@ -30,33 +33,30 @@ private:
 	std::vector<Node<state>> closed;
 };
 
-template<typename state, typename action, typename environment, typename heuristic>
-bool InefficientAstar<state, action, environment, heuristic>::getPath(environment &e, state &start, state &goal, heuristic h)
+template<typename state, typename action, typename environment>
+state Dijkstra_find<state, action, environment>::getPath(environment &e, std::vector<pivot_info> &pivots)
 {
+	Node<state> s;
+	for (auto &i : pivots)
+	{
+		s.c = i.pivot;
+		//set up start node
+		s.gcost = 0;
+		s.hcost = 0;
+		s.fcost = s.gcost + s.hcost;
+		//put start node on the open list
+		addOpen(s);
+	}
 	//initialize actions and state so we dont create them on every iteration
 	std::vector<action> actions;
-	Node<state> s;
-	s.c = start;
-	//set up start node
-	s.gcost = 0;
-	s.hcost = h.hcost(start, goal);
-	s.fcost = s.gcost + s.hcost;
-	//put start node on the open list
-	addOpen(s);
+	
 	//keep searching as long as there are nodes on the open list
 	while (!open.empty())
 	{
 		//remove node with lowest fcost from the open list
 		s = removeBest();
 		nodesExpanded++;
-		//std::cout << nodesExpanded << std::endl;
-		//std::cout << "X: " << s.c.x << " Y: " << s.c.y << std::endl;
-		//if lowest f cost node from open list is goal, return found path
-		if (s.c == goal)
-		{
-			std::cout << nodesExpanded << std::endl;
-			return true;
-		}
+
 		//generate successors of best available node from open list
 		e.GetActions(s.c, actions);
 		//add node to closed list
@@ -66,23 +66,23 @@ bool InefficientAstar<state, action, environment, heuristic>::getPath(environmen
 		{
 			//apply the action to generate a new state
 			e.ApplyAction(s.c, a);
-			if (!onClosed(s) && onOpen(s))
-			{
-				//if on open already, then update cost if needed
-				s.gcost++;
-				s.hcost = h.hcost(s.c, goal);
-				s.fcost = s.gcost + s.hcost;
-				int i = getDuplicateIndex(s);
-				updateCost(s, i);
-				e.UndoAction(s.c, a);
-				s.gcost--;
-			}
-			else if (!onClosed(s) && !onOpen(s))
+			//if (!onClosed(s) && onOpen(s))
+			//{
+			//	//if on open already, then update cost if needed
+			//	s.gcost++;
+			//	s.hcost = 0;
+			//	s.fcost = s.gcost + s.hcost;
+			//	int i = getDuplicateIndex(s);
+			//	updateCost(s, i);
+			//	e.UndoAction(s.c, a);
+			//	s.gcost--;
+			//}
+			if (!onClosed(s) && !onOpen(s))
 			{
 				//if not on open or closed, its a newly discovered node
 				//so set costs and add to open
 				s.gcost++;
-				s.hcost = h.hcost(s.c, goal);
+				s.hcost = 0;
 				s.fcost = s.gcost + s.hcost;
 				addOpen(s);
 				e.UndoAction(s.c, a);
@@ -96,23 +96,23 @@ bool InefficientAstar<state, action, environment, heuristic>::getPath(environmen
 			}
 		}
 	}
-	return false;
+	return s.c;
 }
 
-template<typename state, typename action, typename environment, typename heuristic>
-void InefficientAstar<state, action, environment, heuristic>::addOpen(Node<state> &s)
+template<typename state, typename action, typename environment>
+void Dijkstra_find<state, action, environment>::addOpen(Node<state> &s)
 {
 	open.push_back(s);
 }
 
-template<typename state, typename action, typename environment, typename heuristic>
-void InefficientAstar<state, action, environment, heuristic>::addClosed(Node<state> &s)
+template<typename state, typename action, typename environment>
+void Dijkstra_find<state, action, environment>::addClosed(Node<state> &s)
 {
 	closed.push_back(s);
 }
 
-template<typename state, typename action, typename environment, typename heuristic>
-bool InefficientAstar<state, action, environment, heuristic>::onOpen(Node<state> &s)
+template<typename state, typename action, typename environment>
+bool Dijkstra_find<state, action, environment>::onOpen(Node<state> &s)
 {
 	for (int i = 0; i < open.size(); i++)
 	{
@@ -124,8 +124,8 @@ bool InefficientAstar<state, action, environment, heuristic>::onOpen(Node<state>
 	return false;
 }
 
-template<typename state, typename action, typename environment, typename heuristic>
-bool InefficientAstar<state, action, environment, heuristic>::onClosed(Node<state> &s)
+template<typename state, typename action, typename environment>
+bool Dijkstra_find<state, action, environment>::onClosed(Node<state> &s)
 {
 	for (int i = 0; i < closed.size(); i++)
 	{
@@ -137,8 +137,8 @@ bool InefficientAstar<state, action, environment, heuristic>::onClosed(Node<stat
 	return false;
 }
 
-template<typename state, typename action, typename environment, typename heuristic>
-int InefficientAstar<state, action, environment, heuristic>::getDuplicateIndex(Node<state> &s)
+template<typename state, typename action, typename environment>
+int Dijkstra_find<state, action, environment>::getDuplicateIndex(Node<state> &s)
 {
 	for (int i = 0; i < open.size(); i++)
 	{
@@ -151,8 +151,8 @@ int InefficientAstar<state, action, environment, heuristic>::getDuplicateIndex(N
 	return -1;
 }
 
-template<typename state, typename action, typename environment, typename heuristic>
-Node<state> InefficientAstar<state, action, environment, heuristic>::removeBest()
+template<typename state, typename action, typename environment>
+Node<state> Dijkstra_find<state, action, environment>::removeBest()
 {
 	Node<state> best = open[0];
 	if (open.size() == 1)
@@ -182,8 +182,8 @@ Node<state> InefficientAstar<state, action, environment, heuristic>::removeBest(
 	return best;
 }
 
-template<typename state, typename action, typename environment, typename heuristic>
-void InefficientAstar<state, action, environment, heuristic>::updateCost(Node<state> &s, int i)
+template<typename state, typename action, typename environment>
+void Dijkstra_find<state, action, environment>::updateCost(Node<state> &s, int i)
 {
 	if (s.fcost < open[i].fcost)
 	{
