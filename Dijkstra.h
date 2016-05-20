@@ -12,6 +12,7 @@ struct Node
 	state c;
 	int gcost;
 	int fcost;
+	int pivot_num;
 	uint64_t rank;
 };
 
@@ -28,12 +29,12 @@ struct tupler{
 	}
 };
 
-template<typename state, typename action, typename environment>
+template<typename state, typename action, typename environment, typename pivotinfo>
 class Dijkstra
 {
 public:
 	int nodesExpanded = 0;
-	bool getPath(environment &e, state &start, state &goal);
+	state getPath(environment &e, std::vector<pivotinfo> &pivots);
 private:
 	void addOpen(Node<state> &s);
 	void addClosed(Node<state> &s);
@@ -46,19 +47,28 @@ private:
 	std::map<uint64_t, Node<state>> closed;
 };
 
-template<typename state, typename action, typename environment>
-bool Dijkstra<state, action, environment>::getPath(environment &e, state &start, state &goal)
+template<typename state, typename action, typename environment, typename pivotinfo>
+state Dijkstra<state, action, environment>::getPath(environment &e, std::vector<pivotinfo> &pivots)
 {
 	//initialize actions and state so we dont create them on every iteration
 	std::vector<action> actions;
-	Node<state> s;
-	s.c = start;
-	//set up start node
-	s.gcost = 0;
-	s.fcost = s.gcost;
-	s.rank = e.Rank(s.c);
-	//put start node on the open list
-	addOpen(s);
+	//add all the pivots to the open list at the beginning
+	for (auto &i : pivots)
+	{
+		Node<state> s;
+		//set node coordinate to pivot coordinate
+		s.c = pivots[i].pivot;
+		//keep track of which pivot it is
+		s.pivot_num = i;
+		//set up pivot node
+		s.gcost = 0;
+		s.fcost = s.gcost;
+		s.rank = e.Rank(s.c);
+		//put pivot node on the open list
+		addOpen(s);
+	}
+	
+	
 	//keep searching as long as there are nodes on the open list
 	while (!queue.empty())
 	{
@@ -79,6 +89,8 @@ bool Dijkstra<state, action, environment>::getPath(environment &e, state &start,
 			{
 				//if on open already, then update cost if needed
 				s.gcost++;
+				//record gcost from state's respective pivot into a map of gcosts for that pivot
+				pivots[s.pivot_num].costs[s.c.y][s.c.x] = s.gcost;
 				s.fcost = s.gcost;
 				updateCost(s);
 				e.UndoAction(s.c, a);
@@ -89,6 +101,8 @@ bool Dijkstra<state, action, environment>::getPath(environment &e, state &start,
 				//if not on open or closed, its a newly discovered node
 				//so set costs and add to open
 				s.gcost++;
+				//record gcost from state's respective pivot into a map of gcosts for that pivot
+				pivots[s.pivot_num].costs[s.c.y][s.c.x] = s.gcost;
 				s.fcost = s.gcost;
 				addOpen(s);
 				e.UndoAction(s.c, a);
@@ -104,9 +118,13 @@ bool Dijkstra<state, action, environment>::getPath(environment &e, state &start,
 				e.UndoAction(s.c, a);
 			}
 		}
-	
+		if (queue.empty())
+		{
+			return s.c;
+		}
 	}
-	return true;
+
+	
 }
 
 template<typename state, typename action, typename environment>
