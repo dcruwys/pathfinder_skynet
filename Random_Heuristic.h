@@ -1,4 +1,4 @@
-#include "Heuristic.h"
+#include "Dijkstra.h"
 #include <cstdlib>
 
 struct Random_Heuristic

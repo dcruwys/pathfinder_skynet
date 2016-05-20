@@ -7,7 +7,7 @@
 #include <cstdint>
 
 template <typename state>
-struct Node
+struct NodeD
 {
 	state c;
 	int gcost;
@@ -36,15 +36,15 @@ public:
 	int nodesExpanded = 0;
 	state getPath(environment &e, std::vector<pivotinfo> &pivots);
 private:
-	void addOpen(Node<state> &s);
-	void addClosed(Node<state> &s);
-	bool onClosed(Node<state> &s);
-	bool onOpen(Node<state> &s);
-	void updateCost(Node<state> &c);
-	Node<state> removeBest();
+	void addOpen(NodeD<state> &s);
+	void addClosed(NodeD<state> &s);
+	bool onClosed(NodeD<state> &s);
+	bool onOpen(NodeD<state> &s);
+	void updateCost(NodeD<state> &c);
+	NodeD<state> removeBest();
 	std::priority_queue<tupler> queue;
-	std::map<uint64_t, Node<state>> open;
-	std::map<uint64_t, Node<state>> closed;
+	std::map<uint64_t, NodeD<state>> open;
+	std::map<uint64_t, NodeD<state>> closed;
 };
 
 template<typename state, typename action, typename environment, typename pivotinfo>
@@ -53,23 +53,24 @@ state Dijkstra<state, action, environment, pivotinfo>::getPath(environment &e, s
 	//initialize actions and state so we dont create them on every iteration
 	std::vector<action> actions;
 	//add all the pivots to the open list at the beginning
-
+	int counter = 0;
 	for (auto &i : pivots)
 	{
-		Node<state> s;
+		NodeD<state> s;
 		//set node coordinate to pivot coordinate
-		s.c = pivots[i].pivot;
+		s.c = pivots[counter].pivot;
 		//keep track of which pivot it is
-		s.pivot_num = i;
+		s.pivot_num = counter;
 		//set up pivot node
 		s.gcost = 0;
 		s.fcost = s.gcost;
 		s.rank = e.Rank(s.c);
 		//put pivot node on the open list
 		addOpen(s);
+		counter++;
 	}
 
-	Node<state> s;
+	NodeD<state> s;
 	//keep searching as long as there are nodes on the open list
 	while (!queue.empty())
 	{
@@ -129,7 +130,7 @@ state Dijkstra<state, action, environment, pivotinfo>::getPath(environment &e, s
 }
 
 template<typename state, typename action, typename environment, typename pivotinfo>
-void Dijkstra<state, action, environment, pivotinfo>::addOpen(Node<state> &s)
+void Dijkstra<state, action, environment, pivotinfo>::addOpen(NodeD<state> &s)
 {
 	//create tuple type for queue
 	tupler tup(s.fcost, s.rank);
@@ -140,33 +141,33 @@ void Dijkstra<state, action, environment, pivotinfo>::addOpen(Node<state> &s)
 }
 
 template<typename state, typename action, typename environment, typename pivotinfo>
-void Dijkstra<state, action, environment, pivotinfo>::addClosed(Node<state> &s)
+void Dijkstra<state, action, environment, pivotinfo>::addClosed(NodeD<state> &s)
 {
 	//insert rank and node into hashmap
-	closed.insert(std::pair<uint64_t, Node<state>>(s.rank, s));
+	closed.insert(std::pair<uint64_t, NodeD<state>>(s.rank, s));
 
 }
 
 template<typename state, typename action, typename environment, typename pivotinfo>
-bool Dijkstra<state, action, environment, pivotinfo>::onOpen(Node<state> &s)
+bool Dijkstra<state, action, environment, pivotinfo>::onOpen(NodeD<state> &s)
 {
 	return s.c == open[s.rank].c;
 }
 
 template<typename state, typename action, typename environment,typename pivotinfo>
-bool Dijkstra<state, action, environment, pivotinfo>::onClosed(Node<state> &s)
+bool Dijkstra<state, action, environment, pivotinfo>::onClosed(NodeD<state> &s)
 {
 	return s.c == closed[s.rank].c;
 }
 
 template<typename state, typename action, typename environment, typename pivotinfo>
-Node<state> Dijkstra<state, action, environment, pivotinfo>::removeBest()
+NodeD<state> Dijkstra<state, action, environment, pivotinfo>::removeBest()
 {
 	//get top element, pop
 	tupler tup = queue.top();
 	queue.pop();
 	//get element at that rank and remove from map
-	Node<state> s = open[tup.rank];
+	NodeD<state> s = open[tup.rank];
 	open.erase(tup.rank);
 	//add to closed map
 	addClosed(s);
@@ -174,7 +175,7 @@ Node<state> Dijkstra<state, action, environment, pivotinfo>::removeBest()
 }
 
 template<typename state, typename action, typename environment, typename pivotinfo>
-void Dijkstra<state, action, environment, pivotinfo>::updateCost(Node<state> &s)
+void Dijkstra<state, action, environment, pivotinfo>::updateCost(NodeD<state> &s)
 {
 	//When we assign things to the hashmap, it will overwrite the object there, so thats the update for the hashmaps
 	if (onOpen(s) && open[s.rank].fcost > s.fcost)

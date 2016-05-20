@@ -2,7 +2,8 @@
 #include "OctileGrid.h"
 #include "InefficientAstar.h"
 #include "STP.h"
-
+#include "Heuristic.h"
+#include "Random_Heuristic.h"
 void GetInstance(STPState &s, int which);
 
 int main(int argc, char* argv[]) {
