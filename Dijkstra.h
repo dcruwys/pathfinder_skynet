@@ -50,12 +50,14 @@ private:
 template<typename state, typename action, typename environment, typename pivotinfo>
 state Dijkstra<state, action, environment, pivotinfo>::getPath(environment &e, std::vector<pivotinfo> &pivots)
 {
+
 	//initialize actions and state so we dont create them on every iteration
 	std::vector<action> actions;
 	//add all the pivots to the open list at the beginning
 	int counter = 0;
 	for (auto &i : pivots)
 	{
+
 		NodeD<state> s;
 		//set node coordinate to pivot coordinate
 		s.c = pivots[counter].pivot;
@@ -100,6 +102,7 @@ state Dijkstra<state, action, environment, pivotinfo>::getPath(environment &e, s
 			}
 			else if (!onClosed(s) && !onOpen(s))
 			{
+				std::cout << "Fuck2" << std::endl;
 				//if not on open or closed, its a newly discovered node
 				//so set costs and add to open
 				s.gcost++;
@@ -120,12 +123,8 @@ state Dijkstra<state, action, environment, pivotinfo>::getPath(environment &e, s
 				e.UndoAction(s.c, a);
 			}
 		}
-		if (queue.empty())
-		{
-			return s.c;
-		}
 	}
-
+	return s.c;
 	
 }
 

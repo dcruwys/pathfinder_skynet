@@ -24,16 +24,19 @@ int main(int argc, char* argv[]) {
 	//}
 
 
-	STP puzzle;
-	MD MDh;
-	STPState STPstart;
-	GetInstance(STPstart, 0);
-	STPState STPGoal;
-	InefficientAstar<STPState, slideDir, STP, MD> tileSearch;
-	if (tileSearch.getPath(puzzle, STPstart, STPGoal, MDh))
-	{
-		std::cout << "success" << std::endl;
+	OctileGrid grid(180, 120);
+	Random_Heuristic rh(10, grid);
+	for(auto &i: rh.second_pivot_list){
+		std::cout << i.pivot.x << " " << i.pivot.y << std::endl;
 	}
+//	STPState STPstart;
+//	GetInstance(STPstart, 0);
+//	STPState STPGoal;
+//	InefficientAstar<OctileDistance, slideDir, STP, MD> tileSearch;
+//	if (tileSearch.getPath(puzzle, STPstart, STPGoal, MDh))
+//	{
+//		std::cout << "success" << std::endl;
+//	}
 	
 
 	//hold output open
