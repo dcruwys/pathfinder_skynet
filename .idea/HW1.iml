@@ -2,17 +2,21 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/OctileGrid.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Heuristic.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/OctileGrid.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EfficientAstar.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Random_Heuristic.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/InefficientAstar.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Heuristic.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Dijkstra_label.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Timer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/STP.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Dijkstra.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/STP.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pivot.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Dijkstra_Find.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Timer.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Random_Heuristic.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/EfficientAstar.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/InefficientAstar.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/OctileGrid.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

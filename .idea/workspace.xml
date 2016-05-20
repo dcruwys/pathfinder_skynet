@@ -6,19 +6,27 @@
       <config projectName="pathfinder_skynet" targetName="pathfinder_skynet" />
     </generated>
   </component>
-  <component name="CMakeSettings" AUTO_RELOAD="false" GENERATION_PASS_SYSTEM_ENVIRONMENT="true">
+  <component name="CMakeSettings" AUTO_RELOAD="true" GENERATION_PASS_SYSTEM_ENVIRONMENT="true">
     <ADDITIONAL_GENERATION_ENVIRONMENT>
       <envs />
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="32b7f64b-7042-420b-9f06-586b1972fea3" name="Default" comment="IDA* works!!">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lak303d.map" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Dijkstra.h" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/HW1.iml" afterPath="$PROJECT_DIR$/.idea/HW1.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dijkstra.h" afterPath="$PROJECT_DIR$/Dijkstra.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dijkstra_Find.h" afterPath="$PROJECT_DIR$/Dijkstra_Find.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dijkstra_label.h" afterPath="$PROJECT_DIR$/Dijkstra_label.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EfficientAstar.h" afterPath="$PROJECT_DIR$/EfficientAstar.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Heuristic.h" afterPath="$PROJECT_DIR$/Heuristic.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InefficientAstar.h" afterPath="$PROJECT_DIR$/InefficientAstar.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OctileGrid.cpp" afterPath="$PROJECT_DIR$/OctileGrid.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OctileGrid.h" afterPath="$PROJECT_DIR$/OctileGrid.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Random_Heuristic.h" afterPath="$PROJECT_DIR$/Random_Heuristic.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pivot.h" afterPath="$PROJECT_DIR$/pivot.h" />
     </list>
     <ignored path="pathfinder_skynet.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,7 +51,7 @@
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="5" column="145" selection-start-line="5" selection-start-column="145" selection-end-line="5" selection-end-column="145" />
+              <caret line="5" column="193" selection-start-line="5" selection-start-column="193" selection-end-line="5" selection-end-column="193" />
               <folding />
             </state>
           </provider>
@@ -52,10 +60,29 @@
       <file leaf-file-name="InefficientAstar.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/InefficientAstar.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+            <state relative-caret-position="-742">
+              <caret line="55" column="9" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
               <folding>
-                <element signature="e#14#31#0" expanded="true" />
+                <marker date="1463765572000" expanded="true" signature="23:51" placeholder="..." />
+                <marker date="1463765572000" expanded="true" signature="53:157" placeholder="//..." />
+                <marker date="1463765572000" expanded="false" signature="159:242" placeholder="&lt;state,action,environment,heuristic&gt;" />
+                <marker date="1463765572000" expanded="true" signature="266:681" placeholder="{...}" />
+                <marker date="1463765572000" expanded="false" signature="684:767" placeholder="&lt;state,action,environment,heuristic&gt;" />
+                <marker date="1463765572000" expanded="true" signature="894:2586" placeholder="{...}" />
+                <marker date="1463765572000" expanded="false" signature="2588:2671" placeholder="&lt;state,action,environment,heuristic&gt;" />
+                <marker date="1463765572000" expanded="true" signature="2758:2781" placeholder="{...}" />
+                <marker date="1463765572000" expanded="false" signature="2783:2866" placeholder="&lt;state,action,environment,heuristic&gt;" />
+                <marker date="1463765572000" expanded="true" signature="2955:2980" placeholder="{...}" />
+                <marker date="1463765572000" expanded="false" signature="2982:3065" placeholder="&lt;state,action,environment,heuristic&gt;" />
+                <marker date="1463765572000" expanded="true" signature="3151:3262" placeholder="{...}" />
+                <marker date="1463765572000" expanded="false" signature="3264:3347" placeholder="&lt;state,action,environment,heuristic&gt;" />
+                <marker date="1463765572000" expanded="true" signature="3435:3550" placeholder="{...}" />
+                <marker date="1463765572000" expanded="false" signature="3552:3635" placeholder="&lt;state,action,environment,heuristic&gt;" />
+                <marker date="1463765572000" expanded="true" signature="3731:3919" placeholder="{...}" />
+                <marker date="1463765572000" expanded="false" signature="3921:4004" placeholder="&lt;state,action,environment,heuristic&gt;" />
+                <marker date="1463765572000" expanded="true" signature="4087:4533" placeholder="{...}" />
+                <marker date="1463765572000" expanded="false" signature="4535:4618" placeholder="&lt;state,action,environment,heuristic&gt;" />
+                <marker date="1463765572000" expanded="true" signature="4715:4835" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -64,20 +91,25 @@
       <file leaf-file-name="OctileGrid.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OctileGrid.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="10" column="87" selection-start-line="10" selection-start-column="87" selection-end-line="10" selection-end-column="87" />
+            <state relative-caret-position="150">
+              <caret line="10" column="79" selection-start-line="10" selection-start-column="79" selection-end-line="10" selection-end-column="79" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
+                <marker date="1463767966000" expanded="true" signature="129:591" placeholder="{...}" />
+                <marker date="1463767966000" expanded="true" signature="671:1616" placeholder="{...}" />
+                <marker date="1463767966000" expanded="true" signature="1672:2006" placeholder="{...}" />
+                <marker date="1463767966000" expanded="true" signature="2061:2395" placeholder="{...}" />
+                <marker date="1463767966000" expanded="true" signature="2438:2469" placeholder="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
+            <state relative-caret-position="150">
+              <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -85,32 +117,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dijkstra.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Dijkstra.h">
+      <file leaf-file-name="EfficientAstar.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/EfficientAstar.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="87" column="9" selection-start-line="87" selection-start-column="9" selection-end-line="87" selection-end-column="9" />
+            <state relative-caret-position="-1117">
+              <caret line="73" column="26" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="41" />
               <folding>
                 <element signature="e#14#31#0" expanded="true" />
-                <element signature="e#412#487#0" expanded="true" />
-                <element signature="e#933#1008#0" expanded="true" />
-                <element signature="e#3163#3238#0" expanded="true" />
-                <element signature="e#3493#3568#0" expanded="true" />
-                <element signature="e#3763#3838#0" expanded="true" />
-                <element signature="e#3961#4035#0" expanded="true" />
-                <element signature="e#4162#4237#0" expanded="true" />
-                <element signature="e#4543#4618#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -118,10 +132,36 @@
       <file leaf-file-name="Heuristic.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Heuristic.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-285">
-              <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+            <state relative-caret-position="630">
+              <caret line="46" column="62" selection-start-line="46" selection-start-column="62" selection-end-line="46" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pivot.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pivot.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Dijkstra_label.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Dijkstra_label.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1946">
+              <caret line="148" column="13" selection-start-line="148" selection-start-column="4" selection-end-line="148" selection-end-column="13" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <marker date="1463764450000" expanded="true" signature="2503:2526" placeholder="{...}" />
+                <marker date="1463764450000" expanded="true" signature="2667:2692" placeholder="{...}" />
+                <marker date="1463764450000" expanded="true" signature="2830:2941" placeholder="{...}" />
+                <marker date="1463764450000" expanded="true" signature="3081:3196" placeholder="{...}" />
+                <marker date="1463764450000" expanded="true" signature="3344:3532" placeholder="{...}" />
+                <marker date="1463764450000" expanded="true" signature="3667:4113" placeholder="{...}" />
+                <marker date="1463764450000" expanded="true" signature="4262:4382" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -130,21 +170,14 @@
       <file leaf-file-name="Random_Heuristic.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Random_Heuristic.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="38" column="49" selection-start-line="38" selection-start-column="49" selection-end-line="38" selection-end-column="49" />
+            <state relative-caret-position="-128">
+              <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
               <folding>
-                <element signature="e#0#21#0" expanded="true" />
+                <element signature="e#0#27#0" expanded="true" />
+                <marker date="1463766354000" expanded="true" signature="203:1295" placeholder="{...}" />
+                <marker date="1463766354000" expanded="true" signature="1348:1990" placeholder="{...}" />
+                <marker date="1463766354000" expanded="true" signature="2041:2076" placeholder="{...}" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vector" pinned="false" current-in-tab="false">
-        <entry file="file:///Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/vector">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="1592" column="0" selection-start-line="1592" selection-start-column="0" selection-end-line="1592" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -152,8 +185,8 @@
       <file leaf-file-name="OctileGrid.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OctileGrid.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-75">
-              <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+            <state relative-caret-position="495">
+              <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -176,19 +209,22 @@
         <option value="$PROJECT_DIR$/BFS.h" />
         <option value="$PROJECT_DIR$/IDAstar.h" />
         <option value="$PROJECT_DIR$/OpenClosedList.h" />
-        <option value="$PROJECT_DIR$/OctileGrid.h" />
         <option value="$PROJECT_DIR$/STP.h" />
         <option value="$PROJECT_DIR$/STP.cpp" />
         <option value="$PROJECT_DIR$/Astar.h" />
         <option value="$PROJECT_DIR$/AstarOld.h" />
-        <option value="$PROJECT_DIR$/InefficientAstar.h" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/Heuristic.h" />
-        <option value="$PROJECT_DIR$/OctileGrid.cpp" />
-        <option value="$PROJECT_DIR$/main.cpp" />
-        <option value="$PROJECT_DIR$/Random_Heuristic.h" />
-        <option value="$PROJECT_DIR$/Dijkstra.h" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/Dijkstra.h" />
+        <option value="$PROJECT_DIR$/Dijkstra_label.h" />
+        <option value="$PROJECT_DIR$/EfficientAstar.h" />
+        <option value="$PROJECT_DIR$/InefficientAstar.h" />
+        <option value="$PROJECT_DIR$/OctileGrid.h" />
+        <option value="$PROJECT_DIR$/Random_Heuristic.h" />
+        <option value="$PROJECT_DIR$/Heuristic.h" />
+        <option value="$PROJECT_DIR$/pivot.h" />
+        <option value="$PROJECT_DIR$/OctileGrid.cpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/main.cpp" />
       </list>
     </option>
   </component>
@@ -196,7 +232,7 @@
     <option name="x" value="4" />
     <option name="y" value="23" />
     <option name="width" value="1436" />
-    <option name="height" value="769" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -248,6 +284,11 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="SearchEverywhereHistoryKey" value="split&#9;ACTION&#9;SplitVertically" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.Build All">
     <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="HW1" TARGET_NAME="HW1" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
@@ -436,18 +477,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="23" width="1436" height="769" extended-state="0" />
+    <frame x="4" y="23" width="1436" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11024735" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298292" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31950846" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3188406" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285151" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938075" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32718894" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2806324" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32258064" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32258064" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32718894" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -496,26 +537,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="38" />
+      <option name="time" value="40" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Heuristic.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DFS.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IDA.h" />
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1110">
@@ -712,24 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="145" selection-start-line="5" selection-start-column="145" selection-end-line="5" selection-end-column="145" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/InefficientAstar.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
-          <folding>
-            <element signature="e#14#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/vector">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -738,77 +746,144 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OctileGrid.h">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-75">
-          <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+        <state relative-caret-position="-7">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OctileGrid.cpp">
+    <entry file="file://$PROJECT_DIR$/Dijkstra.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="10" column="87" selection-start-line="10" selection-start-column="87" selection-end-line="10" selection-end-column="87" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="383">
+          <caret line="102" column="25" selection-start-line="102" selection-start-column="25" selection-end-line="102" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Heuristic.h">
+    <entry file="file://$PROJECT_DIR$/OctileGrid.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-285">
-          <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="495">
+          <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/Dijkstra_label.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
+        <state relative-caret-position="1946">
+          <caret line="148" column="13" selection-start-line="148" selection-start-column="4" selection-end-line="148" selection-end-column="13" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <marker date="1463764450000" expanded="true" signature="2503:2526" placeholder="{...}" />
+            <marker date="1463764450000" expanded="true" signature="2667:2692" placeholder="{...}" />
+            <marker date="1463764450000" expanded="true" signature="2830:2941" placeholder="{...}" />
+            <marker date="1463764450000" expanded="true" signature="3081:3196" placeholder="{...}" />
+            <marker date="1463764450000" expanded="true" signature="3344:3532" placeholder="{...}" />
+            <marker date="1463764450000" expanded="true" signature="3667:4113" placeholder="{...}" />
+            <marker date="1463764450000" expanded="true" signature="4262:4382" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Random_Heuristic.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="38" column="49" selection-start-line="38" selection-start-column="49" selection-end-line="38" selection-end-column="49" />
+        <state relative-caret-position="-128">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#27#0" expanded="true" />
+            <marker date="1463766354000" expanded="true" signature="203:1295" placeholder="{...}" />
+            <marker date="1463766354000" expanded="true" signature="1348:1990" placeholder="{...}" />
+            <marker date="1463766354000" expanded="true" signature="2041:2076" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dijkstra.h">
+    <entry file="file://$PROJECT_DIR$/pivot.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="87" column="9" selection-start-line="87" selection-start-column="9" selection-end-line="87" selection-end-column="9" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InefficientAstar.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-742">
+          <caret line="55" column="9" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+          <folding>
+            <marker date="1463765572000" expanded="true" signature="23:51" placeholder="..." />
+            <marker date="1463765572000" expanded="true" signature="53:157" placeholder="//..." />
+            <marker date="1463765572000" expanded="false" signature="159:242" placeholder="&lt;state,action,environment,heuristic&gt;" />
+            <marker date="1463765572000" expanded="true" signature="266:681" placeholder="{...}" />
+            <marker date="1463765572000" expanded="false" signature="684:767" placeholder="&lt;state,action,environment,heuristic&gt;" />
+            <marker date="1463765572000" expanded="true" signature="894:2586" placeholder="{...}" />
+            <marker date="1463765572000" expanded="false" signature="2588:2671" placeholder="&lt;state,action,environment,heuristic&gt;" />
+            <marker date="1463765572000" expanded="true" signature="2758:2781" placeholder="{...}" />
+            <marker date="1463765572000" expanded="false" signature="2783:2866" placeholder="&lt;state,action,environment,heuristic&gt;" />
+            <marker date="1463765572000" expanded="true" signature="2955:2980" placeholder="{...}" />
+            <marker date="1463765572000" expanded="false" signature="2982:3065" placeholder="&lt;state,action,environment,heuristic&gt;" />
+            <marker date="1463765572000" expanded="true" signature="3151:3262" placeholder="{...}" />
+            <marker date="1463765572000" expanded="false" signature="3264:3347" placeholder="&lt;state,action,environment,heuristic&gt;" />
+            <marker date="1463765572000" expanded="true" signature="3435:3550" placeholder="{...}" />
+            <marker date="1463765572000" expanded="false" signature="3552:3635" placeholder="&lt;state,action,environment,heuristic&gt;" />
+            <marker date="1463765572000" expanded="true" signature="3731:3919" placeholder="{...}" />
+            <marker date="1463765572000" expanded="false" signature="3921:4004" placeholder="&lt;state,action,environment,heuristic&gt;" />
+            <marker date="1463765572000" expanded="true" signature="4087:4533" placeholder="{...}" />
+            <marker date="1463765572000" expanded="false" signature="4535:4618" placeholder="&lt;state,action,environment,heuristic&gt;" />
+            <marker date="1463765572000" expanded="true" signature="4715:4835" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OctileGrid.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="79" selection-start-line="10" selection-start-column="79" selection-end-line="10" selection-end-column="79" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <marker date="1463767966000" expanded="true" signature="129:591" placeholder="{...}" />
+            <marker date="1463767966000" expanded="true" signature="671:1616" placeholder="{...}" />
+            <marker date="1463767966000" expanded="true" signature="1672:2006" placeholder="{...}" />
+            <marker date="1463767966000" expanded="true" signature="2061:2395" placeholder="{...}" />
+            <marker date="1463767966000" expanded="true" signature="2438:2469" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Heuristic.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="46" column="62" selection-start-line="46" selection-start-column="62" selection-end-line="46" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EfficientAstar.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1117">
+          <caret line="73" column="26" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="41" />
           <folding>
             <element signature="e#14#31#0" expanded="true" />
-            <element signature="e#412#487#0" expanded="true" />
-            <element signature="e#933#1008#0" expanded="true" />
-            <element signature="e#3163#3238#0" expanded="true" />
-            <element signature="e#3493#3568#0" expanded="true" />
-            <element signature="e#3763#3838#0" expanded="true" />
-            <element signature="e#3961#4035#0" expanded="true" />
-            <element signature="e#4162#4237#0" expanded="true" />
-            <element signature="e#4543#4618#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+        <state relative-caret-position="75">
+          <caret line="5" column="193" selection-start-line="5" selection-start-column="193" selection-end-line="5" selection-end-column="193" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

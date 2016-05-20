@@ -19,8 +19,8 @@ struct Heuristic
 		//randomly pick a valid grid location for first pivot
 		while (!valid)	
 		{
-			int x = rand() % 120;
-			int y = rand() % 180;
+			int x = rand() % 194;
+			int y = rand() % 194;
 			if (grid.map[x][y] == '.')
 			{
 				valid = true;
@@ -31,7 +31,7 @@ struct Heuristic
 			}
 		}
 		
-		OctileGrid grid1(120, 180);
+		OctileGrid grid1(194, 194);
 		
 		
 
@@ -68,6 +68,7 @@ struct Heuristic
 		{
 			dsp = pivot_list[i].costs[start.y][start.x];
 			dpg = pivot_list[i].costs[goal.y][goal.x];
+			diffs.push_back(abs(dsp - dpg));
 		}
 		OctileDistance od;
 		int odcost = od.hcost(start, goal);

@@ -13,8 +13,8 @@ struct Random_Heuristic
 		//create 10 random pivots
         while (second_pivot_list.size() < pivots)
         {
-            int x = 1 + (int) (120.0 * (rand() / (RAND_MAX + 1.0))) - 1;
-            int y = 1 + (int) (180.0 * (rand() / (RAND_MAX + 1.0))) - 1;
+            int x = 1 + (int) (194.0 * (rand() / (RAND_MAX + 1.0))) - 1;
+            int y = 1 + (int) (194.0 * (rand() / (RAND_MAX + 1.0))) - 1;
             if (grid.map[y][x] == '.')
             {
                 bool valid = true;

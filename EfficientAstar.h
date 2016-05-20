@@ -5,16 +5,16 @@
 #include <queue>
 #include <map>
 #include <cstdint>
-
-template <typename state>
-struct Node
-{
-    state c;
-    int gcost;
-    int hcost;
-    int fcost;
-    uint64_t rank;
-};
+//
+//template <typename state>
+//struct Node
+//{
+//    state c;
+//    int gcost;
+//    int hcost;
+//    int fcost;
+//    uint64_t rank;
+//};
 
 struct tupler{
     int fcost;

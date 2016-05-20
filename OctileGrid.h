@@ -35,7 +35,7 @@ public:
 	void ApplyAction(Coordinate &s, Action a);
 	void UndoAction(Coordinate &s, Action a);
 	uint64_t Rank(Coordinate &s);
-	char map[180][120];
+	char map[194][194];
 private:
 	int width;
 	int height;
