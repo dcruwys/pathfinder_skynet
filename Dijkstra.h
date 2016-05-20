@@ -48,11 +48,12 @@ private:
 };
 
 template<typename state, typename action, typename environment, typename pivotinfo>
-state Dijkstra<state, action, environment>::getPath(environment &e, std::vector<pivotinfo> &pivots)
+state Dijkstra<state, action, environment, pivotinfo>::getPath(environment &e, std::vector<pivotinfo> &pivots)
 {
 	//initialize actions and state so we dont create them on every iteration
 	std::vector<action> actions;
 	//add all the pivots to the open list at the beginning
+
 	for (auto &i : pivots)
 	{
 		Node<state> s;
@@ -67,8 +68,8 @@ state Dijkstra<state, action, environment>::getPath(environment &e, std::vector<
 		//put pivot node on the open list
 		addOpen(s);
 	}
-	
-	
+
+	Node<state> s;
 	//keep searching as long as there are nodes on the open list
 	while (!queue.empty())
 	{
@@ -127,8 +128,8 @@ state Dijkstra<state, action, environment>::getPath(environment &e, std::vector<
 	
 }
 
-template<typename state, typename action, typename environment>
-void Dijkstra<state, action, environment>::addOpen(Node<state> &s)
+template<typename state, typename action, typename environment, typename pivotinfo>
+void Dijkstra<state, action, environment, pivotinfo>::addOpen(Node<state> &s)
 {
 	//create tuple type for queue
 	tupler tup(s.fcost, s.rank);
@@ -138,28 +139,28 @@ void Dijkstra<state, action, environment>::addOpen(Node<state> &s)
 	open[s.rank] = s;
 }
 
-template<typename state, typename action, typename environment>
-void Dijkstra<state, action, environment>::addClosed(Node<state> &s)
+template<typename state, typename action, typename environment, typename pivotinfo>
+void Dijkstra<state, action, environment, pivotinfo>::addClosed(Node<state> &s)
 {
 	//insert rank and node into hashmap
 	closed.insert(std::pair<uint64_t, Node<state>>(s.rank, s));
 
 }
 
-template<typename state, typename action, typename environment>
-bool Dijkstra<state, action, environment>::onOpen(Node<state> &s)
+template<typename state, typename action, typename environment, typename pivotinfo>
+bool Dijkstra<state, action, environment, pivotinfo>::onOpen(Node<state> &s)
 {
 	return s.c == open[s.rank].c;
 }
 
-template<typename state, typename action, typename environment>
-bool Dijkstra<state, action, environment>::onClosed(Node<state> &s)
+template<typename state, typename action, typename environment,typename pivotinfo>
+bool Dijkstra<state, action, environment, pivotinfo>::onClosed(Node<state> &s)
 {
 	return s.c == closed[s.rank].c;
 }
 
-template<typename state, typename action, typename environment>
-Node<state> Dijkstra<state, action, environment>::removeBest()
+template<typename state, typename action, typename environment, typename pivotinfo>
+Node<state> Dijkstra<state, action, environment, pivotinfo>::removeBest()
 {
 	//get top element, pop
 	tupler tup = queue.top();
@@ -172,8 +173,8 @@ Node<state> Dijkstra<state, action, environment>::removeBest()
 	return s;
 }
 
-template<typename state, typename action, typename environment>
-void Dijkstra<state, action, environment>::updateCost(Node<state> &s)
+template<typename state, typename action, typename environment, typename pivotinfo>
+void Dijkstra<state, action, environment, pivotinfo>::updateCost(Node<state> &s)
 {
 	//When we assign things to the hashmap, it will overwrite the object there, so thats the update for the hashmaps
 	if (onOpen(s) && open[s.rank].fcost > s.fcost)
